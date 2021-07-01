@@ -1,0 +1,48 @@
+
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+/* header */
+#head{
+    background-color: #F6F6F6;
+    height: 83px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.logo{
+    height: 60px;
+    width: 155px;
+}
+
+#Search{
+    width: 655px;
+    height: 38px;
+    background-color:#EAEAEC;
+    border: none;
+}
+form{
+    border-radius: 5px;
+}
+
+.form-div i{
+    padding: 11.2px;
+    border: none;
+    background-color: #EAEAEC;
+}
+
+.form-div input[type=text] {
+    padding: 6px;
+}
+
+.login-btn button{
+    color: #EAEAEC;
+    background-color: #EB5757;
+    border: none;
+    width: 248px;
+    height: 38px;
+    border-radius: 5px;
+}
+
+
+

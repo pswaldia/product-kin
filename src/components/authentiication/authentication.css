@@ -1,0 +1,118 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    background-color: rgba(238, 245, 252, 0.82);
+}
+
+/* logo styles */
+.container-fluid .img{
+    width: 245px;
+    margin: auto;
+}
+
+/* Illustration styles */
+.row img{
+    width: 100%;
+}
+
+/* btn inside form */
+.btn-main #login-1, #signup-1{
+    width: 50%;
+    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    height: 50px;
+}
+
+#login-1{
+    background-color: #385CC8;
+    color: #fff;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+#signup-1{
+    background-color: #fff;
+    color: black;
+    border-left: none;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+/* form styles */
+::placeholder{
+    font-size: small;
+}
+form{
+    font-family: 'Inter', sans-serif;;
+    padding: 32px;
+    background-color: #fff;
+    height: 520px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+form p, a{
+    margin-top: 1em;
+    font-size: 13px;
+}
+
+form p{
+    color: #9E9C9C;
+}
+label{
+    font-weight: 700;
+    color: #5F6377;
+    margin-bottom: 4px;
+}
+input{
+    font-size: 14px;
+}
+
+.form-check label{
+    font-size: 15px;
+    font-weight: 400;
+    color:#9E9C9C;
+}
+
+.form-check a{
+    color: #9E9C9C;
+}
+
+
+ 
+form #login-2{
+    background-color: #385CC8;
+    width: 100%;
+    height: 50px;
+}
+
+h6{
+    font-size: 15px;
+    color: #9E9C9C;
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 1px solid #9E9C9C; 
+    line-height: 0.1em;
+    margin: 10px 0 20px; 
+ } 
+ 
+ h6 span { 
+     background:#fff; 
+     padding:0 10px; 
+ }
+
+ /* icons styles */
+.icons-btn i{
+    font-size: 35px;
+}
+.icons-btn button{
+    background-color: #fff;
+    padding-top: 8px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 8px;
+    border-radius: 40%;
+    border: none;
+}

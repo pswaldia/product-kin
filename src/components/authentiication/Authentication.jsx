@@ -38,7 +38,7 @@ export default function Authentication() {
                                         <label className="form-check-label" htmlFor="exampleCheck1">Remember me</label>
                                     </div>
                                     <div className="col-4">
-                                        <a href="">Forget Password</a>
+                                        <a href="">Forgot Password</a>
                                     </div>
                                 </div>
                             </div>

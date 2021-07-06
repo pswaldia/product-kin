@@ -18,10 +18,8 @@ export default function Authentication() {
 
                     <div className="col-4 form-main">
                         <form>
-                            <div className="btn-main">
-                                <button type="button" className="btn btn-secondary btn-md" id="login-1">Login</button>
-                                <button type="button" className="btn btn-primary btn-md" id="signup-1">Signup</button>
-                            </div>
+                        <input type="checkbox" className="btn-main "  />
+                        <div className="login">
                             <p>Doesn’t have an account yet? <a href="">Sign Up</a></p>
                             <div className="form-group mt-3">
                                 <label htmlFor="exampleInputEmail1">Email</label>
@@ -32,7 +30,7 @@ export default function Authentication() {
                                 <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more"/>
                             </div>
                             <div className="form-check mt-3">
-                                <div className="row row justify-content-around ">
+                                <div className="row row justify-content-between ">
                                     <div className="col-4">
                                         <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
                                         <label className="form-check-label" htmlFor="exampleCheck1">Remember me</label>
@@ -57,6 +55,39 @@ export default function Authentication() {
                                 </div>
                                 
                             </div>
+                         </div>
+                         <div className="signup">
+                           
+                    
+                       <div className="form-group mt-3">
+                                <label htmlFor="name">Name *</label>
+                                <input type="text" className="form-control" id="exampleInputEmail1"  placeholder="John Bid" />
+                            </div>
+                            <div className="form-group mt-3">
+                                <label htmlFor="exampleInputEmail1">Email *</label>
+                                <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="xyz@example.com" />
+                            </div>
+                            <div className="form-group mt-3">
+                                <label htmlFor="exampleInputPassword1">Password *</label>
+                                <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more" />
+                            </div>
+                            <div className="form-group mt-3">
+                                <label htmlFor="exampleInputPassword1">Confirm Password *</label>
+                                <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more"/>
+                            </div>
+                            <div className="form-check mt-3">
+                                <div className=" row row justify-content-around ">
+                                    <div className="">
+                                        <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+                                        <label className="form-check-label" htmlFor="exampleCheck1">Yes, I want to receive updates on the new challenges</label>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            <button type="submit" className="btn btn-primary mt-3" id="login-2">Signup</button>
+                            
+                            
+                       </div>
                         </form>
                     </div>
 

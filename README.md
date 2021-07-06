@@ -20,3 +20,16 @@ cd product-kin
 npm install 
 npm start
 ```
+3. For backend code, do the following npm installations
+
+```
+npm init
+npm i express
+npm i dotenv pg
+npm i bcrypt
+npm i cors
+npm i express-session
+npm i passport passport-local
+npm i ejs
+```
+4. Make sure you create a .env file in the backend folder with required configurations.

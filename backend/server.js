@@ -25,10 +25,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/login",  (req, res) => {
-  res.render("login");
-});
-
+//APIs
 app.post("/signup", async (req, res) => {
   try {
     let { name, email, password, notification } = req.body;
@@ -53,7 +50,7 @@ app.post("/signup", async (req, res) => {
         }
         // console.log(results.rows);
 
-        if (results.rows.length > 0) {
+        if (results.rows.length == 1) {
           responseList.push(
             { status: "false" },
             { message: "Email already registered" }
@@ -75,6 +72,18 @@ app.post("/signup", async (req, res) => {
               res.send(responseList);
             }
           );
+          //updating leaderboard table
+          var points = 0;
+          pool.query(
+            `INSERT INTO leaderboard (name, points)
+                VALUES ($1, $2)`,
+            [name, points],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+            }
+          );
         }
       }
     );
@@ -84,20 +93,20 @@ app.post("/signup", async (req, res) => {
 });
 
 
-app.get("/dashboard",(req, res) => {
-  console.log(req.user);
-  res.render("dashboard");
-});
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) 
+      return next(err); 
+    if (!user) 
+      return res.send([{status : "false"},info]); //login unsuccessful
+    req.logIn(user, function(err) {
+      if (err)
+        return next(err); 
+      return res.send([{status : "true"},info]); //authenticated successfully
+    });
+  })(req, res, next);
+}); 
 
-
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/dashboard",
-    failureRedirect: "/login",
-    failureFlash: true,
-  })
-);
 
 app.listen(PORT, () => {
   console.log(`listening to port ${PORT}`);

@@ -25,79 +25,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/login",  (req, res) => {
-  res.render("login");
-});
-
-app.post("/signup", async (req, res) => {
-  try {
-    let { name, email, password, notification } = req.body;
-    let responseList = [];
-
-    console.log({
-      name,
-      email,
-      password,
-      notification,
-    });
-    hashedPassword = await bcrypt.hash(password, 10);
-
-    // checking if email already exists
-    pool.query(
-      `SELECT * FROM users
-        WHERE email = $1`,
-      [email],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-        }
-        // console.log(results.rows);
-
-        if (results.rows.length > 0) {
-          responseList.push(
-            { status: "false" },
-            { message: "Email already registered" }
-          );
-          return res.send(responseList);
-        } else {
-          pool.query(
-            `INSERT INTO users (name, email, password, notification)
-                VALUES ($1, $2, $3, $4)`,
-            [name, email, hashedPassword, notification],
-            (err, results) => {
-              if (err) {
-                throw err;
-              }
-              responseList.push(
-                { status: "true" },
-                { message: "Registration Successfull" }
-              );
-              res.send(responseList);
-            }
-          );
-        }
-      }
-    );
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-
-app.get("/dashboard",(req, res) => {
-  console.log(req.user);
-  res.render("dashboard");
-});
-
-
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/dashboard",
-    failureRedirect: "/login",
-    failureFlash: true,
-  })
-);
+//routes
+const userRouter = require("./routes/user.js");
+app.use(userRouter);
 
 app.listen(PORT, () => {
   console.log(`listening to port ${PORT}`);

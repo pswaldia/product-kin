@@ -51,10 +51,7 @@ app.post("/signup", async (req, res) => {
         // console.log(results.rows);
 
         if (results.rows.length == 1) {
-          responseList.push(
-            { status: "false" },
-            { message: "Email already registered" }
-          );
+          responseList.push({ status: "false", message: "Email already registered"});
           return res.send(responseList);
         } else {
           pool.query(
@@ -65,10 +62,7 @@ app.post("/signup", async (req, res) => {
               if (err) {
                 throw err;
               }
-              responseList.push(
-                { status: "true" },
-                { message: "Registration Successfull" }
-              );
+              responseList.push({ status: "true", message: "Registration Successfull"});
               res.send(responseList);
             }
           );
@@ -98,11 +92,11 @@ app.post('/login', function(req, res, next) {
     if (err) 
       return next(err); 
     if (!user) 
-      return res.send([{status : "false"},info]); //login unsuccessful
+      return res.send({status : "false",message : info.message}); //login unsuccessful
     req.logIn(user, function(err) {
       if (err)
         return next(err); 
-      return res.send([{status : "true"},info]); //authenticated successfully
+      return res.send({status : "true",message : info.message}); //authenticated successfully
     });
   })(req, res, next);
 }); 

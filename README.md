@@ -20,16 +20,19 @@ cd product-kin
 npm install 
 npm start
 ```
-3. For backend code, do the following npm installations
+BACKEND INSTALLATION PROCEDURE
+1. Inside Backend Folder, run the following commands
 
 ```
 npm init
-npm i express
-npm i dotenv pg
-npm i bcrypt
-npm i cors
-npm i express-session
-npm i passport passport-local
-npm i ejs
+npm i express dotenv pg bcrypt cors express-session passport passport-local ejs nodemailer jsonwebtoken nodemon
+
 ```
-4. Make sure you create a .env file in the backend folder with required configurations.
+2. inside backend folder, create a file named -> .env
+3. Write the required configurations to .env file
+4. Type
+```
+nodemon server.js
+```
+to run the server...The server should start running at port 4000
+

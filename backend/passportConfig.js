@@ -13,24 +13,22 @@ function initialize(passport) {
           if (err) {
             throw err;
           }
-          console.log("ivide",results.rows);
   
           if (results.rows.length > 0) {
             const user = results.rows[0];
-  
             bcrypt.compare(password, user.password, (err, isMatch) => {
               if (err) {
                 throw err;
               }
               if (isMatch) {
-                return done(null, user);
-              } else {
-                return done(null, false, { message: "Password is incorrect" });
+                return done(null, user, { message: "Authentication Successful" });
+              } else { 
+                return done(null, false, { message: "Incorrect Password" });
               }
             });
           } else {
             return done(null, false, {
-              message: "No user with that email address",
+              message: "Email address is not Registered",
             });
           }
         }
@@ -45,6 +43,7 @@ function initialize(passport) {
         },
         authenticateUser
       )
+
     );
     passport.serializeUser((user, done) => done(null, user.user_id));
   

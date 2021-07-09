@@ -3,7 +3,6 @@ import logo from '../../resources/logo.png'
 import Illustration from '../../resources/Illustration.png'
 
 export default function Authentication() {
-    const [checked, setChecked] = React.useState(true);
     return (
         <>
         
@@ -19,24 +18,20 @@ export default function Authentication() {
                     <div className="col-6">
                         <img src={Illustration} alt=""/>    
                     </div>
-
+ 
                     <div className="col-4 form-main">
-                        <form>
-                        
-                        <input type="checkbox" className="btn-main checked={checked}"  />
-                        
-                        
-                    
-                       <div className="login">
-                            <p>Doesn’t have an account yet? <a href="onClick={() => {setChecked(old => !old)}}" >Sign Up</a></p>
-                            
+                        <div className="form-ap">
+                        <input type="checkbox" className="btn-main "  />
+                        <form className="login">
+                         <div className="login">
+                            <p>Doesn’t have an account yet? <a href="" >Sign Up</a></p>
                             <div className="form-group mt-3">
                                 <label htmlFor="exampleInputEmail1">Email</label>
                                 <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="xyz@example.com"/>
                             </div>
                             <div className="form-group mt-3">
                                 <label htmlFor="exampleInputPassword1">Password</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more"/>
+                                <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more" required/>
                             </div>
                             <div className="form-check mt-3">
                                 <div className="row row justify-content-between ">
@@ -65,9 +60,8 @@ export default function Authentication() {
                                 
                             </div>
                          </div>
-                            
-                            
-
+                            </form>
+                         <form className="signup">
                          <div className="signup">
                            
                     
@@ -77,15 +71,15 @@ export default function Authentication() {
                             </div>
                             <div className="form-group mt-3">
                                 <label htmlFor="exampleInputEmail1">Email <em>*</em></label>
-                                <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="xyz@example.com" />
+                                <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="xyz@example.com" required />
                             </div>
                             <div className="form-group mt-3">
                                 <label htmlFor="exampleInputPassword1">Password <em>*</em></label>
-                                <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more" />
+                                <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more" required/>
                             </div>
                             <div className="form-group mt-3">
                                 <label htmlFor="exampleInputPassword1">Confirm Password <em>*</em></label>
-                                <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more"/>
+                                <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more" required/>
                             </div>
                             <div className="form-check mt-3">
                                 <div className=" row row justify-content-around ">
@@ -97,11 +91,10 @@ export default function Authentication() {
                                 </div>
                             </div>
                             <button type="submit" onclick="/signup" formMethod="Post" className="btn btn-primary mt-3" id="login-2">Signup</button>
-                            
-                            
                        </div>
-                            
                         </form>
+
+                        </div>
                     </div>
 
                 </div>

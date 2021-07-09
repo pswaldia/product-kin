@@ -57,22 +57,6 @@ em {
     position: relative;
 }
 
-.toggleSwitch {
-    display: inline-block;
-    height: 50px;
-    position: relative;
-    padding: 0;
-    width: 100%;
-}
-
-.toggleSwitch>span {
-    position: relative;
-    left: 0;
-    width: 100%;
-    margin: 0;
-    text-align: center;
-}
-
 .btn-main {
     -webkit-appearance: none;
     border: 1px solid #9E9C9C;
@@ -90,7 +74,6 @@ em {
     font-weight: bolder;
     font-size: 15px;
     color: #343948;
-    ;
     place-items: center;
     display: grid;
     top: 0;
@@ -98,7 +81,6 @@ em {
     width: 50%;
     height: 100%;
     position: absolute;
-    transition: 0.5s;
 }
 
 .btn-main::before {
@@ -117,19 +99,16 @@ em {
     color: #EAEAEC;
     place-items: center;
     display: grid;
-    transition: 0.5s;
 }
 
 .btn-main:checked::after {
     content: "Login";
     left: 0;
-    transition: 0.5s;
 }
 
 .btn-main:checked:before {
     left: 50%;
     content: "Signup";
-    transition: 0.5s;
 }
 
 .btn-main:checked+.login {
@@ -147,7 +126,7 @@ em {
     font-size: small;
 }
 
-form {
+.form-ap {
     font-family: 'Inter', sans-serif;
     padding: 32px;
     background-color: #fff;

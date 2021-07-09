@@ -3,12 +3,8 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const { pool } = require("../dbConfig");
-// //const session = require("express-session");
 const passport = require("passport");
-// //const initializePassport = require("../passportConfig");
-// require("dotenv").config();
 const router = express.Router();
-
 
 router.post("/login", function (req, res, next) {
   passport.authenticate("local", function (err, user, info) {
@@ -21,11 +17,9 @@ router.post("/login", function (req, res, next) {
   })(req, res, next);
 });
 
-
 router.post("/signup", async (req, res) => {
   try {
     let { name, email, password, notification } = req.body;
-    let responseList = [];
 
     console.log({
       name,
@@ -44,14 +38,11 @@ router.post("/signup", async (req, res) => {
         if (err) {
           console.log(err);
         }
-        // console.log(results.rows);
-
         if (results.rows.length == 1) {
-          responseList.push({
+          return res.send({
             status: "false",
             message: "Email already registered",
           });
-          return res.send(responseList);
         } else {
           pool.query(
             `INSERT INTO users (name, email, password, notification)
@@ -61,13 +52,14 @@ router.post("/signup", async (req, res) => {
               if (err) {
                 throw err;
               }
-              responseList.push({
+
+              res.send({
                 status: "true",
                 message: "Registration Successfull",
               });
-              res.send(responseList);
             }
           );
+
           //updating leaderboard table
           var points = 0;
           pool.query(
@@ -85,6 +77,121 @@ router.post("/signup", async (req, res) => {
     );
   } catch (error) {
     console.log(error);
+  }
+});
+
+//forgot password
+let user = {};
+const jwt = require("jsonwebtoken"); //token
+var nodemailer = require("nodemailer"); //mails
+
+const JWT_SECRET = process.env.JWT_SECRET;
+
+router.post("/forgot-password", (req, res, next) => {
+  const { email } = req.body;
+  //fetching
+  pool.query(
+    `SELECT * FROM users
+      WHERE email = $1`,
+    [email],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+      }
+      //   console.log(results);
+      if (results.rows.length == 1) {
+        user = results.rows[0];
+        console.log(user);
+        const secret = JWT_SECRET + results.rows[0].password;
+        const payload = {
+          email: results.rows[0].email,
+          id: results.rows[0].user_id,
+        };
+        const token = jwt.sign(payload, secret, { expiresIn: "15m" });
+        console.log(results.rows[0].user_id);
+        const link =
+          "http://localhost:4000/reset-password/" +
+          results.rows[0].user_id +
+          "/" +
+          token;
+        console.log(link);
+        //send link
+        var transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.PK_EMAIL,
+            pass: process.env.PK_PASSWORD,
+          },
+        });
+
+        var mailOptions = {
+          from: process.env.PK_EMAIL,
+          to: email,
+          subject: "Product Kin - Reset Password",
+          text:
+            "One time password Link, Click on the link to reset your password." +
+            "\n The link will be valid for 15 minutes only.\n " +
+            link,
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) console.log(error);
+          else
+            return res.send(
+              "Password reset link has been sent to your email ... "
+            );
+        });
+      } else {
+        return res.send("user not registered");
+      }
+    }
+  );
+});
+
+router.get("/reset-password/:id/:token", (req, res, next) => {
+  const { id, token } = req.params;
+  console.log("user in forgot password ", user);
+  if (id !== user.user_id) {
+    res.send("Invalid Id ... ");
+    return;
+  }
+  //valid id
+  const secret = JWT_SECRET + user.password;
+  try {
+    const payload = jwt.verify(token, secret);
+    res.render("reset-password", { email: user.email });
+  } catch (error) {
+    console.log(error.message);
+    res.send(error.message);
+  }
+});
+
+router.post("/reset-password/:id/:token", async (req, res, next) => {
+  const { id, token } = req.params;
+  const { password, password2 } = req.body;
+  if (id !== user.user_id) {
+    res.send("Invalid Id ... ");
+    return;
+  }
+  //valid id
+  console.log("id is : ", id);
+  const secret = JWT_SECRET + user.password;
+  try {
+    const payload = jwt.verify(token, secret);
+    hashedPassword = await bcrypt.hash(password, 10);
+    pool.query(
+      `UPDATE users SET password =$1  WHERE user_id = $2;`,
+      [hashedPassword, id],
+      (err, results) => {
+        if (err) {
+          throw err;
+        }
+        res.send("Updated Successfully");
+      }
+    );
+  } catch (error) {
+    console.log(error.message);
+    res.send(error.message);
   }
 });
 

@@ -1,0 +1,14 @@
+ /* posts styles */
+#post-row {
+    margin: auto;
+    width: 50%;
+}
+#post-row li{
+    color: #385CC8;
+}
+.row #post-card{
+    box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+
+
+}
+

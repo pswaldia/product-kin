@@ -59,8 +59,8 @@ export default function Authentication() {
                          <div className="signup">
                            
                     
-                       <div className="form-group mt-3">
-                                <label htmlFor="name">Name *</label>
+                       <div className="form-group mt-4">
+                                <label htmlFor="name">Name <span style={{color: "red"}}>*</span></label>
                                 <input type="text" className="form-control" id="exampleInputEmail1"  placeholder="John Bid" />
                             </div>
                             <div className="form-group mt-3">

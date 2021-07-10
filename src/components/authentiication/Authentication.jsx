@@ -1,14 +1,18 @@
 import React from 'react'
 import logo from '../../resources/logo.png'
 import Illustration from '../../resources/Illustration.png'
+
 export default function Authentication() {
+    const [checked, setChecked] = React.useState(true);
     return (
         <>
+        
             <div className="container-fluid">
 
                 <div className="img mt-3">
                     <img src={logo} alt=""/>    
                 </div>
+                <p id="banner">A place to share knowledge and to be competent related for the product Roles in the world</p>
 
                 <div className="row justify-content-around mt-5">
 
@@ -18,9 +22,14 @@ export default function Authentication() {
 
                     <div className="col-4 form-main">
                         <form>
-                        <input type="checkbox" className="btn-main "  />
-                        <div className="login">
-                            <p>Doesn’t have an account yet? <a href="">Sign Up</a></p>
+                        
+                        <input type="checkbox" className="btn-main checked={checked}"  />
+                        
+                        
+                    
+                       <div className="login">
+                            <p>Doesn’t have an account yet? <a href="onClick={() => {setChecked(old => !old)}}" >Sign Up</a></p>
+                            
                             <div className="form-group mt-3">
                                 <label htmlFor="exampleInputEmail1">Email</label>
                                 <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="xyz@example.com"/>
@@ -40,7 +49,7 @@ export default function Authentication() {
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" className="btn btn-primary mt-3" id="login-2">Login</button>
+                            <button type="submit"  onClick="/login" formMethod="Post" className="btn btn-primary mt-3" id="login-2">Login</button>
                             <h6 className="mt-4"><span>or login with</span></h6>
 
                             <div className="d-flex justify-content-around icons-btn">
@@ -56,23 +65,26 @@ export default function Authentication() {
                                 
                             </div>
                          </div>
+                            
+                            
+
                          <div className="signup">
                            
                     
                        <div className="form-group mt-3">
-                                <label htmlFor="name">Name *</label>
+                                <label htmlFor="name">Name <em>*</em></label>
                                 <input type="text" className="form-control" id="exampleInputEmail1"  placeholder="John Bid" />
                             </div>
                             <div className="form-group mt-3">
-                                <label htmlFor="exampleInputEmail1">Email *</label>
+                                <label htmlFor="exampleInputEmail1">Email <em>*</em></label>
                                 <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="xyz@example.com" />
                             </div>
                             <div className="form-group mt-3">
-                                <label htmlFor="exampleInputPassword1">Password *</label>
+                                <label htmlFor="exampleInputPassword1">Password <em>*</em></label>
                                 <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more" />
                             </div>
                             <div className="form-group mt-3">
-                                <label htmlFor="exampleInputPassword1">Confirm Password *</label>
+                                <label htmlFor="exampleInputPassword1">Confirm Password <em>*</em></label>
                                 <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more"/>
                             </div>
                             <div className="form-check mt-3">
@@ -84,10 +96,11 @@ export default function Authentication() {
                                    
                                 </div>
                             </div>
-                            <button type="submit" className="btn btn-primary mt-3" id="login-2">Signup</button>
+                            <button type="submit" onclick="/signup" formMethod="Post" className="btn btn-primary mt-3" id="login-2">Signup</button>
                             
                             
                        </div>
+                            
                         </form>
                     </div>
 

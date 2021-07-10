@@ -27,7 +27,12 @@ app.use(passport.session());
 
 //routes
 const userRouter = require("./routes/user.js");
+const questionRouter = require("./routes/question_page.js")
+//const answerRouter = require("./routes/answer_page.js")
 app.use(userRouter);
+app.use(questionRouter);
+//app.use(answerRouter);
+
 
 app.listen(PORT, () => {
   console.log(`listening to port ${PORT}`);

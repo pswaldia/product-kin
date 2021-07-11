@@ -3,12 +3,18 @@ const bcrypt = require("bcrypt");
 const { pool } = require("./dbConfig");
 const session = require("express-session");
 const passport = require("passport");
+var cors = require('cors');
 const initializePassport = require("./passportConfig");
 require("dotenv").config();
+
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 app.set("view engine", "ejs");
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 
 initializePassport(passport);
 

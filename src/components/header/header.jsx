@@ -1,26 +1,42 @@
 import React from 'react'
 import logo from '../../resources/logo.png'
 import './header.css'
-export default function header() {
+export default function Header() {
     return (
         <>
-            <div className="container-fluid d-flex d-flex justify-content-sm-around" id="head">
+            <header>
 
-                <div className="mt-3">
-                    <img className="logo" src={logo} alt="" />   
-                </div>
-                <div className="mt-4 form-div">
-                    <form>
-                        <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search for Topics..." id="Search"/>
-                    </form>
-                </div>
-                <div className="mt-4 login-btn">
-                    <button>login</button>
-                </div>
-                
+                <div className="container" id="header-main">
+                    <div className="row justify-content-around py-3">
+                        <div className="col-2">
+                            <img src={logo} alt="" />
+                        </div>
+                    <div className="col-6">
+                            <div className="col-auto">
+                                <label className="sr-only" htmlFor="searchInput">Username</label>
+                                <div className="input-group mb-2">
+                                    <div className="input-group-prepend">
+                                    <div className="input-group-text"><i className="fa fa-search"></i></div>
+                                    </div>
+                                    <input type="text" className="form-control" id="searchInput" placeholder="Search for Topics ..."/>
+                                </div>
+                            </div>
+                    </div>
+                    <div className="col-3 header-login">
+                            <div className="row justify-content-around">
+                                <div className="col-2">
+                                    <button className="btn btn-primary btn-sm" id="search-btn"><i className="fa fa-search"></i></button>
+                                </div>
+                                <div className="col-8">
+                                    <button class="btn btn-primary" type="submit" id="login-btn">Login</button>
+                                </div>
+                            </div>
+                    </div>
 
-            </div>
+                    </div>
+                </div>
+             </header>
+            
         </>
 
     )

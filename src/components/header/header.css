@@ -4,45 +4,53 @@
 }
 
 /* header */
-#head{
-    background-color: #F6F6F6;
+header{
+    background-color: #F7F7F7;
     height: 83px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.logo{
-    height: 60px;
-    width: 155px;
-}
 
-#Search{
-    width: 655px;
-    height: 38px;
-    background-color:#EAEAEC;
+/* header login btn */
+.header-login #login-btn{
     border: none;
+    background-color: #EB5757;
+    height: 46px;
+    width: 100%;
 }
-form{
-    border-radius: 5px;
+#search-btn{
+    visibility: visible;
+    background-color: #F7F7F7;
+    border: none;
+    color: black;
+    height: 46px;
 }
 
-.form-div i{
-    padding: 11.2px;
+/* search-input */
+#searchInput{
+    visibility: hidden;
     border: none;
     background-color: #EAEAEC;
 }
 
-.form-div input[type=text] {
-    padding: 6px;
-}
-
-.login-btn button{
-    color: #EAEAEC;
-    background-color: #EB5757;
+.input-group-text{
+    visibility: hidden;
+    height: 100%;
     border: none;
-    width: 248px;
-    height: 38px;
-    border-radius: 5px;
+    background-color: #EAEAEC;
 }
 
+/* media queries */
+@media screen and (min-width: 994px) {
+    #searchInput{
+        visibility: visible;
+    }
+    .input-group-text{
+        visibility: visible;
+    }
 
+    #search-btn{
+        visibility: hidden;
+    }
+}
 

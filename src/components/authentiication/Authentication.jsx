@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../../resources/logo.png'
 import Illustration from '../../resources/Illustration.png'
-
+import '../authentiication/authentication.css'
 export default function Authentication() {
     return (
         <>

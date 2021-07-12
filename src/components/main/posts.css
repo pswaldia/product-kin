@@ -1,14 +1,88 @@
  /* posts styles */
-#post-row {
-    margin: auto;
-    width: 50%;
+.row #post-card{
+    font-size: 12px;
+    height: 100px;
+    box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+
 }
-#post-row li{
+ 
+.row #post-card li a{
+    text-decoration: none;
     color: #385CC8;
 }
-.row #post-card{
-    box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.25), 2px 2px 4px rgba(0, 0, 0, 0.25);
 
-
+/* banner styles */
+.row #banner{
+    border-radius: 5px;
 }
 
+#banner h2{
+    opacity: 1;
+}
+
+.row #banner img{
+    width: 100%;
+    height: 255px;
+    border-radius: 5px;
+    opacity: 0.8;
+}
+
+#text {
+    z-index: 100;
+    position: absolute;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    right: 60%;
+    bottom: 10%;
+}
+
+/* ask btn */
+#ask-btn {
+    width: 100%;
+    height: 46px;
+    background-color: #385CC8;
+}
+
+/* search style */
+
+
+#searchInput{
+    border: none;
+    background-color: #EAEAEC;
+    
+}
+
+.input-group-text{
+    height: 100%;
+    border: none;
+    background-color: #EAEAEC;
+}
+
+
+#vote-btn button{
+    background-color: #EAEAEC;
+    color: #343948;
+    font-size: 12px;
+}
+
+#ques-btn button{
+    background-color: #EAEAEC;
+    color: #343948;
+    font-size: 12px
+}
+
+
+/* media query */
+@media screen and (max-width: 1081px){
+    #banner{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px){
+    #ask-btn{
+        font-size: 10px;
+    }
+}

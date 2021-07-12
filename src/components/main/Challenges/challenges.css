@@ -1,0 +1,32 @@
+#live-challenge{
+    background-color: #DBE0EF;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #828282
+}
+
+#live-challenge h4{
+    width: 159px;
+}
+
+#past-challenge{
+    border-top: 1px solid #C7C8CA;
+}
+
+/* company cards styles */
+#comp-card {
+    border: 1px solid #828282;
+    border-radius: 5px;
+
+}
+
+#comp-card .company-name{
+    size: 21px;
+    font-weight: 400;
+    color: #385CC8;
+}
+
+#comp-card .clg-dt{ 
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 12px;
+}

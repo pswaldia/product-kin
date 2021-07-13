@@ -6,12 +6,23 @@ body {
     background-color: rgba(238, 245, 252, 0.82);
 }
 
+em {
+    color: red;
+}
+
 
 /* logo styles */
 
 .container-fluid .img {
     width: 245px;
     margin: auto;
+}
+
+
+/* banner style */
+
+#main-hd p{
+    color: #29428E;
 }
 
 
@@ -39,7 +50,6 @@ body {
 }
 
 .btn-main {
-    content: "login";
     -webkit-appearance: none;
     border: 1px solid #9E9C9C;
     width: 100%;
@@ -47,6 +57,22 @@ body {
     top: 0;
     border-radius: 5px;
     position: relative;
+}
+
+.btn-main::after {
+    content: "Signup";
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bolder;
+    font-size: 15px;
+    color: #343948;
+    place-items: center;
+    display: grid;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    position: absolute;
 }
 
 .btn-main::before {
@@ -65,13 +91,16 @@ body {
     color: #EAEAEC;
     place-items: center;
     display: grid;
-    transition: 0.5s;
+}
+
+.btn-main:checked::after {
+    content: "Login";
+    left: 0;
 }
 
 .btn-main:checked:before {
     left: 50%;
     content: "Signup";
-    transition: 0.5s;
 }
 
 .btn-main:checked+.login {
@@ -89,9 +118,8 @@ body {
     font-size: small;
 }
 
-form {
+.form-ap {
     font-family: 'Inter', sans-serif;
-    ;
     padding: 32px;
     background-color: #fff;
     height: 535px;
@@ -146,6 +174,7 @@ h6 {
     margin: 10px 0 20px;
 }
 
+
 h6 span {
     background: #fff;
     padding: 0 10px;
@@ -166,4 +195,19 @@ h6 span {
     padding-bottom: 8px;
     border-radius: 40%;
     border: none;
+}
+
+
+/* media queries */
+
+@media screen and (max-width: 927px){
+    #illustration{
+        display: none;
+    }
+
+    .form-main{
+        width: 70%;
+    }
+
+    
 }

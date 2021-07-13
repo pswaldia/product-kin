@@ -195,4 +195,79 @@ router.post("/reset-password/:id/:token", async (req, res, next) => {
   }
 });
 
+//for google sign in
+
+
+const {OAuth2Client} = require('google-auth-library');
+const CLIENT_ID = '590421231063-fckjct9vmvbb417ijo4n9n5dkcctn7am.apps.googleusercontent.com';
+const client = new OAuth2Client(CLIENT_ID);
+
+passport.serializeUser(function (user, cb) {
+    cb(null, user);
+});
+
+passport.deserializeUser(function (obj, cb) {
+    cb(null, obj);
+});
+
+router.post("/googlelogin",(req,res) =>{
+    let token=req.body.token;
+    console.log(token); 
+    async function verify() {
+      const ticket = await client.verifyIdToken({
+          idToken: token,
+          audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+      });
+      const payload = ticket.getPayload();
+      console.log(payload); // all information
+      const userid = payload['sub'];
+    }
+    verify()
+    .then(()=>{
+        res.cookie('session-token', token);
+        res.send('success');
+    })
+    .catch(console.error);
+       
+  });
+  
+  router.get('/logout', (req, res)=>{
+    console.log("logout file check");
+    res.clearCookie('session-token');
+    res.redirect('/login');
+  })
+  
+  router.get("/dashboard",checkAuthenticated,(req, res) => {
+    console.log(req.user);
+    let user=req.user;
+    res.render('dashboard',{user});
+  });
+  
+  function checkAuthenticated(req, res, next){
+  
+    let token = req.cookies['session-token'];
+  
+    let user = {};
+    async function verify() {
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+        });
+        const payload = ticket.getPayload();
+        user.name = payload.name;
+        user.email = payload.email;
+        user.picture = payload.picture;
+      }
+      verify()
+      .then(()=>{
+          req.user = user;
+          next();
+      })
+      .catch(err=>{
+          res.redirect('/login')
+      })
+  
+  }
+
+
 module.exports = router;

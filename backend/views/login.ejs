@@ -18,7 +18,7 @@
     </head>
     <body>
       <h1>Login</h1>
-        <form action="login123" method="POST">
+        <form action="login" method="POST">
         <div>
           <input type="email" id="email" name="email" placeholder="Email" required />
         </div>
@@ -52,7 +52,7 @@
             var id_token = googleUser.getAuthResponse().id_token;  
             console.log(id_token);
             var xhr = new XMLHttpRequest();
-            xhr.open('Post', '/login');
+            xhr.open('Post', '/googlelogin');
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function() {
                 if(xhr.responseText == 'success'){

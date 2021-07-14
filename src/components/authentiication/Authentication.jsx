@@ -1,12 +1,17 @@
 import React, {useState} from "react";
 import axios from 'axios';
-import logo from "../../resources/logo.png";
-import Illustration from "../../resources/Illustration.png";
+import logo from '../../resources/logo.png';
+import Illustration from '../../resources/Illustration.png';
+import '../authentiication/authentication.css';
 
 export default function Authentication() {
+       window.addEventListener('resize', () => {
+        
+    })
 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+
 
     function handleloginEmailChange(event) {
         setLoginEmail(event.target.value);
@@ -15,6 +20,7 @@ export default function Authentication() {
     function handleloginPasswordChange(event) {
         setLoginPassword(event.target.value);
     }
+
 
     function handleLogin(event) {
         event.preventDefault();

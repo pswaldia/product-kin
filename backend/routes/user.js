@@ -6,13 +6,32 @@ const { pool } = require("../dbConfig");
 const passport = require("passport");
 const router = express.Router();
 
+router.get("/login", (req, res) => {
+  res.render("login");
+})
+
+router.get("/dashboard", (req, res) => {
+  console.log("here i am" ,req.user);
+  res.render("dashboard", {pic : req.user.profile_pic});
+})
+
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/login');
+});
+
 router.post("/login", function (req, res, next) {
   passport.authenticate("local", function (err, user, info) {
     if (err) return next(err);
     if (!user) return res.send({ status: "false", message: info.message }); //login unsuccessful
     req.logIn(user, function (err) {
       if (err) return next(err);
-      return res.send({ status: "true", message: info.message }); //authenticated successfully
+      user_details = {
+        user_id : user.user_id , 
+        name : user.name, 
+        profile_pic : user.profile_pic
+      }
+      return res.send({ status: "true", message: info.message, user : user_details}); //authenticated successfully
     });
   })(req, res, next);
 });

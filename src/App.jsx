@@ -11,16 +11,15 @@ export default function App() {
     return (
         <div>
 {/*            <Forget/>*/}
-{/*            <Authentication/>*/}
+           {/*<Authentication/>*/}
+            {/* <Header/>
+            <Main/>
+            <Footer/> */}
+            
+{/*            <Reset/>*/}
             <Header/>
             <Main/>
             <Footer/>
-           {/* 
-            <Reset/>
-
-            <Header/>
-            <Main/>
-            <Footer/>*/}
         </div>
 
 )

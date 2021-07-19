@@ -1,15 +1,49 @@
-import React from 'react'
-import logo from '../../resources/logo.png'
-import Illustration from '../../resources/Illustration.png'
-import '../authentiication/authentication.css'
+import React, {useState} from "react";
+import axios from 'axios';
+import logo from '../../resources/logo.png';
+import Illustration from '../../resources/Illustration.png';
+import '../authentiication/authentication.css';
 
 export default function Authentication() {
-
-    window.addEventListener('resize', () => {
+       window.addEventListener('resize', () => {
         
     })
 
-    return (
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+
+
+    function handleloginEmailChange(event) {
+        setLoginEmail(event.target.value);
+    }
+    
+    function handleloginPasswordChange(event) {
+        setLoginPassword(event.target.value);
+    }
+
+
+    function handleLogin(event) {
+        event.preventDefault();
+        console.log(loginEmail, " ", loginPassword);
+
+        const loginDetails = {
+            email : loginEmail,
+            password : loginPassword
+        };
+
+        console.log(loginDetails)
+
+        axios.post('http://localhost:4000/login', loginDetails)
+        .then(function (response) {
+            console.log("inside response");
+            console.log(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+    }
+return (
         <>
             <div className="container-fluid">
 
@@ -99,12 +133,11 @@ export default function Authentication() {
                             </div>
                             <button type="submit" className="btn btn-primary mt-3" id="login-2">Signup</button>
                        </div>
-                        </form>
-                    </div>
-                </div>
+              </form>
             </div>
+          </div>
         </div>
-</>               
-)
+      </div>
+    </>
+  );
 }
-  

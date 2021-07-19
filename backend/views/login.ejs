@@ -10,11 +10,14 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"
         />
+        <!--aniket start-->
         <link rel="stylesheet" href="">
+        <meta name="google-signin-client_id" content="590421231063-fckjct9vmvbb417ijo4n9n5dkcctn7am.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <!--aniket end-->
     </head>
     <body>
       <h1>Login</h1>
-  
         <form action="login" method="POST">
         <div>
           <input type="email" id="email" name="email" placeholder="Email" required />
@@ -27,6 +30,39 @@
         </div>
   
         <a href="/users/register">Register</a>
+
       </form>
+      <!-- Aniket Start -->
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      <a href="#" onclick="signOut();">Sign out</a>
+      <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+            console.log('User signed out.');
+            var xhr = new XMLHttpRequest();
+            xhr.open('Get', '/logout');
+            });
+        }
+        </script>
+
+        <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            var id_token = googleUser.getAuthResponse().id_token;  
+            console.log(id_token);
+            var xhr = new XMLHttpRequest();
+            xhr.open('Post', '/googlelogin');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function() {
+                if(xhr.responseText == 'success'){
+                    signOut();
+                    location.assign('/dashboard')
+                }
+            };
+            xhr.send(JSON.stringify({token : id_token}));
+          }
+        </script>
+        <!--Aniket end-->
     </body>
 </html>

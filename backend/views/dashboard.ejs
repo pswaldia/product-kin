@@ -14,8 +14,12 @@
     </head>
     <body>
         <h1>Dashboard</h1>
-
-        <a href="/users/logout">Logout</a>
+        <img src= <%= user.profile_pic %>>
+        <a href="/logout">Logout</a>
     
+
+        <a href="/logout">Logout</a>
+        <h2> Hi <%=user.name %></h2>
+        <img src="<%=user.picture %>" alt="">
     </body>
 </html>

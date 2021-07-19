@@ -9,7 +9,8 @@
 </head> 
 <body>
     <h1>Login</h1>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div class="my-signin2" data-onsuccess="onSignIn"></div>
+    
     <a href="#" onclick="signOut();">Sign out</a>
     <script>
     function signOut() {
@@ -37,7 +38,7 @@
             console.log('Signed in as: ' + xhr.responseText);
             if(xhr.responseText == 'success'){
                 signOut();
-                location.assign('/dashboard')
+                // location.assign('/dashboard')
             }
         };
         xhr.send(JSON.stringify({token : id_token}));

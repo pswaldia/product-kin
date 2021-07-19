@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 
 const {OAuth2Client} = require('google-auth-library');
-const CLIENT_ID = '590421231063-fckjct9vmvbb417ijo4n9n5dkcctn7am.apps.googleusercontent.com';
+const CLIENT_ID = '590421231063-fckjct9vmvbb417ijo4n9n5dkcctn7am.apps.googleusercontent.com';       
 const client = new OAuth2Client(CLIENT_ID);
 
 passport.serializeUser(function (user, cb) {
@@ -61,14 +61,10 @@ app.get("/login",  (req, res) => {
 //routes
 const userRouter = require("./routes/user.js");
 const questionRouter = require("./routes/question_page.js")
-//const answerRouter = require("./routes/answer_page.js")
+const answerRouter = require("./routes/answer_page.js")
 app.use(userRouter);
 app.use(questionRouter);
-//app.use(answerRouter);
-
-
-
-
+app.use(answerRouter);
 
 app.listen(PORT, () => {
   console.log(`listening to port ${PORT}`);

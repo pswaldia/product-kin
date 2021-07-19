@@ -21,7 +21,7 @@ export default function reset() {
                     </div>
  
                     <div className="col-4 form-main">
-                       <a href="" id=" e1" >Back to Login</a>
+                       <a href="" class=" e1" >Back to Login</a>
                        <div className="form-ap">
                          <form className="forget-1">
                             <div className="form-group mt-3">

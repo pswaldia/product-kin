@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../../resources/logo.png'
 import './header.css'
+import {Link} from 'react-router-dom'
 export default function Header() {
     return (
         <>
@@ -28,7 +29,14 @@ export default function Header() {
                                     <button className="btn btn-primary btn-sm" id="search-btn"><i className="fa fa-search"></i></button>
                                 </div>
                                 <div className="col-8">
-                                    <button class="btn btn-primary" type="submit" id="login-btn">Login</button>
+                                      <Link to="/login">
+                                      <button class="btn btn-primary" type="submit" id="login-btn">
+                                          
+                                           Login
+                                      </button>
+                                      
+                                      </Link>
+                                    
                                 </div>
                             </div>
                     </div>

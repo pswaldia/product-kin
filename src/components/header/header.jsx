@@ -29,13 +29,11 @@ export default function Header() {
                                     <button className="btn btn-primary btn-sm" id="search-btn"><i className="fa fa-search"></i></button>
                                 </div>
                                 <div className="col-8">
-                                      <Link to="/login">
-                                      <button class="btn btn-primary" type="submit" id="login-btn">
-                                          
-                                           Login
-                                      </button>
+                                       <Link to="/login">
+                                <button class="btn btn-primary" type="submit" id="login-btn">Login</button>
                                       
-                                      </Link>
+                                      
+                                      </Link> 
                                     
                                 </div>
                             </div>

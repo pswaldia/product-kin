@@ -2,8 +2,9 @@ import React from 'react'
 import logo from '../../resources/logo.png'
 import Illustration1 from '../../resources/Illustration1.png'
 import './forget.css'
+import { Link } from "react-router-dom";
 
-export default function forget() {
+export default function Forget() {
     return (
         <>
         
@@ -21,13 +22,13 @@ export default function forget() {
                     </div>
  
                     <div className="col-4 form-main">
-                       <a href="" class=" e1" >Back to Login</a>
+                       <Link to='/login' class=" e1" >Back to Login</Link>
                        <div className="form-ap">
                          <form className="forget-1">
                             <div className="form-group mt-3">
                                 <h5 id="t2">Forget Password</h5>
                                 <p id="t3">Send a link to your email to reset the password</p>
-                                <label htmlFor="exampleInputEmail1">Email <em>*</em></label>
+                                <label id="f" htmlFor="exampleInputEmail1">Email <em>*</em></label>
                                 <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="xyz@example.com"/>
                             </div>
                            

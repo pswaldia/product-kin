@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import axios from 'axios';
 import logo from '../../resources/logo.png';
 import Illustration from '../../resources/Illustration.png';
-import '../authentiication/authentication.css';
+import './authentication.css';
+import { Link } from "react-router-dom";
 
 export default function Authentication() {
        window.addEventListener('resize', () => {
@@ -37,12 +38,17 @@ export default function Authentication() {
         .then(function (response) {
             console.log("inside response");
             console.log(response.data);
+            // if(response.data.status === "true")
+            // {
+                  
+            // }
         })
         .catch(function (error) {
             console.log(error);
         });
 
     }
+    
 return (
         <>
             <div className="container-fluid">
@@ -56,23 +62,25 @@ return (
                 </div>
                     
                 <div className="row justify-content-around mt-5">
-                    <div className="col-6" id="illustration">
-                        <img src={Illustration} alt=""/>    
+                    <div className="col-7" id="illustration">
+                        <img src={Illustration} id="e4" alt=""/>    
                     </div>
  
                     <div className="col-4 form-main">
-                        <div className="form-ap">
+                        <div className="form-ap1">
                         <input type="checkbox" className="btn-main " />
                         <form className="login">
                          <div className="login">
                             <p>Doesn’t have an account yet? <a href="" >Sign Up</a></p>
                             <div className="form-group mt-3">
                                 <label htmlFor="InputEmail">Email</label>
-                                <input type="email" className="form-control" id="InputEmail"  placeholder="xyz@example.com"/>
+                                <input type="email" className="form-control" onChange={handleloginEmailChange}
+                      value={loginEmail} id="InputEmail"  placeholder="xyz@example.com"/>
                             </div>
                             <div className="form-group mt-3">
                                 <label htmlFor="InputPassword">Password</label>
-                                <input type="password" className="form-control" id="InputPassword"  placeholder="Enter 6 characters or more" required/>
+                                <input type="password" className="form-control" onChange={handleloginPasswordChange}
+                      value={loginPassword} id="InputPassword"  placeholder="Enter 6 characters or more" required/>
                             </div>
                             <div className="form-check mt-3">
                                 <div className="row row justify-content-between ">
@@ -81,14 +89,15 @@ return (
                                         <label className="form-check-label" htmlFor="exampleCheck1">Remember me</label>
                                     </div>
                                     <div className="col-4">
-                                        <a href="">Forgot Password</a>
+                                    <Link to="/forget">Forget password
+                                      </Link> 
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" className="btn btn-primary mt-3" id="login-2">Login</button>
+                            <button type="button" onClick={handleLogin} className="btn btn-primary mt-3" id="login-2" >Login</button>
                             <h6 className="mt-4"><span>or login with</span></h6>
 
-                            <div className="d-flex justify-content-around icons-btn">
+                            {/* <div className="d-flex justify-content-around icons-btn">
                                 <div>
                                     <button><i className="fa fa-linkedin"></i></button>
                                 </div>
@@ -99,7 +108,11 @@ return (
                                     <button><i className="fa fa-facebook"></i></button>
                                 </div>
                                 
-                            </div>
+                            </div> */}
+                            <button type="submit" className="btn btn-primary mt-3" id="login-3"><i className="fa fa-google"></i> <span>
+                                Sign In with Google </span></button>
+                                
+
                          </div>
                             </form>
                          <form className="signup">

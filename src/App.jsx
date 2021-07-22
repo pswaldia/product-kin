@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Authentication from './components/authentication/Authentication'
-import Header from './components/header/Header'
+import Header from './components/header/header'
 import Main from './components/main/Main';
 import Footer from './components/footer/Footer'
 import Forget from './components/authentication/forget-password/Forget'

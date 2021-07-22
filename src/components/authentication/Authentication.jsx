@@ -1,16 +1,16 @@
-import React, {useState} from "react";
+import React , {useState} from 'react'
 import axios from 'axios';
-import logo from '../../resources/logo.png';
-import Illustration from '../../resources/Illustration.png';
-import './authentication.css';
-import { Link } from "react-router-dom";
-
+import logo from '../../resources/logo.png'
+import Illustration from '../../resources/Illustration.png'
+import './authentication.css'
+import { Link , NavLink} from 'react-router-dom'
 export default function Authentication() {
-       window.addEventListener('resize', () => {
-        
-    })
 
-    const [loginEmail, setLoginEmail] = useState("");
+window.addEventListener('resize', () => {
+
+})
+
+const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
 
@@ -48,53 +48,57 @@ export default function Authentication() {
         });
 
     }
-    
+
 return (
-        <>
-            <div className="container-fluid">
+<>
 
-                <div className="img mt-3">
-                    <img src={logo} alt=""/>
-                </div>
+    <div className="container-fluid">
 
-                <div className="text-center mt-2" id="main-hd">
-                    <p>A place to share knowledge and to be competent related for the product Roles in the world</p>
-                </div>
-                    
-                <div className="row justify-content-around mt-5">
-                    <div className="col-7" id="illustration">
-                        <img src={Illustration} id="e4" alt=""/>    
-                    </div>
- 
-                    <div className="col-4 form-main">
-                        <div className="form-ap1">
-                        <input type="checkbox" className="btn-main " />
-                        <form className="login">
-                         <div className="login">
-                            <p>Doesn’t have an account yet? <a href="" >Sign Up</a></p>
+        <div className="img mt-3">
+            <img src={logo} alt="" />
+        </div>
+
+        <div className="text-center mt-2" id="main-hd">
+            <p>A place to share knowledge and to be competent related for the product Roles in the world</p>
+        </div>
+
+
+        <div className="row justify-content-around mt-5">
+
+            <div className="col-6" id="illustration">
+                <img src={Illustration} alt="" />
+            </div>
+
+            <div className="col-4 form-main">
+                <div className="form-ap">
+                    <input type="checkbox" className="btn-main " />
+                    <form className="login">
+                        <div className="login">
+                            <p>Doesn’t have an account yet? <a href="">Sign Up</a></p>
                             <div className="form-group mt-3">
                                 <label htmlFor="InputEmail">Email</label>
-                                <input type="email" className="form-control" onChange={handleloginEmailChange}
-                      value={loginEmail} id="InputEmail"  placeholder="xyz@example.com"/>
+                                <input type="email" className="form-control" id="InputEmail"
+                                    placeholder="xyz@example.com" />
                             </div>
                             <div className="form-group mt-3">
                                 <label htmlFor="InputPassword">Password</label>
-                                <input type="password" className="form-control" onChange={handleloginPasswordChange}
-                      value={loginPassword} id="InputPassword"  placeholder="Enter 6 characters or more" required/>
+                                <input type="password" className="form-control" id="InputPassword"
+                                    placeholder="Enter 6 characters or more" required />
                             </div>
                             <div className="form-check mt-3">
                                 <div className="row row justify-content-between ">
                                     <div className="col-4">
-                                        <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+                                        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                                         <label className="form-check-label" htmlFor="exampleCheck1">Remember me</label>
                                     </div>
                                     <div className="col-4">
-                                    <Link to="/forget">Forget password
-                                      </Link> 
+                                        <Link exact to="/login/forget">Forgot Password</Link>
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" onClick={handleLogin} className="btn btn-primary mt-3" id="login-2" >Login</button>
+                            {/* <NavLink exact to="/"> */}
+                                <button type="submit" className="btn btn-primary mt-3" id="login-2">Login</button>
+                            {/* </NavLink> */}
                             <h6 className="mt-4"><span>or login with</span></h6>
 
                             {/* <div className="d-flex justify-content-around icons-btn">
@@ -107,50 +111,57 @@ return (
                                 <div>
                                     <button><i className="fa fa-facebook"></i></button>
                                 </div>
-                                
+
                             </div> */}
                             <button type="submit" className="btn btn-primary mt-3" id="login-3"><i className="fa fa-google"></i> <span>
                                 Sign In with Google </span></button>
-                                
+                        </div>
+                    </form>
+                    <form className="signup">
+                        <div className="signup">
 
-                         </div>
-                            </form>
-                         <form className="signup">
-                         <div className="signup">
-                           
-                    
-                       <div className="form-group mt-4">
+
+                            <div className="form-group mt-4">
                                 <label htmlFor="name">Name <span style={{color: "red"}}>*</span></label>
-                                <input type="text" className="form-control" id="exampleInputEmail1"  placeholder="John Bid" />
+                                <input type="text" className="form-control" id="exampleInputEmail1"
+                                    placeholder="John Bid" />
                             </div>
                             <div className="form-group mt-1">
                                 <label htmlFor="exampleInputEmail1">Email <em>*</em></label>
-                                <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="xyz@example.com" required />
+                                <input type="email" className="form-control" id="exampleInputEmail1"
+                                    placeholder="xyz@example.com" required />
                             </div>
                             <div className="form-group mt-1">
                                 <label htmlFor="exampleInputPassword1">Password <em>*</em></label>
-                                <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more" required/>
+                                <input type="password" className="form-control" id="exampleInputPassword1"
+                                    placeholder="Enter 6 characters or more" required />
                             </div>
                             <div className="form-group mt-1">
                                 <label htmlFor="exampleInputPassword1">Confirm Password <em>*</em></label>
-                                <input type="password" className="form-control" id="exampleInputPassword1"  placeholder="Enter 6 characters or more" required/>
+                                <input type="password" className="form-control" id="exampleInputPassword1"
+                                    placeholder="Enter 6 characters or more" required />
                             </div>
                             <div className="form-check mt-2">
                                 <div className=" row row justify-content-around ">
                                     <div className="">
-                                        <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                                        <label className="form-check-label" htmlFor="exampleCheck1">Yes, I want to receive updates on the new challenges</label>
+                                        <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                        <label className="form-check-label" htmlFor="exampleCheck1">Yes, I want to
+                                            receive updates on the new challenges</label>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                             <button type="submit" className="btn btn-primary mt-3" id="login-2">Signup</button>
-                       </div>
-              </form>
+                        </div>
+                    </form>
+
+                </div>
             </div>
-          </div>
+
         </div>
-      </div>
-    </>
-  );
+
+
+    </div>
+</>
+)
 }

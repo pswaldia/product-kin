@@ -1,0 +1,15 @@
+.discuss-btn{
+    padding: 0px;
+    font-size: 0.7rem;
+}
+
+#get-help-btn{
+    padding: 5px;
+    width: 70%;
+}
+
+#discuss-answer-btn, #discuss-share-btn, #discuss-bookmark-btn{
+    border: none;
+    background-color: #fff;
+    color: rgba(130, 130, 130, 1);
+}

@@ -29,7 +29,7 @@ export default function Footer() {
                         <div className="col-4">
                             <form>
                                 <div className="form-group mt-2">
-                                    <label for="inputName">Name</label>
+                                    <label htmlFor="inputName">Name</label>
                                     <input type="text" className="form-control" id="inputName"/>
                                 </div>
                                 <div className="form-group mt-2">

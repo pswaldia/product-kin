@@ -1,58 +1,28 @@
 import React from 'react'
-import {BrowserRouter as Router,Route,Switch} from "react-router-dom"; 
-//import './components/authentiication/authentication.css'
-import Authentication from './components/authentiication/Authentication'
-import Forget from './components/forget-password/forget'
-import Reset from './components/reset-pass/reset'
-import Home from './components/home/home'
-// import Main from './components/main/main';
-// import Header from './components/header/header';
-// import Footer from './components/footer/footer';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Authentication from './components/authentication/Authentication'
+import Header from './components/header/Header'
+import Main from './components/main/Main';
+import Footer from './components/footer/Footer'
+import Forget from './components/authentication/forget-password/Forget'
+import Reset from './components/authentication/reset-pass/Reset'
 export default function App() {
     return (
         <div>
-          {/* <Header/>
-          <Main/>
-          <Footer/> */}
-            
-       <Router>
-      <Switch>
-      <Route
-          path={"/login"}
-          exact
-          render={()=><Authentication/>}
-        /> 
-         <Route
-          path={"/forget"}
-          exact
-          render={()=><Forget/>}
-        /> 
-        <Route
-          path={"/reset"}
-          exact
-          render={()=><Reset/>}
-        />
-         <Route
-          path={"/home"}
-          exact
-          render={()=><Home/>}
-        /> 
-        <Route
-          path={"/"}
-          exact
-          render={()=><Home/>}
-        /> 
-        
-         
-         {/* <Route
-          path={"/reset"}
-          exact
-          render={()=><Reset/>}
-        />   */}
-          
-        </Switch>
-    </Router>     
-
-            </div>
-)
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/login" component = {Authentication} />
+                    <Route exact path="/login/forget" component={Forget} />
+                    <Route exact path="/login/reset" component={Reset} />
+                    <Route component = {() => 
+                        <>
+                            <Header/>
+                            <Main/>
+                            <Footer/>
+                        </>
+                    } />
+                </Switch>
+            </BrowserRouter>
+        </div>
+    )
 }

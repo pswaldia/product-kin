@@ -4,7 +4,7 @@ import idea from '../../../resources/idea.png'
 import aven from '../../../resources/aven.png'
 import treva from '../../../resources/treva.png'
 import circle from '../../../resources/circle.png'
-import Leaderboard from '../Leaderboard.jsx'
+import Leaderboard from '../Leaderboard'
 import '../Challenges/challenges.css'
 export default function Challenges() {
     return (

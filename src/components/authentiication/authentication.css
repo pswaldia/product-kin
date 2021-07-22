@@ -21,21 +21,6 @@ em {
 
 /* banner style */
 
-
-/* banner style */
-
-#banner {
-    position: absolute;
-    left: 26%;
-    top: 11%;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 17px;
-    line-height: 150%;
-    color: #29428E;
-}
-
 #main-hd p {
     color: #29428E;
 }
@@ -43,7 +28,7 @@ em {
 
 /* Illustration styles */
 
-.row img {
+#illustration img {
     width: 100%;
 }
 
@@ -133,7 +118,7 @@ em {
     font-size: small;
 }
 
-.form-ap1 {
+.form-ap {
     font-family: 'Inter', sans-serif;
     padding: 32px;
     background-color: #fff;

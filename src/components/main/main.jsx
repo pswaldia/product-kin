@@ -49,7 +49,7 @@ export default function Main() {
                         </div>
                 </div>
             </BrowserRouter>
-            {/* <TextEditor trigger = {ShowEditor} setTrigger={setShowEditor}/>       */}
+            <TextEditor trigger = {ShowEditor} setTrigger={setShowEditor}/>      
         </>
     )
 }

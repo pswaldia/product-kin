@@ -1,8 +1,22 @@
-import React from 'react'
+import React, {useState} from 'react'
 import logo from '../../resources/logo.png'
 import './header.css'
 import { NavLink } from 'react-router-dom'
 export default function Header() {
+    
+    const [isLoggedIn , setIsLoggedIn] = useState(false);
+
+    const checkAuthenticated = () => {
+        localStorage.getItem("user_id") == null ? setIsLoggedIn(false) : setIsLoggedIn(true);
+        // console.log("he");
+        // if(isLoggedIn)
+        //     return <NavLink exact to="/login">
+        //                 <button className="btn btn-primary" type="submit" id="login-btn">Login</button>
+        //             </NavLink>
+        // else
+        //     return <h1> NO </h1>;
+    }
+
     return (
         <>
             <header>
@@ -14,9 +28,11 @@ export default function Header() {
                         </div>
                     <div className="col-2 header-login">
                             <div className="row justify-content-around">
-                            <NavLink exact to="/login">
-                                <button className="btn btn-primary" type="submit" id="login-btn">Login</button>
-                            </NavLink>
+                            {isLoggedIn ? 
+                                <NavLink exact to="/login">
+                                    <button className="btn btn-primary" type="submit" id="login-btn">Login</button>
+                                </NavLink> : <h1> Logo here </h1>
+                                }
                             </div>
                     </div>
 

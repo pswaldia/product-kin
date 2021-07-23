@@ -3,8 +3,8 @@ const { pool } = require("../dbConfig");
 const router = express.Router();
 
 //for showing single question in answer page
-router.get("/get_question", async (req, res) => {
-  const { ques_id } = req.body;
+router.get("/discuss/get_question/:ques_id", async (req, res) => {
+  const { ques_id } = req.params;
   await pool.query(
     `SELECT ques_id, question, hint FROM question_details where ques_id = $1`,
     [ques_id],
@@ -18,9 +18,9 @@ router.get("/get_question", async (req, res) => {
 });
 
 //providing details of all answers
-router.get("/fetch_answers", async (req, res) => {
+router.get("/discuss/fetch_answers/:ques_id", async (req, res) => {
     try {
-        const { ques_id } = req.body;
+        const { ques_id } = req.params;
         const answers = await pool.query(`SELECT * FROM answer_details where ques_id = $1`,[ques_id]);
         for(const row of answers.rows){
             const user_pic = await pool.query("SELECT profile_pic FROM users where user_id = ($1)",[row.user_id]);

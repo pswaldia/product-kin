@@ -1,10 +1,11 @@
-
-*{
+* {
     font-family: 'Roboto', sans-serif;
 }
 
+
 /* header */
-header{
+
+header {
     background-color: #F7F7F7;
     height: 83px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -12,45 +13,10 @@ header{
 
 
 /* header login btn */
-.header-login #login-btn{
+
+.header-login #login-btn {
     border: none;
     background-color: #EB5757;
     height: 46px;
     width: 100%;
 }
-#search-btn{
-    visibility: visible;
-    background-color: #F7F7F7;
-    border: none;
-    color: black;
-    height: 46px;
-}
-
-/* search-input */
-#searchInput{
-    visibility: hidden;
-    border: none;
-    background-color: #EAEAEC;
-}
-
-.input-group-text{
-    visibility: hidden;
-    height: 100%;
-    border: none;
-    background-color: #EAEAEC;
-}
-
-/* media queries */
-@media screen and (min-width: 994px) {
-    #searchInput{
-        visibility: visible;
-    }
-    .input-group-text{
-        visibility: visible;
-    }
-
-    #search-btn{
-        visibility: hidden;
-    }
-}
-

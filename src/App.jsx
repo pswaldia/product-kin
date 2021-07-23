@@ -1,27 +1,28 @@
 import React from 'react'
-// import './components/authentiication/authentication.css'
-// import Forget from './components/forget-password/forget'
-//import Reset from './components/reset-pass/reset'
-// import Authentication from './components/authentiication/Authentication'
-import Main from './components/main/main'
-import Footer from './components/footer/footer'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Authentication from './components/authentication/Authentication'
 import Header from './components/header/header'
-
+import Main from './components/main/Main';
+import Footer from './components/footer/Footer'
+import Forget from './components/authentication/forget-password/Forget'
+import Reset from './components/authentication/reset-pass/Reset'
 export default function App() {
     return (
         <div>
-{/*            <Forget/>*/}
-           {/*<Authentication/>*/}
-            {/* <Header/>
-            <Main/>
-            <Footer/> */}
-            
-{/*            <Reset/>*/}
-            <Header/>
-            <Main/>
-            <Footer/>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/login" component = {Authentication} />
+                    <Route exact path="/login/forget" component={Forget} />
+                    <Route exact path="/login/reset" component={Reset} />
+                    <Route component = {() => 
+                        <>
+                            <Header/>
+                            <Main/>
+                            <Footer/>
+                        </>
+                    } />
+                </Switch>
+            </BrowserRouter>
         </div>
-
-)
-
+    )
 }

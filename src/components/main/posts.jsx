@@ -2,7 +2,8 @@ import React from 'react'
 import '../main/posts.css'
 import banner from '../../resources/banner.jpg'
 import Leaderboard from './Leaderboard'
-export default function Posts({posts}) {
+import { Link } from 'react-router-dom'
+export default function Posts({posts, setTrigger}) {
     return (
         <>
              <div className="col-6">
@@ -19,7 +20,7 @@ export default function Posts({posts}) {
                         (
                             <div className="card mb-3" key={post.id} id="post-card">
                                 <ul className="list-group list-group-flush">
-                                    <li  className="list-group-item"><a href="">{post.description}</a></li>
+                                    <li  className="list-group-item"><Link to={`/discuss/${post.id}`}>{post.description}</Link></li>
                                 </ul>
                             </div>
                          )
@@ -29,8 +30,8 @@ export default function Posts({posts}) {
             </div>
 
             <div className="col-3">
-                <button type="button" class="btn btn-primary mb-3" id="ask-btn">+   Ask a Question</button>
-                 <Leaderboard/>
+                <button type="button" className="btn btn-primary mb-3" id="ask-btn" onClick={() => setTrigger(true)}>+   Ask a Question</button>
+                <Leaderboard/>
             </div>
                        
         </>

@@ -13,7 +13,7 @@ export default function App() {
                 <Switch>
                     <Route exact path="/login" component = {Authentication} />
                     <Route exact path="/login/forget" component={Forget} />
-                    <Route exact path="/login/reset" component={Reset} />
+                    <Route exact path="/login/reset/:id/:token" component={Reset} />
                     <Route component = {() => 
                         <>
                             <Header/>

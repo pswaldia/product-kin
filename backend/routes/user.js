@@ -133,7 +133,7 @@ router.post("/forgot-password", (req, res, next) => {
         const token = jwt.sign(payload, secret, { expiresIn: "15m" });
         console.log(results.rows[0].user_id);
         const link =
-          "http://localhost:4000/reset-password/" +
+          "http://localhost:3000/login/reset/" +
           results.rows[0].user_id +
           "/" +
           token;
@@ -161,11 +161,11 @@ router.post("/forgot-password", (req, res, next) => {
           if (error) console.log(error);
           else
             return res.send(
-              "Password reset link has been sent to your email ... "
+              { message : "Password reset link has been sent to your email ..."}
             );
         });
       } else {
-        return res.send("user not registered");
+        return res.send({message : "user not registered"});
       }
     }
   );
@@ -189,9 +189,9 @@ router.get("/reset-password/:id/:token", (req, res, next) => {
   }
 });
 
-router.post("/reset-password/:id/:token", async (req, res, next) => {
+router.post("/login/reset/:id/:token", async (req, res, next) => {
   const { id, token } = req.params;
-  const { password, password2 } = req.body;
+  const { password } = req.body;
   if (id !== user.user_id) {
     res.send("Invalid Id ... ");
     return;
@@ -209,7 +209,7 @@ router.post("/reset-password/:id/:token", async (req, res, next) => {
         if (err) {
           throw err;
         }
-        res.send("Updated Successfully");
+        res.send({message : "Password Updated Successfully"});
       }
     );
   } catch (error) {

@@ -4,15 +4,22 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const { pool } = require("../dbConfig");
 const passport = require("passport");
+const { response } = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken"); //token
+// const authenticateToken = require("./user.js")
+// console.log(authenticateToken);
 
 //ask a question - add_question(ask_question)
-router.post("/add_question", async(req, res) => {
-  const { user_id, question } = req.body;
+router.post("/add_question", authenticateToken ,async(req, res) => {
+
+  const { question, peer_cases, topic, hint } = req.body;
+  const user_id = req.user.user_id;
+
   await pool.query(
-    `INSERT INTO question_details (user_id, question)
-              VALUES ($1, $2)`,
-    [user_id, question],
+    `INSERT INTO question_details (user_id, question, peer_cases, topic, hint )
+              VALUES ($1, $2, $3, $4, $5)`,
+    [user_id, question, peer_cases, topic, hint],
     (err, results) => {
       if (err) {
         console.log(err);
@@ -30,7 +37,94 @@ router.post("/add_question", async(req, res) => {
 });
 
 //get all questions - fetch_questions
+router.get("/fetch_questions/all", async(req, res) => {
+  await pool.query(
+    `SELECT * FROM question_details ORDER BY question_date DESC, ques_id DESC`,
+    (err, results) => {
+      if(err)
+        console.log(err);
+      else{
+        let page_id = 1, cnt = 0;
+        results.rows.forEach(result => {
+          let dt = new Date(result.question_date);
+          let formattedDate = new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+          }).format(dt);
+          result.question_date = formattedDate;
+          if(cnt == 5){
+            cnt = 0;
+            page_id++;
+          }
+          cnt++;
+          result.page_id = page_id;
+        });
+        res.send(results.rows);
+      }
+    }
+  );
+});
 
+//questions for peer cases
+router.get("/fetch_questions/peer_cases", async(req, res) => {
+  await pool.query(
+    `SELECT * FROM question_details where peer_cases = true ORDER BY question_date DESC, ques_id DESC`,
+    (err, results) => {
+      if(err)
+        console.log(err);
+      else{
+        let page_id = 1, cnt = 0;
+        results.rows.forEach(result => {
+          let dt = new Date(result.question_date);
+          let formattedDate = new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+          }).format(dt);
+          result.question_date = formattedDate;
+          if(cnt == 5){
+            cnt = 0;
+            page_id++;
+          }
+          cnt++;
+          result.page_id = page_id;
+        });
+        res.send(results.rows);
+      }
+    }
+  );
+});
+
+//questions for practice cases
+router.get("/fetch_questions/practice_cases", async(req, res) => {
+  await pool.query(
+    `SELECT * FROM question_details where peer_cases = false ORDER BY question_date DESC, ques_id DESC`,
+    (err, results) => {
+      if(err)
+        console.log(err);
+      else{
+        let page_id = 1, cnt = 0;
+        results.rows.forEach(result => {
+          let dt = new Date(result.question_date);
+          let formattedDate = new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+          }).format(dt);
+          result.question_date = formattedDate;
+          if(cnt == 5){
+            cnt = 0;
+            page_id++;
+          }
+          cnt++;
+          result.page_id = page_id;
+        });
+        res.send(results.rows);
+      }
+    }
+  );
+});
 
 
 //get leaderboard
@@ -67,5 +161,17 @@ router.post("/add_query", async (req, res) => {
     }
   );
 });
+
+function authenticateToken(req, res, next){
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1];
+  if(token == null) return res.sendStatus(401); //dont have valid token
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user_details) => {
+    if(err) return res.sendStatus(403); //invalid token
+    req.user = user_details;
+    next();
+  })
+}
 
 module.exports = router;

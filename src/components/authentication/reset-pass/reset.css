@@ -2,9 +2,6 @@
     font-family: 'Roboto', sans-serif;
 }
 
-body {
-    background-color: rgba(238, 245, 252, 0.82);
-}
 
 em {
     color: red;
@@ -21,7 +18,7 @@ em {
 
 /* banner style */
 
-#banner {
+#banner-hd {
     position: absolute;
     left: 26%;
     top: 11%;
@@ -36,7 +33,7 @@ em {
 
 /* Illustration styles */
 
-.row img {
+#reset_img img {
     width: 70%;
     position: relative;
     align-content: center;
@@ -50,7 +47,7 @@ em {
 
 /* form styles */
 
-::placeholder {
+#reset_password_main ::placeholder {
     font-size: small;
 }
 
@@ -82,7 +79,7 @@ em {
     color: #5F6377;
 }
 
-.form-ap {
+#reset_password_main .form-ap {
     font-family: 'Inter', sans-serif;
     padding: 32px;
     background-color: #fff;
@@ -93,17 +90,17 @@ em {
     top: 20%
 }
 
-form p,
+#reset_password_main form p,
 a {
     margin-top: 1em;
     font-size: 13px;
 }
 
-form p {
+#reset_password_main form p {
     color: #9E9C9C;
 }
 
-label {
+#g {
     font-size: 14px;
     font-weight: 700;
     color: #5F6377;
@@ -112,39 +109,17 @@ label {
     margin-block-end: 0%;
 }
 
-input {
+#reset_password_main input {
     font-size: 14px;
 }
 
-.form-check label {
-    font-size: 14px;
-    font-weight: 400;
-    color: #9E9C9C;
-}
 
-.form-check a {
-    color: #9E9C9C;
-}
-
-form #login-2 {
+#reset_password_main  form #login-2 {
     background-color: #385CC8;
     width: 100%;
     height: 50px;
 }
 
-
-/* icons styles */
-
-.icons-btn i {
-    font-size: 35px;
-}
-
-.icons-btn button {
-    background-color: #fff;
-    padding-top: 8px;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-bottom: 8px;
-    border-radius: 40%;
-    border: none;
+.e1 {
+    color: #5F6377;
 }

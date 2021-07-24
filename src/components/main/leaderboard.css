@@ -1,0 +1,11 @@
+#leaderboard .card-header{
+    color: #fff;
+    background-color: #343948;
+}
+
+/* media queries */
+@media screen and (max-width: 768px){
+    #leaderboard .card-header{
+        font-size: 10px;
+    }
+}

@@ -1,10 +1,20 @@
 //user related operations
-
 const express = require("express");
 const bcrypt = require("bcrypt");
 const { pool } = require("../dbConfig");
 const passport = require("passport");
 const router = express.Router();
+router.use(express.json());//new
+
+router.get("/login", (req, res) => {
+  res.render("login");
+});
+
+
+router.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/login");
+});
 
 router.post("/login", function (req, res, next) {
   passport.authenticate("local", function (err, user, info) {
@@ -12,7 +22,21 @@ router.post("/login", function (req, res, next) {
     if (!user) return res.send({ status: "false", message: info.message }); //login unsuccessful
     req.logIn(user, function (err) {
       if (err) return next(err);
-      return res.send({ status: "true", message: info.message }); //authenticated successfully
+      user_details = {
+        user_id: user.user_id,
+        name: user.name,
+        profile_pic: user.profile_pic,
+      };
+
+      const accessToken = jwt.sign(user_details, process.env.ACCESS_TOKEN_SECRET);
+
+      return res.send({
+        status: "true",
+        message: info.message,
+        name : user.name,
+        profile_pic : user.profile_pic,
+        accessToken: accessToken
+      }); //authenticated successfully
     });
   })(req, res, next);
 });
@@ -87,6 +111,7 @@ var nodemailer = require("nodemailer"); //mails
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+//for initialting customized email
 router.post("/forgot-password", (req, res, next) => {
   const { email } = req.body;
   //fetching
@@ -110,7 +135,7 @@ router.post("/forgot-password", (req, res, next) => {
         const token = jwt.sign(payload, secret, { expiresIn: "15m" });
         console.log(results.rows[0].user_id);
         const link =
-          "http://localhost:4000/reset-password/" +
+          "http://localhost:3000/login/reset/" +
           results.rows[0].user_id +
           "/" +
           token;
@@ -138,11 +163,11 @@ router.post("/forgot-password", (req, res, next) => {
           if (error) console.log(error);
           else
             return res.send(
-              "Password reset link has been sent to your email ... "
+              { message : "Password reset link has been sent to your email ..."}
             );
         });
       } else {
-        return res.send("user not registered");
+        return res.send({message : "user not registered"});
       }
     }
   );
@@ -166,9 +191,9 @@ router.get("/reset-password/:id/:token", (req, res, next) => {
   }
 });
 
-router.post("/reset-password/:id/:token", async (req, res, next) => {
+router.post("/login/reset/:id/:token", async (req, res, next) => {
   const { id, token } = req.params;
-  const { password, password2 } = req.body;
+  const { password } = req.body;
   if (id !== user.user_id) {
     res.send("Invalid Id ... ");
     return;
@@ -186,7 +211,7 @@ router.post("/reset-password/:id/:token", async (req, res, next) => {
         if (err) {
           throw err;
         }
-        res.send("Updated Successfully");
+        res.send({message : "Password Updated Successfully"});
       }
     );
   } catch (error) {
@@ -197,78 +222,142 @@ router.post("/reset-password/:id/:token", async (req, res, next) => {
 
 //for google sign in
 
-
-const {OAuth2Client} = require('google-auth-library');
-const CLIENT_ID = '364428087639-8k31roj34nr5i16nvn21m3anuj6hf93r.apps.googleusercontent.com';
+const { OAuth2Client } = require("google-auth-library");
+const CLIENT_ID ="364428087639-8k31roj34nr5i16nvn21m3anuj6hf93r.apps.googleusercontent.com";
 const client = new OAuth2Client(CLIENT_ID);
 
 passport.serializeUser(function (user, cb) {
-    cb(null, user);
+  cb(null, user);
 });
 
 passport.deserializeUser(function (obj, cb) {
-    cb(null, obj);
+  cb(null, obj);
 });
 
-router.post("/googlelogin",(req,res) =>{
-    let token=req.body.token;
-    console.log(token); 
-    async function verify() {
-      const ticket = await client.verifyIdToken({
-          idToken: token,
-          audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
-      });
-      const payload = ticket.getPayload();
-      console.log(payload); // all information
-      const userid = payload['sub'];
-    }
-    verify()
-    .then(()=>{
-        res.cookie('session-token', token);
-        res.send('success');
+router.post("/googlelogin", (req, res) => {
+  let token = req.body.token;
+  let userDetails = {};
+  async function verify() {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: CLIENT_ID, 
+    });
+    const payload = ticket.getPayload();
+    console.log("this is profile-----payload",payload.name); // all information
+    const userid = payload["sub"];
+    userDetails["email"] = payload.email;
+    userDetails["name"] = payload.name;
+    userDetails["profile_pic"] = payload.picture;
+  }
+  verify()
+    .then(() => {
+      pool.query(
+        `SELECT * FROM users
+            WHERE email = $1`,
+        [userDetails.email],
+        (err, results) => {
+          if (err) {
+            console.log(err);
+          }
+          if (results.rows.length == 1) {
+            userDetails = {
+              user_id: results.rows[0].user_id,
+              name: results.rows[0].name,
+              profile_pic: results.rows[0].profile_pic,
+            };
+            return res.send({
+              status: "true",
+              message: "Authentication Successful",
+              user: userDetails,
+            });
+
+          } else {
+            pool.query(
+              `INSERT INTO users (name, email, profile_pic)
+                    VALUES ($1, $2, $3)`,
+              [userDetails.name, userDetails.email,  userDetails.profile_pic],
+              (err, results) => {
+                if (err) {
+                  throw err;
+                }
+                return res.send({
+                  status: "true",
+                  message: "Authentication Successful",
+                  user: userDetails,
+                });
+              }
+            );
+  
+            //updating leaderboard table
+            var points = 0;
+            pool.query(
+              `INSERT INTO leaderboard (name, points)
+                    VALUES ($1, $2)`,
+              [userDetails.name, points],
+              (err, results) => {
+                if (err) {
+                  throw err;
+                }
+              }
+            );
+          }
+        }
+      );
+      res.cookie("session-token", token);
+      
     })
     .catch(console.error);
-       
-  });
-  
-  router.get('/logout', (req, res)=>{
-    console.log("logout file check");
-    res.clearCookie('session-token');
-    res.redirect('/login');
-  })
-  
-  router.get("/dashboard",checkAuthenticated,(req, res) => {
-    console.log(req.user);
-    let user=req.user;
-    res.render('dashboard',{user});
-  });
-  
-  function checkAuthenticated(req, res, next){
-  
-    let token = req.cookies['session-token'];
-  
-    let user = {};
-    async function verify() {
-        const ticket = await client.verifyIdToken({
-            idToken: token,
-            audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
-        });
-        const payload = ticket.getPayload();
-        user.name = payload.name;
-        user.email = payload.email;
-        user.picture = payload.picture;
-      }
-      verify()
-      .then(()=>{
-          req.user = user;
-          next();
-      })
-      .catch(err=>{
-        console.log(err);
-          res.redirect('/login')
-      })
-  
+});
+
+router.get("/logout", (req, res) => {
+  console.log("logout file check");
+  res.clearCookie("session-token");
+  res.redirect("/login");
+});
+
+router.get("/dashboard", checkAuthenticated, (req, res) => {
+  console.log(req.user);
+  console.log("end");
+  let user = req.user;
+  res.render("dashboard", { user });
+});
+
+function checkAuthenticated(req, res, next) {
+  let token = req.cookies["session-token"];
+
+  let user = {};
+  async function verify() {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: CLIENT_ID, // Specify the CLIENT_ID of the app that accesses the backend
+    });
+    const payload = ticket.getPayload();
+    user.name = payload.name;
+    user.email = payload.email;
+    user.profile_pic = payload.picture;
   }
+  verify()
+    .then(() => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => {
+      res.redirect("/login");
+    });
+}
+
+function authenticateToken(req, res, next){
+  console.log("i ma gere");
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1];
+  if(token == null) return res.sendStatus(401); //dont have valid token
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user_details) => {
+    if(err) return res.sendStatus(403); //invalid token
+    req.user = user;
+    next();
+  })
+}
 
 
-module.exports = router;
+module.exports =  router, authenticateToken;

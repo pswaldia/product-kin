@@ -5,7 +5,9 @@ const session = require("express-session");
 const passport = require("passport");
 var cors = require('cors');
 const initializePassport = require("./passportConfig");
+const jwt = require("jsonwebtoken"); //token
 require("dotenv").config();
+
 const app = express();
 app.use(passport.initialize());
 app.use(passport.session());
@@ -17,15 +19,15 @@ require("dotenv").config();
 //npm - jwt, nodemailer, jsonwebtoken
 //start-aniket
 let user={};
-const jwt= require('jsonwebtoken'); //token
+
 var nodemailer = require('nodemailer'); //mails
 //end aniket
 const PORT = process.env.PORT || 4000;
 app.set("view engine", "ejs");
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true
-}));
+// app.use(cors({
+//   origin: 'http://localhost:3000',
+//   credentials: true
+// }));
 
 initializePassport(passport);
 
@@ -47,14 +49,11 @@ app.get("/login",  (req, res) => {
 
 //routes
 const userRouter = require("./routes/user.js");
-const questionRouter = require("./routes/question_page.js");
-//const answerRouter = require("./routes/answer_page.js")
+const questionRouter = require("./routes/question_page.js")
+const answerRouter = require("./routes/answer_page.js")
 app.use(userRouter);
 app.use(questionRouter);
-//app.use(answerRouter);
-
-const challengeRouter = require("./routes/challenge.js");
-app.use("/challenge",challengeRouter);
+app.use(answerRouter);
 
 
 app.listen(PORT, () => {

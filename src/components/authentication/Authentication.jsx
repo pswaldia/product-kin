@@ -189,7 +189,7 @@ return (
                             {/* </NavLink> */}
                             <h6 className="mt-4"><span>or login with</span></h6>
                             <GoogleLogin class="r2"
-                              clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                              clientId="364428087639-8k31roj34nr5i16nvn21m3anuj6hf93r.apps.googleusercontent.com"
                                render={renderProps => (
                               <button id="login-3" onClick={renderProps.onClick} disabled={renderProps.disabled}><i className="fa fa-google"></i> <span>Sign In with Google</span></button>
                               )}

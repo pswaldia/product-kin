@@ -162,6 +162,140 @@ router.post("/add_query", async (req, res) => {
   );
 });
 
+
+//get all questions - fetch_questions
+router.get("/fetch_questions/all/:topic", async(req, res) => {
+  const {topic}=req.params;
+  await pool.query(
+    `SELECT * FROM question_details WHERE topic=$1 ORDER BY question_date DESC, ques_id DESC`,
+    [topic],(err, results) => {
+      if(err)
+        console.log(err);
+      else{
+        let page_id = 1, cnt = 0;
+        results.rows.forEach(result => {
+          let dt = new Date(result.question_date);
+          let formattedDate = new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+          }).format(dt);
+          result.question_date = formattedDate;
+          if(cnt == 5){
+            cnt = 0;
+            page_id++;
+          }
+          cnt++;
+          result.page_id = page_id;
+        });
+        res.send(results.rows);
+      }
+    }
+  );
+});
+
+//questions for peer cases
+router.get("/fetch_questions/peer_cases/:topic", async(req, res) => {
+  const {topic}=req.params;
+  await pool.query(
+    `SELECT * FROM question_details WHERE (peer_cases = true AND topic=$1) ORDER BY question_date DESC, ques_id DESC`,
+    [topic],
+    (err, results) => {
+      if(err)
+        console.log(err);
+      else{
+        let page_id = 1, cnt = 0;
+        results.rows.forEach(result => {
+          let dt = new Date(result.question_date);
+          let formattedDate = new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+          }).format(dt);
+          result.question_date = formattedDate;
+          if(cnt == 5){
+            cnt = 0;
+            page_id++;
+          }
+          cnt++;
+          result.page_id = page_id;
+        });
+        res.send(results.rows);
+      }
+    }
+  );
+});
+
+//questions for practice cases
+router.get("/fetch_questions/practice_cases/:topic", async(req, res) => {
+  const {topic}=req.params;
+  await pool.query(
+    `SELECT * FROM question_details WHERE (peer_cases = false AND topic=$1)  ORDER BY question_date DESC, ques_id DESC`,
+    [topic],
+    (err, results) => {
+      if(err)
+        console.log(err);
+      else{
+        let page_id = 1, cnt = 0;
+        results.rows.forEach(result => {
+          let dt = new Date(result.question_date);
+          let formattedDate = new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+          }).format(dt);
+          result.question_date = formattedDate;
+          if(cnt == 5){
+            cnt = 0;
+            page_id++;
+          }
+          cnt++;
+          result.page_id = page_id;
+        });
+        res.send(results.rows);
+      }
+    }
+  );
+});
+
+
+router.get("/fetch_questions/:search", async(req, res) => {
+  const {search}=req.params;
+  await pool.query(
+    `SELECT * FROM question_details WHERE (question LIKE $1)  ORDER BY question_date DESC, ques_id DESC`,
+    ['%'+search+'%'],(err, results) => {
+      if(err)
+        console.log(err);
+      else{
+        let page_id = 1, cnt = 0;
+        results.rows.forEach(result => {
+          let dt = new Date(result.question_date);
+          let formattedDate = new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+          }).format(dt);
+          result.question_date = formattedDate;
+          if(cnt == 5){
+            cnt = 0;
+            page_id++;
+          }
+          cnt++;
+          result.page_id = page_id;
+        });
+        if(results.rows.length>0)
+        {
+          res.send(results.rows);
+        }
+        else
+        {
+          res.send("No Question Found");
+        }
+      }
+    }
+  );
+});
+
 function authenticateToken(req, res, next){
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1];
@@ -175,3 +309,6 @@ function authenticateToken(req, res, next){
 }
 
 module.exports = router;
+
+// 3 apis for topic
+//search option

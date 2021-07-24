@@ -14,19 +14,6 @@ app.use(passport.session());
 
 const cookieParser = require('cookie-parser')
 app.use(cookieParser());
-app.use(express.json());//new
-
-const {OAuth2Client} = require('google-auth-library');
-const CLIENT_ID = '590421231063-fckjct9vmvbb417ijo4n9n5dkcctn7am.apps.googleusercontent.com';       
-const client = new OAuth2Client(CLIENT_ID);
-
-passport.serializeUser(function (user, cb) {
-    cb(null, user);
-});
-
-passport.deserializeUser(function (obj, cb) {
-    cb(null, obj);
-});
 
 require("dotenv").config();
 //npm - jwt, nodemailer, jsonwebtoken

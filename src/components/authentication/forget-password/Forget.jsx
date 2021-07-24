@@ -28,7 +28,7 @@ export default function Forget() {
         .then(function (response) {
             console.log("inside response");
             console.log(response.data);
-            setMessage(response.data.message);
+            alert(response.data.message);
         })
         .catch(function (error) {
             console.log(error);
@@ -64,7 +64,7 @@ export default function Forget() {
                                 <input type="email" className="form-control" id="exampleInputEmail1"  placeholder="xyz@example.com"
                                     onChange = {handleForgotEmailChange} value={forgotEmail} required
                                 />
-                                {message}
+                                {/* {message} */}
                             </div>
                            
                             <button type="submit"   className="btn btn-primary mt-3" id="login-2" required>SEND RESET LINK</button>

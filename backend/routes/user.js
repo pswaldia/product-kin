@@ -4,15 +4,12 @@ const bcrypt = require("bcrypt");
 const { pool } = require("../dbConfig");
 const passport = require("passport");
 const router = express.Router();
+router.use(express.json());//new
 
 router.get("/login", (req, res) => {
   res.render("login");
 });
 
-// router.get("/dashboard", (req, res) => {
-//   console.log("here i am", req.user);
-//   res.render("dashboard", { pic: req.user.profile_pic });
-// });
 
 router.get("/logout", function (req, res) {
   req.logout();
@@ -30,10 +27,15 @@ router.post("/login", function (req, res, next) {
         name: user.name,
         profile_pic: user.profile_pic,
       };
+
+      const accessToken = jwt.sign(user_details, process.env.ACCESS_TOKEN_SECRET);
+
       return res.send({
         status: "true",
         message: info.message,
-        user: user_details,
+        name : user.name,
+        profile_pic : user.profile_pic,
+        accessToken: accessToken
       }); //authenticated successfully
     });
   })(req, res, next);
@@ -133,7 +135,7 @@ router.post("/forgot-password", (req, res, next) => {
         const token = jwt.sign(payload, secret, { expiresIn: "15m" });
         console.log(results.rows[0].user_id);
         const link =
-          "http://localhost:4000/reset-password/" +
+          "http://localhost:3000/login/reset/" +
           results.rows[0].user_id +
           "/" +
           token;
@@ -161,11 +163,11 @@ router.post("/forgot-password", (req, res, next) => {
           if (error) console.log(error);
           else
             return res.send(
-              "Password reset link has been sent to your email ... "
+              { message : "Password reset link has been sent to your email ..."}
             );
         });
       } else {
-        return res.send("user not registered");
+        return res.send({message : "user not registered"});
       }
     }
   );
@@ -189,9 +191,9 @@ router.get("/reset-password/:id/:token", (req, res, next) => {
   }
 });
 
-router.post("/reset-password/:id/:token", async (req, res, next) => {
+router.post("/login/reset/:id/:token", async (req, res, next) => {
   const { id, token } = req.params;
-  const { password, password2 } = req.body;
+  const { password } = req.body;
   if (id !== user.user_id) {
     res.send("Invalid Id ... ");
     return;
@@ -209,7 +211,7 @@ router.post("/reset-password/:id/:token", async (req, res, next) => {
         if (err) {
           throw err;
         }
-        res.send("Updated Successfully");
+        res.send({message : "Password Updated Successfully"});
       }
     );
   } catch (error) {
@@ -222,7 +224,7 @@ router.post("/reset-password/:id/:token", async (req, res, next) => {
 
 const { OAuth2Client } = require("google-auth-library");
 const CLIENT_ID =
-  "590421231063-fckjct9vmvbb417ijo4n9n5dkcctn7am.apps.googleusercontent.com";
+  "364428087639-8k31roj34nr5i16nvn21m3anuj6hf93r.apps.googleusercontent.com";
 const client = new OAuth2Client(CLIENT_ID);
 
 passport.serializeUser(function (user, cb) {
@@ -345,4 +347,18 @@ function checkAuthenticated(req, res, next) {
     });
 }
 
-module.exports = router;
+function authenticateToken(req, res, next){
+  console.log("i ma gere");
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1];
+  if(token == null) return res.sendStatus(401); //dont have valid token
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user_details) => {
+    if(err) return res.sendStatus(403); //invalid token
+    req.user = user;
+    next();
+  })
+}
+
+
+module.exports =  router, authenticateToken;

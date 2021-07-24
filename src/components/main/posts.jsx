@@ -18,9 +18,9 @@ export default function Posts({posts, setTrigger}) {
                 {
                      posts.map(post => 
                         (
-                            <div className="card mb-3" key={post.id} id="post-card">
+                            <div className="card mb-3" key={post.ques_id} id="post-card">
                                 <ul className="list-group list-group-flush">
-                                    <li  className="list-group-item"><Link to={`/discuss/${post.id}`}>{post.description}</Link></li>
+                                    <li  className="list-group-item"><Link to={`/discuss/${post.ques_id}`}>{post.question}</Link></li>
                                 </ul>
                             </div>
                          )

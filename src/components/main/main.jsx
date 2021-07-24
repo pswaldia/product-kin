@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios'
-import Pagination from './Pagination';
-import Posts from './Posts'
+import Pagination from './pagination';
+import Posts from './posts'
 import Menu from './Menu'
 import Challenges from './Challenges/Challenges'
 import TextEditor from './TextEditor'
@@ -15,7 +15,7 @@ export default function Main() {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const res = await axios.get('https://ghibliapi.herokuapp.com/films');
+            const res = await axios.get('/fetch_questions/all');
             setPosts(res.data);
         }
         fetchPosts();

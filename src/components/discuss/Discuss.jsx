@@ -4,16 +4,43 @@ import axios from 'axios'
 import Leaderboard from '../main/Leaderboard';
 import '../discuss/discuss.css'
 export default function Discuss() {
-    const [question, setQuestion] = useState([]);
+    const [ques, setQuestion] = useState({});
+    const [answers, setAnswers] = useState([]);
 
     const {id} = useParams();
 
     useEffect(() => {
-        const fetchQues = async () => {
-            const res = await axios.get(`https://ghibliapi.herokuapp.com/films/${id}`);
-            setQuestion(res.data);
+        //for fetching question
+        try {
+            const fetchQues = async() => {
+               await axios.get(`/discuss/get_question/${id}`)
+                .then(response => {
+                    setQuestion(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
+            fetchQues();
+        } catch (error) {
+            console.log("error", error);
         }
-        fetchQues();
+
+         //for fetching the answers
+        try {
+            const fetchAnswers = async() => {
+               await axios.get(`/discuss/fetch_answers/${id}`)
+                .then(response => {
+                    setAnswers(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
+            fetchAnswers();
+        } catch (error) {
+            console.log("error", error);
+        }
     }, []);
 
     return (
@@ -25,7 +52,7 @@ export default function Discuss() {
 
                             <li  className="list-group-item">
 
-                                <p>{question.description}</p>
+                                <p>{ques.question}</p>
                                 <div className="row justify-content-between">
                                     <div className="col-4 d-flex justify-content-around">
                                         <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn"><i className="fa fa-pencil"></i> Answer</button>

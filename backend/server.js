@@ -5,14 +5,16 @@ const session = require("express-session");
 const passport = require("passport");
 var cors = require('cors');
 const initializePassport = require("./passportConfig");
+const jwt = require("jsonwebtoken"); //token
 require("dotenv").config();
+
 const app = express();
 app.use(passport.initialize());
 app.use(passport.session());
 
 const cookieParser = require('cookie-parser')
 app.use(cookieParser());
-
+app.use(express.json());//new
 
 const {OAuth2Client} = require('google-auth-library');
 const CLIENT_ID = '590421231063-fckjct9vmvbb417ijo4n9n5dkcctn7am.apps.googleusercontent.com';       
@@ -30,7 +32,7 @@ require("dotenv").config();
 //npm - jwt, nodemailer, jsonwebtoken
 //start-aniket
 let user={};
-const jwt= require('jsonwebtoken'); //token
+
 var nodemailer = require('nodemailer'); //mails
 //end aniket
 const PORT = process.env.PORT || 4000;
@@ -65,6 +67,7 @@ const answerRouter = require("./routes/answer_page.js")
 app.use(userRouter);
 app.use(questionRouter);
 app.use(answerRouter);
+
 
 app.listen(PORT, () => {
   console.log(`listening to port ${PORT}`);

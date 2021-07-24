@@ -154,8 +154,9 @@ return (
             </div>
 
             <div className="col-4 form-main">
+            <strong>{message}</strong>
                 <div className="form-ap">
-                    <strong>{message}</strong>
+                    
                     <input type="checkbox" className="btn-main " />
                     <form className="login" onSubmit={handleLogin}>
                         <div className="login">

@@ -1,10 +1,11 @@
 import React , {useState} from 'react'
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../../resources/logo.png'
 import Illustration from '../../resources/Illustration.png'
 import './authentication.css'
 import { Link , NavLink} from 'react-router-dom'
+import { GoogleLogin  } from 'react-google-login';
 export default function Authentication() {
 
 window.addEventListener('resize', () => {
@@ -66,14 +67,16 @@ window.addEventListener('resize', () => {
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("name", response.data.name);
                 localStorage.setItem("profile_pic", response.data.profile_pic);
+                return(<Redirect  to="/login" />)
             }
             else{
-                setMessage(response.data.message)
+                alert(response.data.message)
             }
         })
         .catch(function (error) {
             console.log(error);
         });
+        
 
     }
 
@@ -82,9 +85,9 @@ window.addEventListener('resize', () => {
         console.log(signupName, " ", signupEmail, " ", signupPassword, " ", signupPassword2);
 
         if(signupPassword.length < 6)
-            setMessage("Password should have atleast 6 characters");
+            alert("Password should have atleast 6 characters");
         else if(signupPassword !== signupPassword2)
-            setMessage("Password and Confirm Password must be same");
+            alert("Password and Confirm Password must be same");
         else{
             const signupDetails = {
                 name : signupName,
@@ -100,11 +103,11 @@ window.addEventListener('resize', () => {
                 console.log(response.data);
                 if(response.data.status === "true")
                 {
-                    setMessage("Registration Successfull. Login to continue");
-                    //return (<Redirect to="/" />)
+                    alert("Registration Successfull. Login to continue");
+                    // return (<Redirect to="/" />)
                 }
                 else{
-                    setMessage(response.data.message)
+                    alert(response.data.message)
                 }
             })
             .catch(function (error) {
@@ -154,8 +157,8 @@ return (
             </div>
 
             <div className="col-4 form-main">
+             <strong>{message}</strong>
                 <div className="form-ap">
-                    <strong>{message}</strong>
                     <input type="checkbox" className="btn-main " />
                     <form className="login" onSubmit={handleLogin}>
                         <div className="login">
@@ -185,22 +188,21 @@ return (
                                 <button type="submit" className="btn btn-primary mt-3" id="login-2">Login</button>
                             {/* </NavLink> */}
                             <h6 className="mt-4"><span>or login with</span></h6>
+                            <GoogleLogin class="r2"
+                              clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                               render={renderProps => (
+                              <button id="login-3" onClick={renderProps.onClick} disabled={renderProps.disabled}><i className="fa fa-google"></i> <span>Sign In with Google</span></button>
+                              )}
+                               buttonText="Login"
 
-                            {/* <div className="d-flex justify-content-around icons-btn">
-                                <div>
-                                    <button><i className="fa fa-linkedin"></i></button>
-                                </div>
-                                <div>
-                                    <button><i className="fa fa-google"></i></button>
-                                </div>
-                                <div>
-                                    <button><i className="fa fa-facebook"></i></button>
-                                </div>
-
-                            </div> */}
+                               cookiePolicy={'single_host_origin'}
+                              />
+                            {/* <GoogleLogin
+        class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"  data-longtitle="true"/> */}
                             {/* <button type="button" className="btn btn-primary mt-3 " id="login-3" data-onsuccess="onSignIn"><i className="fa fa-google"></i> <span>
                                 Sign In with Google </span></button> */}
-                                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="300" data-height="50" data-longtitle="true"></div>
+                               {/* <GoogleButton class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="393" data-height="50" border-radius="20" data-longtitle="true"/> */}
+                                {/* <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="393" data-height="50" border-radius="20" data-longtitle="true"></div> */}
                         </div>
                     </form>
                     <form className="signup" onSubmit={handleSignup} >

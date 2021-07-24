@@ -1,4 +1,6 @@
 import React, {useRef, useState} from 'react'
+import axios from 'axios';
+
 import './textEditor.css'
 import {Editor} from '@tinymce/tinymce-react';
 export default function TextEditor(props) {
@@ -10,22 +12,50 @@ export default function TextEditor(props) {
     const handleUpdate = (value, editor) => {
         const length = editor.getContent({ format: 'text' }).length;
         var myContent = editor.getContent({ format: "text" });
-        if (length > 0) {
+        
           setValue(myContent);
           setLength(length);
-        }
+        
         //continue from here
         console.log(myContent);
       };
 
-    function handleSubmitQuestion(){
+    const handleSubmitQuestion = (event) => {
+        event.preventDefault();
         console.log(value);
+        if(value === "")
+            alert("Please enter your question before submitting");
+        else{
+            const questionDetails = {
+                question : value,
+                topic : "design",
+                peer_cases : false
+            };
+            const token = localStorage.getItem("accessToken");
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+            
+            console.log(token);
+            axios.post('/add_question', questionDetails, config)
+            .then(function (response) {
+                console.log("inside questionDetails response");
+                console.log(response.data);
+                alert(response.data.message);
+                setValue("");
+                setLength(0);
+                window.location.reload();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        } 
     }
 
     return (props.trigger) ? (
         <>
                 <div className="text_editor">
-                    <form method = 'post'>
+                    <form onSubmit={handleSubmitQuestion}>
                         <div className="d-flex flex-row-reverse">
                             <button type="button" className="btn btn-light mb-1" id="cncel_btn" onClick={() => props.setTrigger(false)}>X</button>
                         </div>
@@ -51,7 +81,7 @@ export default function TextEditor(props) {
                             <div className="d-inline-flex flex-wrap" id="editor-btn">
                                 <button type="submit" className="btn btn-primary m-1">Post Question</button>
                                 <button type="button" className="btn btn-light m-1" onClick={() => props.setTrigger(false)}>Cancel</button>
-                                <button type="button" className="btn btn-light m-1" onClick={() => handleSubmitQuestion}>check</button>
+                                <button type="button" className="btn btn-light m-1" onClick={handleSubmitQuestion}>check</button>
                             </div>
                             
                     </form>

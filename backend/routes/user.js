@@ -199,7 +199,7 @@ router.post("/reset-password/:id/:token", async (req, res, next) => {
 
 
 const {OAuth2Client} = require('google-auth-library');
-const CLIENT_ID = '590421231063-fckjct9vmvbb417ijo4n9n5dkcctn7am.apps.googleusercontent.com';
+const CLIENT_ID = '364428087639-8k31roj34nr5i16nvn21m3anuj6hf93r.apps.googleusercontent.com';
 const client = new OAuth2Client(CLIENT_ID);
 
 passport.serializeUser(function (user, cb) {
@@ -264,6 +264,7 @@ router.post("/googlelogin",(req,res) =>{
           next();
       })
       .catch(err=>{
+        console.log(err);
           res.redirect('/login')
       })
   

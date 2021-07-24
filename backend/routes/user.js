@@ -4,15 +4,12 @@ const bcrypt = require("bcrypt");
 const { pool } = require("../dbConfig");
 const passport = require("passport");
 const router = express.Router();
+router.use(express.json());//new
 
 router.get("/login", (req, res) => {
   res.render("login");
 });
 
-// router.get("/dashboard", (req, res) => {
-//   console.log("here i am", req.user);
-//   res.render("dashboard", { pic: req.user.profile_pic });
-// });
 
 router.get("/logout", function (req, res) {
   req.logout();
@@ -30,10 +27,15 @@ router.post("/login", function (req, res, next) {
         name: user.name,
         profile_pic: user.profile_pic,
       };
+
+      const accessToken = jwt.sign(user_details, process.env.ACCESS_TOKEN_SECRET);
+
       return res.send({
         status: "true",
         message: info.message,
-        user: user_details,
+        name : user.name,
+        profile_pic : user.profile_pic,
+        accessToken: accessToken
       }); //authenticated successfully
     });
   })(req, res, next);
@@ -345,4 +347,18 @@ function checkAuthenticated(req, res, next) {
     });
 }
 
-module.exports = router;
+function authenticateToken(req, res, next){
+  console.log("i ma gere");
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1];
+  if(token == null) return res.sendStatus(401); //dont have valid token
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user_details) => {
+    if(err) return res.sendStatus(403); //invalid token
+    req.user = user;
+    next();
+  })
+}
+
+
+module.exports =  router, authenticateToken;

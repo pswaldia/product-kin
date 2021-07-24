@@ -1,6 +1,7 @@
 const express = require("express");
 const { pool } = require("../dbConfig");
 const router = express.Router();
+const jwt = require("jsonwebtoken"); //token
 
 //for showing single question in answer page
 router.get("/discuss/get_question/:ques_id", async (req, res) => {
@@ -59,8 +60,9 @@ router.get("/fetch_comments", async (req, res) => {
 });
 
 //add a new answer
-router.post("/add_answer", async (req, res) => {
-  const { user_id, ques_id, answer } = req.body;
+router.post("/add_answer",authenticateToken, async (req, res) => {
+  const { ques_id, answer } = req.body;
+  const user_id = req.user.user_id;
   await pool.query(
     `INSERT INTO answer_details (user_id, ques_id, answer)
                 VALUES ($1, $2, $3)`,
@@ -83,8 +85,9 @@ router.post("/add_answer", async (req, res) => {
 });
 
 //add a new comment
-router.post("/add_comment", async (req, res) => {
-    const { user_id, ans_id, comment } = req.body;
+router.post("/add_comment", authenticateToken, async (req, res) => {
+    const { ans_id, comment } = req.body;
+    const user_id = req.user.user_id;
     await pool.query(
       `INSERT INTO comment_details (user_id, ans_id, comment)
                   VALUES ($1, $2, $3)`,
@@ -105,5 +108,17 @@ router.post("/add_comment", async (req, res) => {
       }
     );
   });
+
+  function authenticateToken(req, res, next){
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1];
+    if(token == null) return res.sendStatus(401); //dont have valid token
+  
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user_details) => {
+      if(err) return res.sendStatus(403); //invalid token
+      req.user = user_details;
+      next();
+    })
+  }
 
 module.exports = router;

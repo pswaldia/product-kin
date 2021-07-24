@@ -17,7 +17,6 @@ window.addEventListener('resize', () => {
     const [signupEmail, setSignupEmail] = useState("");
     const [signupPassword, setSignupPassword] = useState("");
     const [signupPassword2, setSignupPassword2] = useState("");
-
     const [message, setMessage] = useState("");
 
     function handleloginEmailChange(event) {
@@ -46,9 +45,10 @@ window.addEventListener('resize', () => {
 
 
     function handleLogin(event) {
+    
         event.preventDefault();
         console.log(loginEmail, " ", loginPassword);
-
+        let isLoggedIn = false;
         const loginDetails = {
             email : loginEmail,
             password : loginPassword
@@ -62,10 +62,10 @@ window.addEventListener('resize', () => {
             console.log(response.data);
             if(response.data.status === "true")
             {
-                localStorage.setItem("user_id", response.data.user.user_id);
-                localStorage.setItem("name", response.data.user.name);
-                localStorage.setItem("profile_pic", response.data.user.profile_pic);
-                //return (<Redirect to="/" />)
+                setMessage(response.data.message)
+                localStorage.setItem("accessToken", response.data.accessToken);
+                localStorage.setItem("name", response.data.name);
+                localStorage.setItem("profile_pic", response.data.profile_pic);
             }
             else{
                 setMessage(response.data.message)
@@ -113,6 +113,26 @@ window.addEventListener('resize', () => {
         }
     }
 
+    function onSignIn(googleUser) {
+        console.log("here");
+        var profile = googleUser.getBasicProfile();
+        var id_token = googleUser.getAuthResponse().id_token;  
+        console.log(id_token);
+        var xhr = new XMLHttpRequest();
+        xhr.open('Post', '/googlelogin');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function() {
+            if(xhr.responseText == 'success'){
+                //signOut();
+                // location.assign('/dashboard')
+            }
+        };
+        xhr.send(JSON.stringify({token : id_token}));
+      }
+
+
+    
+
 return (
 <>
 
@@ -135,7 +155,7 @@ return (
 
             <div className="col-4 form-main">
                 <div className="form-ap">
-                    {message}
+                    <strong>{message}</strong>
                     <input type="checkbox" className="btn-main " />
                     <form className="login" onSubmit={handleLogin}>
                         <div className="login">
@@ -178,8 +198,9 @@ return (
                                 </div>
 
                             </div> */}
-                            <button type="submit" className="btn btn-primary mt-3" id="login-3"><i className="fa fa-google"></i> <span>
-                                Sign In with Google </span></button>
+                            {/* <button type="button" className="btn btn-primary mt-3 " id="login-3" data-onsuccess="onSignIn"><i className="fa fa-google"></i> <span>
+                                Sign In with Google </span></button> */}
+                                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="300" data-height="50" data-longtitle="true"></div>
                         </div>
                     </form>
                     <form className="signup" onSubmit={handleSignup} >

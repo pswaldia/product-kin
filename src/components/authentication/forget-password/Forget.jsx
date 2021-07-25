@@ -29,6 +29,8 @@ export default function Forget() {
             console.log("inside response");
             console.log(response.data);
             alert(response.data.message);
+            
+
         })
         .catch(function (error) {
             console.log(error);

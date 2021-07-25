@@ -235,6 +235,7 @@ passport.deserializeUser(function (obj, cb) {
 });
 
 router.post("/googlelogin", (req, res) => {
+  console.log("inside google login server file");
   let token = req.body.token;
   let userDetails = {};
   async function verify() {
@@ -265,11 +266,17 @@ router.post("/googlelogin", (req, res) => {
               name: results.rows[0].name,
               profile_pic: results.rows[0].profile_pic,
             };
+
+            const accessToken = jwt.sign(userDetails, process.env.ACCESS_TOKEN_SECRET);
+
             return res.send({
               status: "true",
               message: "Authentication Successful",
-              user: userDetails,
-            });
+              name : userDetails.name,
+              profile_pic : userDetails.profile_pic,
+              accessToken: accessToken
+            }); //authenticated successfully
+      
 
           } else {
             pool.query(
@@ -280,14 +287,18 @@ router.post("/googlelogin", (req, res) => {
                 if (err) {
                   throw err;
                 }
+                
+                const accessToken = jwt.sign(userDetails, process.env.ACCESS_TOKEN_SECRET);
+
                 return res.send({
                   status: "true",
-                  message: "Authentication Successful",
-                  user: userDetails,
-                });
+                  message: "Authentication Successful and new user created",
+                  name : userDetails.name,
+                  profile_pic : userDetails.profile_pic,
+                  accessToken: accessToken
+                }); 
               }
             );
-  
             //updating leaderboard table
             var points = 0;
             pool.query(

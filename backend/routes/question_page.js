@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const { pool } = require("../dbConfig");
 const passport = require("passport");
 const { response } = require("express");
+var nodemailer = require("nodemailer"); //mails
 const router = express.Router();
 const jwt = require("jsonwebtoken"); //token
 // const authenticateToken = require("./user.js")
@@ -141,6 +142,7 @@ router.get("/get_leaderboard", async(req, res) => {
 
 //Adding Queries(Get in touch)(add)
 router.post("/add_query", async (req, res) => {
+
   const { first_name, email, message } = req.body;
   await pool.query(
     `INSERT INTO queries (first_name, email, message)
@@ -154,6 +156,23 @@ router.post("/add_query", async (req, res) => {
           message: "Unable to post you Meassage",
         })
       }
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.PK_EMAIL,
+          pass: process.env.PK_PASSWORD,
+        },
+      });
+      var mailOptions = {
+        from: process.env.PK_EMAIL,
+        to: process.env.PK_EMAIL,
+        subject: "Query Update from User",
+        text: "Query Updare\n\n\nName: "+first_name+"\n\nEmail: "+email+"\n\nMessage: "+message
+      };
+    
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) console.log(error);
+      });
       res.send({
         status: "true",
         message: "Message Added Successfully",

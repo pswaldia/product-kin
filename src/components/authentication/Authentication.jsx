@@ -82,8 +82,6 @@ window.addEventListener('resize', () => {
 
     function handleSignup(event) {
         event.preventDefault();
-        console.log(signupName, " ", signupEmail, " ", signupPassword, " ", signupPassword2);
-
         if(signupPassword.length < 6)
             alert("Password should have atleast 6 characters");
         else if(signupPassword !== signupPassword2)
@@ -117,15 +115,24 @@ window.addEventListener('resize', () => {
     }
 
     function onSignIn(googleUser) {
-        console.log("here");
         var profile = googleUser.getBasicProfile();
         var id_token = googleUser.getAuthResponse().id_token;  
-        console.log(id_token);
         var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                const responseData = JSON.parse(this.responseText);
+                setMessage(responseData.message)
+                localStorage.setItem("accessToken", responseData.accessToken);
+                localStorage.setItem("name", responseData.name);
+                localStorage.setItem("profile_pic", responseData.profile_pic);
+            }
+        };
         xhr.open('Post', '/googlelogin');
+        var type = xhr.responseType;
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onload = function() {
             if(xhr.responseText == 'success'){
+                //console.log("xhr here", xhr);
                 //signOut();
                 // location.assign('/dashboard')
             }
@@ -157,14 +164,8 @@ return (
             </div>
 
             <div className="col-4 form-main">
-<<<<<<< HEAD
-            <strong>{message}</strong>
-                <div className="form-ap">
-                    
-=======
              <strong>{message}</strong>
                 <div className="form-ap">
->>>>>>> 05ffc97b048d14d25c2b0f9c1d1b718c447286ae
                     <input type="checkbox" className="btn-main " />
                     <form className="login" onSubmit={handleLogin}>
                         <div className="login">
@@ -195,7 +196,7 @@ return (
                             {/* </NavLink> */}
                             <h6 className="mt-4"><span>or login with</span></h6>
                             <GoogleLogin class="r2"
-                              clientId="364428087639-8k31roj34nr5i16nvn21m3anuj6hf93r.apps.googleusercontent.com"
+                              clientId="364428087639-8k31roj34nr5i16nvn21m3anuj6hf93r.apps.googleusercontent.com" onSuccess={onSignIn}
                                render={renderProps => (
                               <button id="login-3" onClick={renderProps.onClick} disabled={renderProps.disabled}><i className="fa fa-google"></i> <span>Sign In with Google</span></button>
                               )}

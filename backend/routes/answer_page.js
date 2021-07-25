@@ -7,6 +7,13 @@ const jwt = require("jsonwebtoken"); //token
 router.get("/discuss/get_question/:ques_id", async (req, res) => {
   const { ques_id } = req.params;
   await pool.query(
+    `UPDATE question_details SET views_count=views_count+1 where ques_id = $1`,
+    [ques_id],
+    (err, results) => {
+      if (err) console.log(err);
+    }
+  );
+  await pool.query(
     `SELECT ques_id, question, hint FROM question_details where ques_id = $1`,
     [ques_id],
     (err, results) => {

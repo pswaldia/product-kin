@@ -29,9 +29,9 @@ export default function Reset() {
         //console.log(signupName, " ", signupEmail, " ", signupPassword, " ", signupPassword2);
 
         if(resetPassword.length < 6)
-            setMessage("Password should have atleast 6 characters");
+            alert("Password should have atleast 6 characters");
         else if(resetPassword !== resetPassword2)
-            setMessage("Password and Confirm Password must be same");
+            alert("Password and Confirm Password must be same");
         else{
             const resetPasswordDetails = {
                 password : resetPassword
@@ -43,7 +43,7 @@ export default function Reset() {
             .then(function (response) {
                 console.log("inside response");
                 console.log(response.data);
-                setMessage(response.data.message);
+                alert(response.data.message);
             })
             .catch(function (error) {
                 console.log(error);

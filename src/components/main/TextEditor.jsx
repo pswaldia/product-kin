@@ -81,7 +81,7 @@ export default function TextEditor(props) {
                             <div className="d-inline-flex flex-wrap" id="editor-btn">
                                 <button type="submit" className="btn btn-primary m-1">Post Question</button>
                                 <button type="button" className="btn btn-light m-1" onClick={() => props.setTrigger(false)}>Cancel</button>
-                                <button type="button" className="btn btn-light m-1" onClick={handleSubmitQuestion}>check</button>
+                                {/* <button type="button" className="btn btn-light m-1" onClick={handleSubmitQuestion}>check</button> */}
                             </div>
                             
                     </form>

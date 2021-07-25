@@ -44,6 +44,7 @@ export default function Reset() {
                 console.log("inside response");
                 console.log(response.data);
                 alert(response.data.message);
+                window.location="/login"
             })
             .catch(function (error) {
                 console.log(error);

@@ -167,7 +167,28 @@ router.post("/add_query", async (req, res) => {
         from: process.env.PK_EMAIL,
         to: process.env.PK_EMAIL,
         subject: "Query Update from User",
-        text: "Query Updare\n\n\nName: "+first_name+"\n\nEmail: "+email+"\n\nMessage: "+message
+        text: "Query Update\n\n\nName: "+first_name+"\n\nEmail: "+email+"\n\nMessage: "+message
+      };
+    
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) console.log(error);
+      });
+
+
+
+
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.PK_EMAIL,
+          pass: process.env.PK_PASSWORD,
+        },
+      });
+      var mailOptions = {
+        from: process.env.PK_EMAIL,
+        to: email,
+        subject: "Product Kin Support",
+        text: "Thankyou "+first_name+",\n\n\nHappy you reach out to us😌.\n\nWe will get back to you🙂.\n\n\n"+"Product Kin Support Team"
       };
     
       transporter.sendMail(mailOptions, function (error, info) {

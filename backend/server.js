@@ -51,9 +51,11 @@ app.get("/login",  (req, res) => {
 const userRouter = require("./routes/user.js");
 const questionRouter = require("./routes/question_page.js")
 const answerRouter = require("./routes/answer_page.js")
+const challengeRouter = require("./routes/challenge.js")
 app.use(userRouter);
 app.use(questionRouter);
 app.use(answerRouter);
+app.use("/challenge",challengeRouter);
 
 
 app.listen(PORT, () => {

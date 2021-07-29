@@ -1,10 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState , useEffect} from 'react'
 import logo from '../../resources/logo.png'
 import './header.css'
 import { NavLink } from 'react-router-dom'
 export default function Header() {
     
-    const [isLoggedIn , setIsLoggedIn] = useState('false'); //header me logged in status ke hisaab se button display krna hai
+    const [userPic , setUserPic] = useState(''); //header me logged in status ke hisaab se button display krna hai
+    useEffect(() =>{
+        var userprofilepic = localStorage.getItem('profile_pic')
+        if(userprofilepic && userprofilepic.length>0){
+        setUserPic(userprofilepic)
+        }
+    })
 
     return (
         <>
@@ -18,9 +24,18 @@ export default function Header() {
                         </div>
                     <div className="col-2 header-login">
                             <div className="row justify-content-around">
+                                {
+                                    userPic == "" ? (
                             <NavLink exact to="/login">
                                 <button className="btn btn-primary" type="submit" id="login-btn">Login</button>
                             </NavLink>
+
+                                    ):(
+                                        
+                                            <img src={userPic}  style={{height:45,width:70}}/>
+                                            
+                                    )
+                                }
                             
                             </div>
                     </div>

@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios'
 import Pagination from './Pagination';
-import Posts from './Posts'
+import Posts from './posts'
 import Menu from './Menu'
 import Challenges from './Challenges/Challenges'
 import TextEditor from './TextEditor'
 import Discuss from '../discuss/Discuss';
-import Footer from  '../footer/Footer'
+import Footer from  '../footer/footer'
 export default function Main() {
     const [postsLoading, setPostsLoading] = useState(true);
     const [posts, setPosts] = useState([]);

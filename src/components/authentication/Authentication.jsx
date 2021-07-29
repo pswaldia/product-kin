@@ -6,6 +6,14 @@ import './authentication.css'
 import { Link , NavLink} from 'react-router-dom'
 import { GoogleLogin  } from 'react-google-login';
 import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+toast.configure();
 export default function Authentication() {
 
 window.addEventListener('resize', () => {
@@ -19,6 +27,7 @@ window.addEventListener('resize', () => {
     const [signupPassword, setSignupPassword] = useState("");
     const [signupPassword2, setSignupPassword2] = useState("");
     const [message, setMessage] = useState("");
+    const [activateLoader, setActiveLoader] = useState(false);
 
     function handleloginEmailChange(event) {
         setLoginEmail(event.target.value);
@@ -48,6 +57,7 @@ window.addEventListener('resize', () => {
     function handleLogin(event) {
     
         event.preventDefault();
+        setActiveLoader(true);
         console.log(loginEmail, " ", loginPassword);
         let isLoggedIn = false;
         const loginDetails = {
@@ -59,18 +69,19 @@ window.addEventListener('resize', () => {
 
         axios.post('/login', loginDetails)
         .then(function (response) {
+            setActiveLoader(false);
             console.log("inside response");
             console.log(response.data);
             if(response.data.status === "true")
             {
-                setMessage(response.data.message)
+                toast.success(response.data.message, {position : toast.POSITION.TOP_RIGHT});
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("name", response.data.name);
                 localStorage.setItem("profile_pic", response.data.profile_pic);
                 window.location="/"
             }
             else{
-                alert(response.data.message)
+                toast.error(response.data.message, {position : toast.POSITION.TOP_RIGHT});
             }
         })
         .catch(function (error) {
@@ -83,10 +94,11 @@ window.addEventListener('resize', () => {
     function handleSignup(event) {
         event.preventDefault();
         if(signupPassword.length < 6)
-            alert("Password should have atleast 6 characters");
+            toast.error("Password should have atleast 6 characters", {position : toast.POSITION.TOP_RIGHT});
         else if(signupPassword !== signupPassword2)
-            alert("Password and Confirm Password must be same");
+            toast.error("Password and Confirm Password must be same", {position : toast.POSITION.TOP_RIGHT});
         else{
+            setActiveLoader(true);
             const signupDetails = {
                 name : signupName,
                 email : signupEmail,
@@ -97,15 +109,17 @@ window.addEventListener('resize', () => {
     
             axios.post('/signup', signupDetails)
             .then(function (response) {
+                setActiveLoader(false);
                 console.log("inside signup response");
                 console.log(response.data);
                 if(response.data.status === "true")
                 {
-                    alert("Registration Successfull. Login to continue");
-                    window.location="/login"
+                    toast.success("Registration Successfull. Login to continue", {position : toast.POSITION.TOP_RIGHT});
+                    // window.location="/login"
                 }
                 else{
-                    alert(response.data.message)
+                    //alert(response.data.message);
+                    toast.error(response.data.message, {position : toast.POSITION.TOP_RIGHT});
                 }
             })
             .catch(function (error) {
@@ -122,6 +136,7 @@ window.addEventListener('resize', () => {
             if (this.readyState == 4 && this.status == 200) {
                 const responseData = JSON.parse(this.responseText);
                 // alert(responseData.message);
+                toast.success(responseData.message, {position : toast.POSITION.TOP_RIGHT});
                 var gID = document.getElementById('sign-in-with-google');
                 gID.HTML = <Loader />;
                 localStorage.setItem("accessToken", responseData.accessToken);
@@ -143,18 +158,13 @@ window.addEventListener('resize', () => {
         xhr.send(JSON.stringify({token : id_token}));
       }
 
-
-    
-
 return (
-<>
+<>  
 
     <div className="container-fluid">
-
         <div className="img mt-3">
             <img src={logo} alt="" />
         </div>
-
         <div className="text-center mt-2" id="main-hd">
             <p>A place to share knowledge and to be competent related for the product Roles in the world</p>
         </div>
@@ -195,7 +205,7 @@ return (
                                 </div>
                             </div>
                             {/* <NavLink exact to="/"> */}
-                                <button type="submit" className="btn btn-primary mt-3" id="login-2">Login</button>
+                                <button type="submit" className="btn btn-primary mt-3" id="login-2"><Loader type="ThreeDots" visible={activateLoader} color="#FFF" height={42} width={60} />Login</button>
                             {/* </NavLink> */}
                             <h6 className="mt-4"><span>or login with</span></h6>
                             <GoogleLogin class="r2"
@@ -249,7 +259,7 @@ return (
 
                                 </div>
                             </div>
-                            <button type="submit" className="btn btn-primary mt-3" id="login-2">Signup</button>
+                            <button type="submit" className="btn btn-primary mt-3" id="login-2"><Loader type="ThreeDots" visible={activateLoader} color="#FFF" height={42} width={60}/>Signup</button>
                         </div>
                     </form>
 
@@ -260,6 +270,7 @@ return (
 
 
     </div>
+
 </>
 )
 }

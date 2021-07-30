@@ -258,13 +258,13 @@ router.post("/googlelogin", (req, res) => {
             console.log(err);
           }
           if (results.rows.length == 1) {
-            userDetails = {
+            const user_details = {
               user_id: results.rows[0].user_id,
               name: results.rows[0].name,
               profile_pic: results.rows[0].profile_pic,
             };
 
-            const accessToken = jwt.sign(userDetails, process.env.ACCESS_TOKEN_SECRET);
+            const accessToken = jwt.sign(user_details, process.env.ACCESS_TOKEN_SECRET);
 
             return res.send({
               status: "true",
@@ -276,39 +276,47 @@ router.post("/googlelogin", (req, res) => {
       
 
           } else {
-            pool.query(
-              `INSERT INTO users (name, email, profile_pic)
-                    VALUES ($1, $2, $3)`,
-              [userDetails.name, userDetails.email,  userDetails.profile_pic],
-              (err, results) => {
-                if (err) {
-                  throw err;
+            const addNewUser = async() => {
+                await pool.query(
+                  `INSERT INTO users (name, email, profile_pic)
+                        VALUES ($1, $2, $3)`,
+                  [userDetails.name, userDetails.email,  userDetails.profile_pic],
+                  (err, results) => {
+                    if (err) {
+                      throw err;
+                    }
+                    
+                    const accessToken = jwt.sign(userDetails, process.env.ACCESS_TOKEN_SECRET);
+    
+                    return res.send({
+                      status: "true",
+                      message: "Authentication Successful and new user created",
+                      name : userDetails.name,
+                      profile_pic : userDetails.profile_pic,
+                      accessToken: accessToken
+                    }); 
+                  }
+                );
+                //updating leaderboard table
+                var points = 0;
+                const updateLeaderborad = async() => {
+                  await pool.query(
+                    `INSERT INTO leaderboard (name, points)
+                          VALUES ($1, $2)`,
+                    [userDetails.name, points],
+                    (err, results) => {
+                      if (err) {
+                        throw err;
+                      }
+                    }
+                  );
                 }
-                
-                const accessToken = jwt.sign(userDetails, process.env.ACCESS_TOKEN_SECRET);
+                updateLeaderborad();
 
-                return res.send({
-                  status: "true",
-                  message: "Authentication Successful and new user created",
-                  name : userDetails.name,
-                  profile_pic : userDetails.profile_pic,
-                  accessToken: accessToken
-                }); 
               }
-            );
-            //updating leaderboard table
-            var points = 0;
-            pool.query(
-              `INSERT INTO leaderboard (name, points)
-                    VALUES ($1, $2)`,
-              [userDetails.name, points],
-              (err, results) => {
-                if (err) {
-                  throw err;
-                }
-              }
-            );
-          }
+              addNewUser();
+            }
+            
         }
       );
       res.cookie("session-token", token);
@@ -362,7 +370,7 @@ function authenticateToken(req, res, next){
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user_details) => {
     if(err) return res.sendStatus(403); //invalid token
-    req.user = user;
+    req.user = user_details;
     next();
   })
 }

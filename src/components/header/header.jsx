@@ -11,6 +11,13 @@ export default function Header() {
         setUserPic(userprofilepic)
         }
     })
+    function handleLogout(event){
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("name");
+        localStorage.removeItem("profile_pic",);
+        window.location="/";
+
+    }
 
     return (
         <>
@@ -32,8 +39,12 @@ export default function Header() {
 
                                     ):(
                                         
-                                            <img src={userPic}  style={{height:45,width:70}}/>
-                                            
+                                        <div className="dropdown">
+                                        <input type="image" src={userPic} style={{height:45,width:53}}/>
+                                        <div class="dropdown-content">
+                                        <a href="#" onClick={handleLogout}>Logout</a>
+                                        </div>  
+                                        </div> 
                                     )
                                 }
                             

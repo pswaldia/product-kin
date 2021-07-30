@@ -44,10 +44,10 @@ router.get("/discuss/fetch_answers/:ques_id", async (req, res) => {
 });
 
 //fetching all comments for a particular answer
-router.get("/fetch_comments", async (req, res) => {
+router.get("/fetch_comments/:ans_id", async (req, res) => {
     try {
-        const { ans_id } = req.body;
-        const comment = await pool.query(`SELECT * FROM comment_details where ans_id = ($1)`,[ans_id]);
+        const { ans_id } = req.params;
+        const comment = await pool.query(`SELECT * FROM comment_details where ans_id = ($1) ORDER BY cmd_id DESC`,[ans_id]);
         for(const row of comment.rows){
             const user_details = await pool.query("SELECT name, profile_pic FROM users where user_id = ($1)",[row.user_id]);
             row.profile_pic = user_details.rows[0].profile_pic;
@@ -82,7 +82,10 @@ router.post("/add_answer",authenticateToken, async (req, res) => {
           message: "Unable to add Answer",
         });
       }
-      const updateAnswerCount = pool.query(`UPDATE question_details SET answer_count = answer_count + 1 WHERE ques_id = ($1)`,[ques_id]);
+      const updateAnswerCount = async() =>{
+        await pool.query(`UPDATE question_details SET answer_count = answer_count + 1 WHERE ques_id = ($1)`,[ques_id]);
+      } 
+      updateAnswerCount();
       res.send({
         status: "true",
         message: "Answer Added Successfully",
@@ -107,7 +110,11 @@ router.post("/add_comment", authenticateToken, async (req, res) => {
             message: "Unable to add Comment",
           });
         }
-        const updateCommentsCount = pool.query(`UPDATE answer_details SET comments_count = comments_count + 1 WHERE ans_id = ($1)`,[ans_id]);
+
+        const updateCommentsCount = async() => {
+          await pool.query(`UPDATE answer_details SET comments_count = comments_count + 1 WHERE ans_id = ($1)`,[ans_id]);
+        } 
+        updateCommentsCount();
         res.send({
           status: "true",
           message: "Comment Added Successfully",

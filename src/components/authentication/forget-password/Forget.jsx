@@ -9,6 +9,7 @@ export default function Forget() {
 
     const [message, setMessage] = useState("");
     const [forgotEmail, setForgotEmail] = useState("");
+    const [FtoggleOn, setFToggleOn]= useState(false)
 
     function handleForgotEmailChange(event) {
         setForgotEmail(event.target.value);
@@ -16,6 +17,7 @@ export default function Forget() {
 
     function handleForgotEmail(event) {
         event.preventDefault();
+        setFToggleOn(!FtoggleOn)
         console.log(forgotEmail);
 
         const forgotEmailDetails = {
@@ -29,8 +31,7 @@ export default function Forget() {
             console.log("inside response");
             console.log(response.data);
             alert(response.data.message);
-            
-
+            window.location="/login"
         })
         .catch(function (error) {
             console.log(error);
@@ -69,7 +70,7 @@ export default function Forget() {
                                 {/* {message} */}
                             </div>
                            
-                            <button type="submit"   className="btn btn-primary mt-3" id="login-2" required>SEND RESET LINK</button>
+                            <button type="submit"   className="btn btn-primary mt-3" id="login-2" required><span>SEND RESET LINK</span>&nbsp;{FtoggleOn ? <i class="fa fa-spinner fa-spin" ></i> :"" }</button>
                             
                          </form>
                         </div>

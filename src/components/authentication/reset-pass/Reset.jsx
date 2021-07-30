@@ -11,6 +11,8 @@ export default function Reset() {
     const [resetPassword, setResetPassword] = useState("");
     const [resetPassword2, setResetPassword2] = useState("");
     const [message, setMessage] = useState("");
+    const [RtoggleOn, setRToggleOn]= useState(false)
+
 
     const {id, token} = useParams();
 
@@ -24,7 +26,8 @@ export default function Reset() {
 
     function handleResetPassword(event) {
         event.preventDefault();
-        
+        setRToggleOn(!RtoggleOn)
+
         console.log(id, " ", token);
         //console.log(signupName, " ", signupEmail, " ", signupPassword, " ", signupPassword2);
 
@@ -44,7 +47,6 @@ export default function Reset() {
                 console.log("inside response");
                 console.log(response.data);
                 alert(response.data.message);
-                window.location="/login"
             })
             .catch(function (error) {
                 console.log(error);
@@ -83,7 +85,7 @@ export default function Reset() {
                                 {message}
                             </div>
                            
-                            <button type="submit"   className="btn btn-primary mt-3" id="login-2" required>SAVE NEW PASSWORD</button>
+                            <button type="submit"   className="btn btn-primary mt-3" id="login-2" required><span>SAVE NEW PASSWORD</span>&nbsp;{RtoggleOn ? <i class="fa fa-spinner fa-spin" ></i> :"" }</button>
                             
                          </form>
                         </div>

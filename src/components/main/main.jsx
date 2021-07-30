@@ -7,7 +7,9 @@ import Menu from './Menu'
 import Challenges from './Challenges/Challenges'
 import TextEditor from './TextEditor'
 import Discuss from '../discuss/Discuss';
+import Footer from  '../footer/footer'
 export default function Main() {
+    const [postsLoading, setPostsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
     const [currentPage, setCurretPage] = useState(1);
 
@@ -17,6 +19,7 @@ export default function Main() {
         const fetchPosts = async () => {
             const res = await axios.get('/fetch_questions/all');
             setPosts(res.data);
+            setPostsLoading(false);
         }
         fetchPosts();
     }, []);
@@ -30,26 +33,40 @@ export default function Main() {
         setCurretPage(pageNumber);
     }
 
-    return (
-        <>  
-            <BrowserRouter>
-                <div className="container-sm">
-                        <div className="row mt-5 justify-content-between">
-                                <Menu/>
-                                <Switch>
-                                    <Route exact path={["/", "/!#"]} component = { () => 
-                                        <>
-                                            <Posts posts={currentPosts} setTrigger={setShowEditor}/>
-                                            <Pagination postsPerPage={4} totalPosts={posts.length} paginate={paginate}/>
-                                        </>
-                                    } />
-                                    <Route exact path="/challenges" component = {Challenges}/>
-                                    <Route exact path="/discuss/:id" component = {Discuss}/>
-                                </Switch>
-                        </div>
-                </div>
-            </BrowserRouter>
-            <TextEditor trigger = {ShowEditor} setTrigger={setShowEditor}/>      
-        </>
-    )
+    if(postsLoading){
+        return(
+            <div className="text-center mt-4">
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+            </div>
+            
+        )
+    }
+
+    else{
+        return (
+            <>  
+                <BrowserRouter>
+                    <div className="container-sm">
+                            <div className="row mt-5 justify-content-between">
+                                    <Menu/>
+                                    <Switch>
+                                        <Route exact path={["/", "/!#"]} component = { () => 
+                                            <>
+                                                <Posts posts={currentPosts} setTrigger={setShowEditor}/>
+                                                <Pagination postsPerPage={4} totalPosts={posts.length} paginate={paginate}/>
+                                            </>
+                                        } />
+                                        <Route exact path="/challenges" component = {Challenges}/>
+                                        <Route exact path="/discuss/:id" component = {Discuss}/>
+                                    </Switch>
+                            </div>
+                    </div>
+                </BrowserRouter>
+                <TextEditor trigger = {ShowEditor} setTrigger={setShowEditor}/> 
+                <Footer/> 
+            </>
+        )
+    }
 }

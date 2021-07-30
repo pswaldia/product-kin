@@ -30,3 +30,27 @@
     color: rgba(0, 0, 0, 0.5);
     font-size: 12px;
 }
+
+#ask-btn {
+    width: 100%;
+    height: 46px;
+    background-color: #385CC8;
+    text-align: center;
+}
+
+#vote-btn button {
+    background-color: #EAEAEC;
+    color: #343948;
+    font-size: 12px;
+}
+
+#ques-btn button {
+    background-color: #EAEAEC;
+    color: #343948;
+    font-size: 12px
+}
+@media screen and (max-width: 768px) {
+    #ask-btn {
+        font-size: 10px;
+    }
+}

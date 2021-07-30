@@ -15,6 +15,7 @@ export default function Challenges() {
                         <h2 id="text"><span>The internet is</span><br/><span>now a forum for</span>
                         <br/><span>for public prosecution</span>
                         </h2>
+                        
                 </div>
 
                 <div  className="pb-5 mb-3 pt-1 mt-4" id="live-challenge">
@@ -37,16 +38,19 @@ export default function Challenges() {
                             <img src={aven} alt=""/>
                             <p className="company-name">aven company</p>
                             <p className="clg-dt">Challenge taken up on Jul 19 ‘21</p>
+                            <a href="https://drive.google.com/file/d/1sP5-fkGrQQciOrtV46ya7njuwD264ElJ/view?usp=sharing" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i class="fa fa-download" aria-hidden="true"></i> Download</button></a>    
                         </div>
                         <div className="col-3" id="comp-card">
                             <img src={treva} alt=""/>
                             <p className="company-name">treva company</p>
                             <p className="clg-dt">Challenge taken up on Jul 19 ‘21</p>
+                            <a href="https://drive.google.com/file/d/1sP5-fkGrQQciOrtV46ya7njuwD264ElJ/view?usp=sharing" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i class="fa fa-download" aria-hidden="true"></i> Download</button></a>    
                         </div>
                         <div className="col-3" id="comp-card">
                             <img src={circle} alt=""/>
                             <p className="company-name">circle company</p>
                             <p className="clg-dt">Challenge taken up on Jul 19 ‘21</p>
+                            <a href="https://drive.google.com/file/d/1sP5-fkGrQQciOrtV46ya7njuwD264ElJ/view?usp=sharing" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i class="fa fa-download" aria-hidden="true"></i> Download</button></a>    
                         </div>
                     </div>
                 </div>

@@ -18,8 +18,7 @@ export default function Challenges() {
                     </div>
 
                     <div className = "px-5">
-                        <a href="">Come test your Product Management Skills by solving 
-                        “ABC” company problem and get hired most certainly!!</a>
+                        <strong>COMING SOON !!!</strong>
                     </div>
                 </div>
 

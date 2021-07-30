@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react'
+import { Modal, Button } from "react-bootstrap";
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Leaderboard from '../main/Leaderboard';
 import '../discuss/discuss.css'
 import Comments from '../discuss/comments/Comments'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
 export default function Discuss() {
     const [quesLoading, setQuesLoading] = useState(true);
     const [ansLoading, setAnsLoading] = useState(true);
     const [question, setQuestion] = useState([]);
     const [answers, setAnswers] = useState([]);
+    const [showHintModal, setShowHintModal] = useState(false);
+    const [clipboardValue, setClipBoardValue] = useState(window.location.href);
+
+    const handleHintClose = () => setShowHintModal(false);
+    const handleHintShow = () => setShowHintModal(true);
 
     const {id} = useParams();
 
@@ -60,8 +70,14 @@ export default function Discuss() {
                                             <button type="button" className="btn btn-light discuss-btn" id="discuss-share-btn"><i className="fa fa-share"></i> Share</button>
                                         </div>
                                         <div className="col-5 d-flex justify-content-around">
-                                            <button type="button" className="btn btn-danger discuss-btn" id="get-help-btn"><i className="fa fa-question-circle"></i> Get Help</button>
-                                            <button type="button" className="btn btn-light discuss-btn" id="discuss-bookmark-btn"><i className="fa fa-bookmark"></i></button>
+                                            <button type="button" className="btn btn-danger discuss-btn" id="get-help-btn" onClick={handleHintShow}><i className="fa fa-question-circle"></i>  Get Help</button>
+                                            <Tippy placement='bottom' content="Copy to Clipboard">
+                                                <button type="button" className="btn btn-light discuss-btn" id="discuss-bookmark-btn">
+                                                    <CopyToClipboard text={clipboardValue}>
+                                                        <i className="fa fa-copy" ></i>
+                                                    </CopyToClipboard>
+                                                </button>
+                                            </Tippy>
                                         </div>
                                     </div>
     
@@ -106,7 +122,18 @@ export default function Discuss() {
     
                 <div className="col-3">
                     <Leaderboard/>
-                </div>  
+                </div> 
+                <Modal show={showHintModal} onHide={handleHintClose}>
+                    <Modal.Header>
+                        <Modal.Title>Here is a hint for you!!! </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{question.hint}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleHintClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal> 
             </>
         )
     }

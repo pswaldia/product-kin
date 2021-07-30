@@ -31,7 +31,7 @@ export default function Leaderboard() {
                                 (
                                     <div className="row justify-content-between mb-2" key={top_user.user_id}>
                                         <div className="d-flex col-6 gap-2">
-                                            <img src={Profile_pic} alt="" id="leaderboard-profile-pic"/>
+                                            <img src={top_user.profile_pic} alt="" id="leaderboard-profile-pic"/>
                                             <h5  id="leaderboard-profile-name">{top_user.name}</h5>
                                         </div>
                                         <div className="col-3">

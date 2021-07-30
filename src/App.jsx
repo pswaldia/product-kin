@@ -18,7 +18,6 @@ export default function App() {
                         <>
                             <Header/>
                             <Main/>
-                            <Footer/>
                         </>
                     } />
                 </Switch>

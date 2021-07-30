@@ -14,7 +14,7 @@ export default function Header() {
     function handleLogout(event){
         localStorage.removeItem("accessToken");
         localStorage.removeItem("name");
-        localStorage.removeItem("profile_pic",);
+        localStorage.removeItem("profile_pic");
         window.location="/";
 
     }

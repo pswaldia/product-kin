@@ -86,10 +86,10 @@ export default function Discuss() {
     
                                                 <div className="d-flex gap-5">
                                                     <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn"><i className="fa fa-arrow-up"></i> {answer.upvotes_count}</button>
-                                                    <button type="button" className="btn btn-light discuss-btn" id="discuss-share-btn"><i className="fa fa-comment"></i> 3</button>
+                                                    <button type="button" className="btn btn-light discuss-btn" id="discuss-share-btn"><i className="fa fa-comment"></i> {answer.comments_count}</button>
                                                 </div>
 
-                                                <Comments answerId = {answer.user_id} />
+                                                <Comments answerId = {answer.ans_id} />
 
                                             </li>
                                         )

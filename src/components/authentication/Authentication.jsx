@@ -1,25 +1,28 @@
-import React , {useState} from 'react'
+import React , {useState,fetchData,state} from 'react'
+//import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../../resources/logo.png'
 import Illustration from '../../resources/Illustration.png'
 import './authentication.css'
-import { Link , NavLink} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { GoogleLogin  } from 'react-google-login';
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 
 toast.configure();
-export default function Authentication() {
 
+
+
+export default function Authentication() {
+ 
+    
 window.addEventListener('resize', () => {
 
 })
-
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [signupName, setSignupName] = useState("");
@@ -28,6 +31,9 @@ window.addEventListener('resize', () => {
     const [signupPassword2, setSignupPassword2] = useState("");
     const [message, setMessage] = useState("");
     const [activateLoader, setActiveLoader] = useState(false);
+    const [toggleOn, setToggleOn]= useState(false)
+    const [GtoggleOn, setGToggleOn]= useState(false)
+    const [StoggleOn, setSToggleOn]= useState(false)
 
     function handleloginEmailChange(event) {
         setLoginEmail(event.target.value);
@@ -55,9 +61,9 @@ window.addEventListener('resize', () => {
 
 
     function handleLogin(event) {
-    
         event.preventDefault();
         setActiveLoader(true);
+        setToggleOn(!toggleOn)
         console.log(loginEmail, " ", loginPassword);
         let isLoggedIn = false;
         const loginDetails = {
@@ -78,7 +84,7 @@ window.addEventListener('resize', () => {
                 localStorage.setItem("accessToken", response.data.accessToken);
                 localStorage.setItem("name", response.data.name);
                 localStorage.setItem("profile_pic", response.data.profile_pic);
-                window.location="/"
+                window.location="/";
             }
             else{
                 toast.error(response.data.message, {position : toast.POSITION.TOP_RIGHT});
@@ -90,9 +96,12 @@ window.addEventListener('resize', () => {
         
 
     }
+    
+   
 
     function handleSignup(event) {
         event.preventDefault();
+        setSToggleOn(!StoggleOn)
         if(signupPassword.length < 6)
             toast.error("Password should have atleast 6 characters", {position : toast.POSITION.TOP_RIGHT});
         else if(signupPassword !== signupPassword2)
@@ -130,19 +139,17 @@ window.addEventListener('resize', () => {
 
     function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
+        setGToggleOn(!GtoggleOn)
         var id_token = googleUser.getAuthResponse().id_token;  
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 const responseData = JSON.parse(this.responseText);
-                // alert(responseData.message);
                 toast.success(responseData.message, {position : toast.POSITION.TOP_RIGHT});
-                var gID = document.getElementById('sign-in-with-google');
-                gID.HTML = <Loader />;
                 localStorage.setItem("accessToken", responseData.accessToken);
                 localStorage.setItem("name", responseData.name);
                 localStorage.setItem("profile_pic", responseData.profile_pic);
-                window.location = "/";
+                window.location="/";
             }
         };
         xhr.open('Post', '/googlelogin');
@@ -205,13 +212,15 @@ return (
                                 </div>
                             </div>
                             {/* <NavLink exact to="/"> */}
-                                <button type="submit" className="btn btn-primary mt-3" id="login-2"><Loader type="ThreeDots" visible={activateLoader} color="#FFF" height={42} width={60} />Login</button>
+                                <button type="submit"  className="btn btn-primary mt-3 loader" id="login-2" ><span>Login</span>&nbsp;{toggleOn ? <i class="fa fa-spinner fa-spin" ></i> :"" } </button>
                             {/* </NavLink> */}
                             <h6 className="mt-4"><span>or login with</span></h6>
                             <GoogleLogin class="r2"
                               clientId="364428087639-8k31roj34nr5i16nvn21m3anuj6hf93r.apps.googleusercontent.com" onSuccess={onSignIn}
                                render={renderProps => (
-                              <button id="login-3" onClick={renderProps.onClick} disabled={renderProps.disabled}><i className="fa fa-google"></i> <span id="sign-in-with-google">Sign In with Google</span></button>
+
+                              <button id="login-3" onClick={renderProps.onClick} disabled={renderProps.disabled}><i className="fa fa-google"></i> <span>Sign In with Google</span>&nbsp;{GtoggleOn ? <i class="fa fa-spinner fa-spin" ></i> :"" }</button>
+
                               )}
                                buttonText="Login"
 
@@ -259,7 +268,7 @@ return (
 
                                 </div>
                             </div>
-                            <button type="submit" className="btn btn-primary mt-3" id="login-2"><Loader type="ThreeDots" visible={activateLoader} color="#FFF" height={42} width={60}/>Signup</button>
+                            <button type="submit" className="btn btn-primary mt-3" id="login-2"><spna>Signup</spna>&nbsp;{StoggleOn ? <i class="fa fa-spinner fa-spin" ></i> :"" }</button>
                         </div>
                     </form>
 

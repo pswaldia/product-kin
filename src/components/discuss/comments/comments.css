@@ -1,0 +1,16 @@
+#cmt-card{
+    border-radius: 0px;
+    border: 1px solid #C7C8CA
+}
+
+#cmt-card li{
+    background-color: #F2F2F2;
+    
+}
+
+#comments-submit-btn{
+    background-color: #385CC8;
+    border-radius: 35px;
+    width: 100%;
+    font-size: 12px;
+}

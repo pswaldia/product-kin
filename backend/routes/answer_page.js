@@ -44,9 +44,9 @@ router.get("/discuss/fetch_answers/:ques_id", async (req, res) => {
 });
 
 //fetching all comments for a particular answer
-router.get("/fetch_comments", async (req, res) => {
+router.get("/fetch_comments/:ans_id", async (req, res) => {
     try {
-        const { ans_id } = req.body;
+        const { ans_id } = req.params;
         const comment = await pool.query(`SELECT * FROM comment_details where ans_id = ($1)`,[ans_id]);
         for(const row of comment.rows){
             const user_details = await pool.query("SELECT name, profile_pic FROM users where user_id = ($1)",[row.user_id]);

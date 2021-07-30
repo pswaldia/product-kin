@@ -6,14 +6,11 @@ const passport = require("passport");
 const router = express.Router();
 router.use(express.json());//new
 
-router.get("/login", (req, res) => {
-  res.render("login");
-});
 
 
 router.get("/logout", function (req, res) {
   req.logout();
-  res.redirect("/login");
+  res.redirect("/");
 });
 
 router.post("/login", function (req, res, next) {

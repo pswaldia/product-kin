@@ -28,7 +28,7 @@ export default function TextEditor(props) {
         else{
             const questionDetails = {
                 question : value,
-                topic : "design",
+                topic : " ",
                 peer_cases : false
             };
             const token = localStorage.getItem("accessToken");

@@ -25,11 +25,17 @@ export default function ShowComment(props) {
         setNewComment(event.target.value);
     }
 
+
     function addNewComment(event){
         event.preventDefault();
         console.log(newComment);
         setToggleOn(!toggleOn);
-        if(newComment === ""){
+        var userprofilepic = localStorage.getItem('profile_pic')
+        if(!(userprofilepic && userprofilepic.length>0)){
+            toast.error("Please Login to Add comment", {position : toast.POSITION.TOP_CENTER});
+            setToggleOn(false);
+        }   
+        else if(newComment === ""){
             toast.error("Please enter your comment before submitting", {position : toast.POSITION.TOP_RIGHT});
             setToggleOn(false);
         }
@@ -77,7 +83,7 @@ export default function ShowComment(props) {
                                         </div>
         
                                         <div className="col-3">
-                                             <button type="submit" className="btn btn-primary mb-3" id="comments-submit-btn" >&nbsp;{toggleOn ? <span>Adding...&nbsp;<i class="fa fa-spinner fa-spin" ></i></span> :<span>Add a Comment</span> }</button>
+                                             <button type="submit" className="btn btn-primary mb-3" id="comments-submit-btn">&nbsp;{toggleOn ? <span>Adding...&nbsp;<i class="fa fa-spinner fa-spin" ></i></span> :<span>Add a Comment</span> }</button>
                                         </div>
                                     </form>
                                 </li>
@@ -92,7 +98,7 @@ export default function ShowComment(props) {
                                                     <h5>{Comment.comment_date}</h5>
                                                 </div>
                                             </div>
-                                            <p className="discuss-light">{Comment.comment} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam pariatur ab commodi sequi sint? Non voluptate quas unde, natus iste amet quod numquam commodi, deserunt praesentium accusantium, ipsam illo. Saepe!</p>
+                                            <p className="discuss-light">{Comment.comment} </p>
                                         </li>
                                     )
                                 }

@@ -16,9 +16,6 @@ export default function Leaderboard() {
     }, []);
 
 
-    let len = top_users.length - 10;
-    top_users.splice(10, len);
-
 
     if(!top_usersLoading){
         return (

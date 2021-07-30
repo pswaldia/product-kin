@@ -3,7 +3,22 @@ import '../main/posts.css'
 import banner from '../../resources/banner.jpg'
 import Leaderboard from './Leaderboard'
 import { Link } from 'react-router-dom'
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
+
 export default function Posts({posts, setTrigger}) {
+
+    function checkSignedIn(){
+        var userprofilepic = localStorage.getItem('profile_pic')
+        if(userprofilepic && userprofilepic.length>0){
+            setTrigger(true);
+        }
+        else
+            toast.error("Please Login to Ask Question", {position : toast.POSITION.TOP_CENTER});
+    }
+
     return (
         <>
              <div className="col-6">
@@ -30,7 +45,7 @@ export default function Posts({posts, setTrigger}) {
             </div>
 
             <div className="col-3">
-                <button type="button" className="btn btn-primary mb-3" id="ask-btn" onClick={() => setTrigger(true)}>+   Ask a Question</button>
+                <button type="button" className="btn btn-primary mb-3" id="ask-btn" onClick={checkSignedIn}>+   Ask a Question</button>
                 <Leaderboard/>
             </div>
                        

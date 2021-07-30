@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios'
-import Pagination from './Pagination';
+import Pagination from './pagination';
 import Posts from './posts'
 import Menu from './Menu'
 import Challenges from './Challenges/Challenges'

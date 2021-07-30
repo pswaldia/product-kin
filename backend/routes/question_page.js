@@ -131,7 +131,7 @@ router.get("/fetch_questions/practice_cases", async(req, res) => {
 //get leaderboard
 router.get("/get_leaderboard", async(req, res) => {
   await pool.query(
-    `SELECT L.user_id, L.name, L.points, U.profile_pic FROM leaderboard L, users U where U.user_id = L.user_id ORDER BY points DESC`,
+    `SELECT L.user_id, L.name, L.points, U.profile_pic FROM leaderboard L, users U where U.user_id = L.user_id ORDER BY points DESC limit 5`,
     (err, results) => {
       if(err)
         console.log(err);

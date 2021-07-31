@@ -124,7 +124,7 @@ window.addEventListener('resize', () => {
                 if(response.data.status === "true")
                 {
                     toast.success("Registration Successfull. Login to continue", {position : toast.POSITION.TOP_RIGHT});
-                    // window.location="/login"
+                    window.location="/login"
                 }
                 else{
                     //alert(response.data.message);

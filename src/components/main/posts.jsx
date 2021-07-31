@@ -58,7 +58,7 @@ export default function Posts({posts, setTrigger}) {
                                             {/* <p><img src = {arrow}></img></p> */}
                                             {/* <p>{post.ques_id}</p> */}
                                             {/* <div className="centered">{post.peer_cases}</div> */}
-                                            {render(post.peer_cases)}
+                                            {/* {render(post.peer_cases)} */}
                                         </div>
                                     </div>
                                 </div>

@@ -7,6 +7,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {config} from './editorConfig'
 
 export default function TextEditor(props) {
+    ClassicEditor.defaultConfig = config
     if(props.trigger){	
         const body = document.body;	
         body.style.overflowY = 'hidden';	
@@ -20,20 +21,16 @@ export default function TextEditor(props) {
     const [value, setValue] = useState('');
     const [ length, setLength ] = useState(0);
 
-    const handleUpdate = (value, editor) => {
-        const length = editor.getContent({ format: 'text' }).length;
-        var myContent = editor.getContent({ format: "text" });
-        
-          setValue(myContent);
-          setLength(length);
-        
-        //continue from here
-        console.log(myContent);
-      };
+    const cancelQuestionDialog = () => {
+        props.setTrigger(false);
+        setValue("");
+        setLength(0);
+    }
 
     const handleSubmitQuestion = (event) => {
         event.preventDefault();
         console.log(value);
+        console.log(length);
         if(value === "")
             alert("Please enter your question before submitting");
         else{
@@ -69,13 +66,17 @@ export default function TextEditor(props) {
                     <form onSubmit={handleSubmitQuestion}>
 
                         <CKEditor	
-                            editor={ClassicEditor}	
+                            editor={ClassicEditor}
+                            onChange={ ( event, editor ) => {
+                                const data = editor.getData();
+                                setValue(data.replace( /(<([^>]+)>)/ig, ''));
+                                setLength(data.replace( /(<([^>]+)>)/ig, '').length);
+                            } }
                         />
 
                             <div className="d-inline-flex flex-wrap" id="editor-btn">
                                 <button type="submit" className="btn btn-primary m-1">Post Question</button>
-                                <button type="button" className="btn btn-light m-1" onClick={() => props.setTrigger(false)}>Cancel</button>
-                                {/* <button type="button" className="btn btn-light m-1" onClick={handleSubmitQuestion}>check</button> */}
+                                <button type="button" className="btn btn-light m-1" onClick={cancelQuestionDialog}>Cancel</button>
                             </div>
                             
                     </form>

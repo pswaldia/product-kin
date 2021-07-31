@@ -286,15 +286,15 @@ router.post("/googlelogin", (req, res) => {
                       throw err;
                     }
                     
-                    const accessToken = jwt.sign(userDetails, process.env.ACCESS_TOKEN_SECRET);
+                    // const accessToken = jwt.sign(userDetails, process.env.ACCESS_TOKEN_SECRET);
     
-                    return res.send({
-                      status: "true",
-                      message: "Authentication Successful and new user created",
-                      name : userDetails.name,
-                      profile_pic : userDetails.profile_pic,
-                      accessToken: accessToken
-                    }); 
+                    // return res.send({
+                    //   status: "true",
+                    //   message: "Authentication Successful and new user created",
+                    //   name : userDetails.name,
+                    //   profile_pic : userDetails.profile_pic,
+                    //   accessToken: accessToken
+                    // }); 
                   }
                 );
                 //updating leaderboard table
@@ -315,8 +315,39 @@ router.post("/googlelogin", (req, res) => {
 
               }
               addNewUser();
-            }
-            
+              const getUserDetails = async() => {
+                await pool.query(
+                  `SELECT * FROM users
+                      WHERE email = $1`,
+                  [userDetails.email],
+                  (err, results) => {
+                    if (err) {
+                      console.log(err);
+                    }
+                    if (results.rows.length == 1) {
+                      const user_details = {
+                        user_id: results.rows[0].user_id,
+                        name: results.rows[0].name,
+                        profile_pic: results.rows[0].profile_pic,
+                      };
+          
+                      const accessToken = jwt.sign(user_details, process.env.ACCESS_TOKEN_SECRET);
+                      console.log("done");
+                      return res.send({
+                        status: "true",
+                        message: "Authentication Successful and new user created",
+                        name : userDetails.name,
+                        profile_pic : userDetails.profile_pic,
+                        accessToken: accessToken
+                      }); //authenticated successfully
+                
+                    }
+
+                  }
+                )
+              }
+              getUserDetails();
+          }
         }
       );
       res.cookie("session-token", token);

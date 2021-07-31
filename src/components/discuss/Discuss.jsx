@@ -57,6 +57,14 @@ export default function Discuss() {
         }
     }
 
+    // const resolveAnswer = (val) => {
+    //     const a = document.getElementById("ansSection");
+    //     a.innerHTML = `<p>val</p>`
+    // }
+
+    function createMarkup(val) {
+        return {__html: val};
+      }
 
     if(quesLoading || ansLoading){
         return (
@@ -115,8 +123,9 @@ export default function Discuss() {
                                                         <h5>Aspiring PM</h5>
                                                     </div>
                                                 </div>
-                                                <p className="discuss-light">{answer.answer}</p>
-    
+                                                {/* {resolveAnswer(answer.answer)}
+                                                <p className="discuss-light" id = "ansSection">{answer.answer}</p> */}
+                                                <div dangerouslySetInnerHTML={createMarkup(answer.answer)} />
                                                 <div className="d-flex gap-5">
                                                     <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn"><i className="fa fa-arrow-up"></i> {answer.upvotes_count}</button>
                                                     <button type="button" className="btn btn-light discuss-btn" id="discuss-share-btn"><i className="fa fa-comment"></i> {answer.comments_count}</button>

@@ -16,6 +16,9 @@ function initialize(passport) {
   
           if (results.rows.length > 0) {
             const user = results.rows[0];
+            if(user.password === null){
+              return done(null, false, { message: "Email already registered using Google Signin" });
+            }
             bcrypt.compare(password, user.password, (err, isMatch) => {
               if (err) {
                 throw err;

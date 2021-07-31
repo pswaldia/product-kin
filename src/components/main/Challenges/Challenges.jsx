@@ -10,14 +10,7 @@ export default function Challenges() {
     return (
         <>
             <div className="col-6 mb-5">
-                <div className="card mb-3" id="banner"> 
-                        <img id="image" src={banner} alt="" />
-                        <h2 id="text"><span>The internet is</span><br/><span>now a forum for</span>
-                        <br/><span>for public prosecution</span>
-                        </h2>
-                        
-                </div>
-
+                
                 <div  className="pb-5 mb-3 pt-1 mt-4" id="live-challenge">
                     <div className="d-flex justify-content-around">
                         <img src={idea} alt=""/>
@@ -25,8 +18,7 @@ export default function Challenges() {
                     </div>
 
                     <div className = "px-5">
-                        <a href="">Come test your Product Management Skills by solving 
-                        “ABC” company problem and get hired most certainly!!</a>
+                        <strong>COMING SOON !!!</strong>
                     </div>
                 </div>
 

@@ -2,10 +2,21 @@ import React, {useRef, useState} from 'react'
 import axios from 'axios';
 
 import './textEditor.css'
-import {Editor} from '@tinymce/tinymce-react';
-export default function TextEditor(props) {
-    const editorRef = useRef(null);
+import { CKEditor } from '@ckeditor/ckeditor5-react';	
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';	
+import config from './editorConfig'
 
+export default function TextEditor(props) {
+    if(props.trigger){	
+        const body = document.body;	
+        body.style.overflowY = 'hidden';	
+    }	
+    else{	
+        const body = document.body;	
+        body.style.overflowY = 'scroll';
+    }
+    
+    const editorRef = useRef(null);
     const [value, setValue] = useState('');
     const [ length, setLength ] = useState(0);
 
@@ -51,32 +62,16 @@ export default function TextEditor(props) {
             });
         } 
     }
-
+    
     return (props.trigger) ? (
         <>
                 <div className="text_editor">
                     <form onSubmit={handleSubmitQuestion}>
-                        <div className="d-flex flex-row-reverse">
-                            <button type="button" className="btn btn-light mb-1" id="cncel_btn" onClick={() => props.setTrigger(false)}>X</button>
-                        </div>
-                        <Editor
-                                apiKey='ewyywh62rqgkqrt4x7t0h4qg2cwru4o4yz3g63xiw8zk9cux'
-                                onEditorChange={handleUpdate}
-                                onInit={(evt, editor) => editorRef.current = editor}
-                                init={{
-                                height: 550,
-                                menubar: false,
-                                plugins: [
-                                    'advlist autolink lists link image charmap print preview anchor',
-                                    'searchreplace visualblocks code fullscreen',
-                                    'insertdatetime media table paste code help wordcount'
-                                ],
-                                toolbar:
-                                'bold italic | alignleft aligncenter ' +
-                                 'bullist numlist outdent indent | ' ,
-                                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                                }}
-                            />
+
+                        <CKEditor	
+                            editor={ClassicEditor}	
+                        />
+
                             <div className="d-inline-flex flex-wrap" id="editor-btn">
                                 <button type="submit" className="btn btn-primary m-1">Post Question</button>
                                 <button type="button" className="btn btn-light m-1" onClick={() => props.setTrigger(false)}>Cancel</button>

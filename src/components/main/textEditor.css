@@ -1,25 +1,28 @@
+.ck.ck-editor__main .ck-content {
+    height: 400px;
+}
 
-.text_editor{
-    position: absolute;
+.text_editor {
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
     padding-top: 5vh;
-    padding-right: 45vh;
-    padding-left: 45vh;
+    padding-right: 52vh;
+    padding-left: 52vh;
     padding-bottom: 40vh;
 
 }
 
-#editor-btn{
+#editor-btn {
     margin-top: 1rem;
 }
 
-#cncel_btn{
+#cncel_btn {
     background: none;
     color: black;
     border: none;
@@ -29,8 +32,8 @@
 }
 
 /* media queries */
-@media screen and (max-width: 977px){
-   .text_editor{
-       padding: 0px;
-   }
+@media screen and (max-width: 977px) {
+    .text_editor {
+        padding: 0px;
+    }
 }

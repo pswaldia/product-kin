@@ -1,15 +1,15 @@
-#live-challenge{
+#live-challenge {
     background-color: #DBE0EF;
     text-align: center;
     border-radius: 5px;
     border: 1px solid #828282
 }
 
-#live-challenge h4{
+#live-challenge h4 {
     width: 159px;
 }
 
-#past-challenge{
+#past-challenge {
     border-top: 1px solid #C7C8CA;
 }
 
@@ -20,13 +20,13 @@
 
 }
 
-#comp-card .company-name{
+#comp-card .company-name {
     size: 21px;
     font-weight: 400;
     color: #385CC8;
 }
 
-#comp-card .clg-dt{ 
+#comp-card .clg-dt {
     color: rgba(0, 0, 0, 0.5);
     font-size: 12px;
 }
@@ -49,6 +49,7 @@
     color: #343948;
     font-size: 12px
 }
+
 @media screen and (max-width: 768px) {
     #ask-btn {
         font-size: 10px;

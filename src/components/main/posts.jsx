@@ -35,7 +35,7 @@ export default function Posts({posts, setTrigger}) {
                         (
                             <div className="card mb-3" key={post.ques_id} id="post-card">
                                 <ul className="list-group list-group-flush">
-                                    <li  className="list-group-item"><Link to={`/discuss/${post.ques_id}`}>{post.question}</Link></li>
+                                    <li  id="que-box" className="list-group-item"><Link to={`/discuss/${post.ques_id}`}>{post.question}</Link></li>
                                 </ul>
                             </div>
                          )

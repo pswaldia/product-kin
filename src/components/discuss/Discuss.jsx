@@ -5,6 +5,7 @@ import axios from 'axios'
 import Leaderboard from '../main/Leaderboard';
 import '../discuss/discuss.css'
 import Comments from '../discuss/comments/Comments'
+import Answer from './answer/Answer';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -14,6 +15,7 @@ export default function Discuss() {
     const [ansLoading, setAnsLoading] = useState(true);
     const [question, setQuestion] = useState([]);
     const [answers, setAnswers] = useState([]);
+    const [showAnswerEditor, setShowAnswerEditor] = useState(false);
     const [showHintModal, setShowHintModal] = useState(false);
     const [clipboardValue, setClipBoardValue] = useState(window.location.href);
 
@@ -44,9 +46,9 @@ export default function Discuss() {
 
     if(quesLoading || ansLoading){
         return (
-            <div className="col-6">
+            <div className="col-6 discuss-loader">
                 <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
+                    <span className="sr-only">Loading...</span>
                 </div>
             </div>
         )
@@ -66,10 +68,11 @@ export default function Discuss() {
                                     <p className="discuss-bold">{question.question}</p>
                                     <div className="row justify-content-between">
                                         <div className="col-4 d-flex justify-content-around">
-                                            <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn"><i className="fa fa-pencil"></i> Answer</button>
+                                        <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn" onClick={() => setShowAnswerEditor(!showAnswerEditor)}><i className="fa fa-pencil"></i> Answer</button>
                                             <button type="button" className="btn btn-light discuss-btn" id="discuss-share-btn"><i className="fa fa-share"></i> Share</button>
                                         </div>
                                         <div className="col-5 d-flex justify-content-around">
+
                                             <button type="button" className="btn btn-danger discuss-btn" id="get-help-btn" onClick={handleHintShow}><i className="fa fa-question-circle"></i>  Get Help</button>
                                             <Tippy placement='bottom' content="Copy to Clipboard">
                                                 <button type="button" className="btn btn-light discuss-btn" id="discuss-bookmark-btn">
@@ -86,7 +89,7 @@ export default function Discuss() {
                                 <li  className="list-group-item">
                                     <p className="discuss-bold">{answers.length} Answers</p>
                                 </li>
-
+	                            <Answer showAnswerEditor = {showAnswerEditor} setShowAnswerEditor = {setShowAnswerEditor}/>
                                 {
                                     answers.map(answer => 
                                         (

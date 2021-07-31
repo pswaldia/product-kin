@@ -4,7 +4,7 @@ import axios from 'axios';
 import './textEditor.css'
 import { CKEditor } from '@ckeditor/ckeditor5-react';	
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';	
-import config from './editorConfig'
+import {config} from './editorConfig'
 
 export default function TextEditor(props) {
     if(props.trigger){	
@@ -62,7 +62,7 @@ export default function TextEditor(props) {
             });
         } 
     }
-    
+    ClassicEditor.defaultConfig = config
     return (props.trigger) ? (
         <>
                 <div className="text_editor">

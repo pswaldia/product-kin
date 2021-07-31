@@ -9,6 +9,10 @@ import Answer from './answer/Answer';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 export default function Discuss() {
     const [quesLoading, setQuesLoading] = useState(true);
@@ -43,6 +47,16 @@ export default function Discuss() {
         fetchAns();
     }, []);
 
+    const handleAnswerButtonClick = () =>{
+        var userprofilepic = localStorage.getItem('profile_pic')
+        if(!(userprofilepic && userprofilepic.length>0)){
+            toast.error("Please Login to Add Answer", {position : toast.POSITION.TOP_CENTER});
+        }   
+        else{
+            setShowAnswerEditor(!showAnswerEditor);
+        }
+    }
+
 
     if(quesLoading || ansLoading){
         return (
@@ -68,12 +82,7 @@ export default function Discuss() {
                                     <p className="discuss-bold">{question.question}</p>
                                     <div className="row justify-content-between">
                                         <div className="col-4 d-flex justify-content-around">
-                                        <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn" onClick={() => setShowAnswerEditor(!showAnswerEditor)}><i className="fa fa-pencil"></i> Answer</button>
-                                            <button type="button" className="btn btn-light discuss-btn" id="discuss-share-btn"><i className="fa fa-share"></i> Share</button>
-                                        </div>
-                                        <div className="col-5 d-flex justify-content-around">
-
-                                            <button type="button" className="btn btn-danger discuss-btn" id="get-help-btn" onClick={handleHintShow}><i className="fa fa-question-circle"></i>  Get Help</button>
+                                            <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn" onClick={handleAnswerButtonClick}><i className="fa fa-pencil"></i> Answer</button>
                                             <Tippy placement='bottom' content="Copy to Clipboard">
                                                 <button type="button" className="btn btn-light discuss-btn" id="discuss-bookmark-btn">
                                                     <CopyToClipboard text={clipboardValue}>
@@ -81,6 +90,11 @@ export default function Discuss() {
                                                     </CopyToClipboard>
                                                 </button>
                                             </Tippy>
+                                        </div>
+                                        <div className="col-5 d-flex justify-content-around">
+
+                                            <button type="button" className="btn btn-danger discuss-btn" id="get-help-btn" onClick={handleHintShow}><i className="fa fa-question-circle"></i>  Get Help</button>
+                                            
                                         </div>
                                     </div>
     
@@ -101,7 +115,7 @@ export default function Discuss() {
                                                         <h5>Aspiring PM</h5>
                                                     </div>
                                                 </div>
-                                                <p className="discuss-light">{answer.answer} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam pariatur ab commodi sequi sint? Non voluptate quas unde, natus iste amet quod numquam commodi, deserunt praesentium accusantium, ipsam illo. Saepe!</p>
+                                                <p className="discuss-light">{answer.answer}</p>
     
                                                 <div className="d-flex gap-5">
                                                     <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn"><i className="fa fa-arrow-up"></i> {answer.upvotes_count}</button>

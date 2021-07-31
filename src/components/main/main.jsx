@@ -19,7 +19,7 @@ export default function Main() {
         const fetchPosts = async () => {
             const res = await axios.get('/fetch_questions/all');
             setPosts(res.data);
-            setPostsLoading(false);
+            setPostsLoading(false); 
         }
         fetchPosts();
     }, []);

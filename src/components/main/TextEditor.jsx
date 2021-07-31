@@ -59,7 +59,7 @@ export default function TextEditor(props) {
             });
         } 
     }
-    
+    ClassicEditor.defaultConfig = config
     return (props.trigger) ? (
         <>
                 <div className="text_editor">

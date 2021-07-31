@@ -9,6 +9,16 @@
     width: 159px;
 }
 
+#live-challenge span {
+    color: #385CC8
+}
+
+#live-challenge h3 {
+    font-weight: 900;
+    color: #385CC8;
+}
+
+
 #past-challenge {
     border-top: 1px solid #C7C8CA;
 }

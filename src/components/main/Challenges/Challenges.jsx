@@ -12,13 +12,21 @@ export default function Challenges() {
             <div className="col-6 mb-5">
                 
                 <div  className="pb-5 mb-3 pt-1 mt-4" id="live-challenge">
-                    <div className="d-flex justify-content-around">
+                    {/* <div className="d-flex justify-content-around">
                         <img src={idea} alt=""/>
                         <h4 className = "pt-3">Live Challenge by idea company</h4>
                     </div>
 
                     <div className = "px-5">
                         <strong>COMING SOON !!!</strong>
+                    </div> */}
+                    <div className="d-flex justify-content-around">
+                        <img src={idea} alt=""/>
+                        <h4 className = "pt-3">Live Challenge by idea company</h4>
+                    </div>
+
+                    <div className = "px-5">
+                    <h3>Coming Soon</h3>
                     </div>
                 </div>
 

@@ -86,6 +86,11 @@ router.post("/add_answer",authenticateToken, async (req, res) => {
         await pool.query(`UPDATE question_details SET answer_count = answer_count + 1 WHERE ques_id = ($1)`,[ques_id]);
       } 
       updateAnswerCount();
+
+      const updateLeaderboard = async() =>{
+        await pool.query(`UPDATE leaderboard SET points = points + 10 WHERE user_id = ($1)`,[user_id]);
+      } 
+      updateLeaderboard();
       res.send({
         status: "true",
         message: "Answer Added Successfully",
@@ -115,6 +120,10 @@ router.post("/add_comment", authenticateToken, async (req, res) => {
           await pool.query(`UPDATE answer_details SET comments_count = comments_count + 1 WHERE ans_id = ($1)`,[ans_id]);
         } 
         updateCommentsCount();
+        const updateLeaderboard = async() =>{
+          await pool.query(`UPDATE leaderboard SET points = points + 5 WHERE user_id = ($1)`,[user_id]);
+        } 
+        updateLeaderboard();
         res.send({
           status: "true",
           message: "Comment Added Successfully",

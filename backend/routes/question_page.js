@@ -143,11 +143,11 @@ router.get("/get_leaderboard", async(req, res) => {
 //Adding Queries(Get in touch)(add)
 router.post("/add_query", async (req, res) => {
 
-  const { first_name, email, message } = req.body;
+  const { name, email, message } = req.body;
   await pool.query(
     `INSERT INTO queries (first_name, email, message)
               VALUES ($1, $2, $3)`,
-    [first_name, email, message],
+    [name, email, message],
     (err, results) => {
       if (err) {
         cosole.log(err);
@@ -167,7 +167,7 @@ router.post("/add_query", async (req, res) => {
         from: process.env.PK_EMAIL,
         to: process.env.PK_EMAIL,
         subject: "Query Update from User",
-        text: "Query Update\n\n\nName: "+first_name+"\n\nEmail: "+email+"\n\nMessage: "+message
+        text: "Query Update\n\n\nName: "+name+"\n\nEmail: "+email+"\n\nMessage: "+message
       };
     
       transporter.sendMail(mailOptions, function (error, info) {
@@ -188,7 +188,7 @@ router.post("/add_query", async (req, res) => {
         from: process.env.PK_EMAIL,
         to: email,
         subject: "Product Kin Support",
-        text: "Thankyou "+first_name+",\n\n\nHappy you reach out to us😌.\n\nWe will get back to you🙂.\n\n\n"+"Product Kin Support Team"
+        text: "Thank you "+name+",\n\n\nHappy you reached out to us😌.\n\nWe will get back to you🙂.\n\n\n"+"Product Kin Support Team"
       };
     
       transporter.sendMail(mailOptions, function (error, info) {

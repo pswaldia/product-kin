@@ -14,13 +14,13 @@ export default function Posts({posts, setTrigger}) {
     function render(cond){
         if(cond)
             return (<p> 
-                    <p><img src = {arrow}></img></p>
-                    <p className="centered">Peer Case</p>
+                    {/* <p><img src = {arrow}></img></p> */}
+                    <p>Peer Case</p>
                 </p>)
         else{
             return (<p> 
-                    <p><img src = {arrow}></img></p>
-                    <p className="centered">Practice Case</p>
+                    {/* <p><img src = {arrow}></img></p> */}
+                    <p>Practice Case</p>
                 </p>)
         }
     }

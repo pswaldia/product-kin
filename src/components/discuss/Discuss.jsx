@@ -22,6 +22,7 @@ export default function Discuss() {
     const [showAnswerEditor, setShowAnswerEditor] = useState(false);
     const [showHintModal, setShowHintModal] = useState(false);
     const [clipboardValue, setClipBoardValue] = useState(window.location.href);
+    const [formattedAns, setFormattedAns] = useState("");
 
     const handleHintClose = () => setShowHintModal(false);
     const handleHintShow = () => setShowHintModal(true);
@@ -65,6 +66,14 @@ export default function Discuss() {
     function createMarkup(val) {
         return {__html: val};
       }
+
+    const formatString=(val)=>{
+        let temp=val;
+        temp=temp.replaceAll('&nbsp;', '\n');
+        console.log(temp);
+        let newText = temp.split('\n').map(str => <p>{str}</p>);
+        return newText;
+    }
 
     if(quesLoading || ansLoading){
         return (
@@ -123,9 +132,12 @@ export default function Discuss() {
                                                         <h5>Aspiring PM</h5>
                                                     </div>
                                                 </div>
-                                                {/* {resolveAnswer(answer.answer)}
-                                                <p className="discuss-light" id = "ansSection">{answer.answer}</p> */}
-                                                <div dangerouslySetInnerHTML={createMarkup(answer.answer)} />
+                                                {/* {resolveAnswer(answer.answer)} */}
+                                                
+                                                {/* {formatString(answer.answer)} */}
+                                                <p className="discuss-light" id = "ansSection">{formatString(answer.answer)}</p>
+                                                
+                                                {/* <div dangerouslySetInnerHTML={createMarkup(answer.answer)} /> */}
                                                 <div className="d-flex gap-5">
                                                     <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn"><i className="fa fa-arrow-up"></i> {answer.upvotes_count}</button>
                                                     <button type="button" className="btn btn-light discuss-btn" id="discuss-share-btn"><i className="fa fa-comment"></i> {answer.comments_count}</button>

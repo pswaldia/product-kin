@@ -29,7 +29,7 @@ router.get("/discuss/get_question/:ques_id", async (req, res) => {
 router.get("/discuss/fetch_answers/:ques_id", async (req, res) => {
     try {
         const { ques_id } = req.params;
-        const answers = await pool.query(`SELECT * FROM answer_details where ques_id = $1`,[ques_id]);
+        const answers = await pool.query(`SELECT * FROM answer_details where ques_id = $1 ORDER BY ans_id DESC`,[ques_id]);
         for(const row of answers.rows){
             const user_pic = await pool.query("SELECT profile_pic FROM users where user_id = ($1)",[row.user_id]);
             const user_details = await pool.query("SELECT name, points FROM leaderboard where user_id = ($1)",[row.user_id]);

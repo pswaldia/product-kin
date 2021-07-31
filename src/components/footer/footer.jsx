@@ -50,7 +50,7 @@ export default function Footer() {
                             <p className="mb-5">Dont hesistate to contact us via the form on the right.</p>
                             <p>Call: 0900236778</p>
                             <p>Email: productkin.help@gmail.com</p>
-                            <div className="d-flex icons-btn mt-5">
+                            {/* <div className="d-flex icons-btn mt-5">
 
                                 <div>
                                     <button><i className="fa fa-facebook"></i></button>
@@ -60,7 +60,7 @@ export default function Footer() {
                                     <button><i className="fa fa-linkedin"></i></button>
                                 </div>
                                 
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="col-4">

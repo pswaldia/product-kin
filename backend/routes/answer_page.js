@@ -90,7 +90,9 @@ router.post("/add_answer",authenticateToken, async (req, res) => {
       const updateLeaderboard = async() =>{
         await pool.query(`UPDATE leaderboard SET points = points + 10 WHERE user_id = ($1)`,[user_id]);
       } 
-      updateLeaderboard();
+      if(user_id != 6)
+          updateLeaderboard();
+      // updateLeaderboard();
       res.send({
         status: "true",
         message: "Answer Added Successfully",
@@ -123,7 +125,8 @@ router.post("/add_comment", authenticateToken, async (req, res) => {
         const updateLeaderboard = async() =>{
           await pool.query(`UPDATE leaderboard SET points = points + 5 WHERE user_id = ($1)`,[user_id]);
         } 
-        updateLeaderboard();
+        if(user_id != 6)
+          updateLeaderboard();
         res.send({
           status: "true",
           message: "Comment Added Successfully",
@@ -145,3 +148,4 @@ router.post("/add_comment", authenticateToken, async (req, res) => {
   }
 
 module.exports = router;
+

@@ -40,8 +40,8 @@ export default function Posts({posts, setTrigger}) {
 
                 <div className="card mb-3" id="banner"> 
                     <img id="image" src={banner} alt="" />
-                    <h2 id="text"><span>The internet is</span><br/><span>now a forum for</span>
-                    <br/><span>for public prosecution</span>
+                    <h2 id="text"><span>Learn, Practice,</span><br/><span>Compete, Collaborate</span>
+                    <br/><span>- All at one place</span>
                     </h2>
                 </div>
 

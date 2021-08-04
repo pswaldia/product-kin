@@ -64,3 +64,9 @@ header {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+#profile-pic{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+}

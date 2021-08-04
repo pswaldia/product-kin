@@ -38,19 +38,19 @@ export default function Challenges() {
                             <img src={aven} alt=""/>
                             <p className="company-name">aven company</p>
                             <p className="clg-dt">Challenge taken up on Jul 19 ‘21</p>
-                            <a href="https://drive.google.com/file/d/1sP5-fkGrQQciOrtV46ya7njuwD264ElJ/view?usp=sharing" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i class="fa fa-download" aria-hidden="true"></i> Download</button></a>    
+                            <a href="https://docs.google.com/presentation/d/1rKREPvbVMkKPu_w-W1YGE6arpVSGIadO/edit#slide=id.p1" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i class="fa fa-download" aria-hidden="true"></i> Download</button></a>    
                         </div>
                         <div className="col-3" id="comp-card">
                             <img src={treva} alt=""/>
                             <p className="company-name">treva company</p>
                             <p className="clg-dt">Challenge taken up on Jul 19 ‘21</p>
-                            <a href="https://drive.google.com/file/d/12EaehnK1SAD1XnsDDZXOSdWujIhXZ8kG/view?usp=sharing" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i class="fa fa-download" aria-hidden="true"></i> Download</button></a>    
+                            <a href="https://docs.google.com/presentation/d/1mR8idUHWqryaHNoZEa66QfZXNI8jzLXv/edit#slide=id.p1" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i class="fa fa-download" aria-hidden="true"></i> Download</button></a>    
                         </div>
                         <div className="col-3" id="comp-card">
                             <img src={circle} alt=""/>
                             <p className="company-name">circle company</p>
                             <p className="clg-dt">Challenge taken up on Jul 19 ‘21</p>
-                            <a href="https://drive.google.com/file/d/1GFO6EGCasNdDWXATHVhSKIdVbbMLww6S/view?usp=sharing" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i class="fa fa-download" aria-hidden="true"></i> Download</button></a>    
+                            <a href="https://drive.google.com/file/d/12EaehnK1SAD1XnsDDZXOSdWujIhXZ8kG/view?usp=sharing" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i class="fa fa-download" aria-hidden="true"></i> Download</button></a>    
                         </div>
                     </div>
                 </div>

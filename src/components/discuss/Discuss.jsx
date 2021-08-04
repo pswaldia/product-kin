@@ -126,7 +126,7 @@ export default function Discuss() {
                                         (
                                             <li className="list-group-item" key={answer.user_id}>
                                                 <div className="d-flex gap-3" id="discuss-profile">
-                                                    <img src={answer.profile_pic} alt=""/>
+                                                    <img src={answer.profile_pic} alt="" id="profile-pic"/>
                                                     <div>
                                                         <h5 className="profile-name">{answer.name}</h5>
                                                         <h5>Aspiring PM</h5>

@@ -40,7 +40,7 @@ export default function Header() {
                                     ):(
                                         
                                         <div className="dropdown">
-                                        <input type="image" src={userPic} style={{height:45,width:53,borderRadius:50}}/>
+                                        <input type="image" src={userPic} id="profile-pic"/>
                                         <div class="dropdown-content">
                                         <a href="#" onClick={handleLogout}>Logout</a>
                                         </div>  

@@ -2,6 +2,7 @@ import React,  { useState, useEffect } from 'react'
 import axios from 'axios'
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../comments/comments.css'
 
 toast.configure();
 
@@ -92,7 +93,7 @@ export default function ShowComment(props) {
                                     Comments.map(Comment => 
                                         <li className="list-group-item" key={Comment.cmd_id}>
                                             <div className="d-flex gap-3" id="discuss-profile">
-                                                <img src={Comment.profile_pic} alt=""/>
+                                                <img src={Comment.profile_pic} alt="" id="profile-pic"/>
                                                 <div>
                                                     <h5 className="profile-name">{Comment.name}</h5>
                                                     <h5>{Comment.comment_date}</h5>

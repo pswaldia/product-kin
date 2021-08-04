@@ -14,3 +14,9 @@
     width: 100%;
     font-size: 12px;
 }
+
+#profile-pic{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+}

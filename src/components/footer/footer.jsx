@@ -48,7 +48,6 @@ export default function Footer() {
                         <div className="col-4 mt-4" id="footer-lft">
                             <h5 className="mb-3">Get in touch</h5>
                             <p className="mb-5">Dont hesistate to contact us via the form on the right.</p>
-                            <p>Call: 0900236778</p>
                             <p>Email: productkin.help@gmail.com</p>
                             {/* <div className="d-flex icons-btn mt-5">
 

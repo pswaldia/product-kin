@@ -127,7 +127,7 @@ export default function Discuss() {
                                                 <div className="d-flex gap-3" id="discuss-profile">
                                                     <img src={answer.profile_pic} alt="" id="profile-pic"/>
                                                     <div>
-                                                        <h5 className="profile-name">{answer.name}</h5>
+                                                    <h5 className="profile-name"><div dangerouslySetInnerHTML={{ __html: answer.name }}></div></h5>
                                                         <h5>Aspiring PM</h5>
                                                     </div>
                                                 </div>

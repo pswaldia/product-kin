@@ -34,8 +34,8 @@ export default function Answer(props) {
             const answerDetails = {
                 ques_id : id,
                 answer : value,
-                
             };
+
             const token = localStorage.getItem("accessToken");
             const config = {
                 headers: { Authorization: `Bearer ${token}` }
@@ -66,8 +66,10 @@ export default function Answer(props) {
                             editor={ClassicEditor}
                             onChange={ ( event, editor ) => {
                                 const data = editor.getData();
-                                setValue(data.replace( /(<([^>]+)>)/ig, ''));
-                                setLength(data.replace( /(<([^>]+)>)/ig, '').length);
+                                setValue(data);
+                                setLength(data.length);
+                                // setValue(data.replace( /(<([^>]+)>)/ig, ''));
+                                //setLength(data.replace( /(<([^>]+)>)/ig, '').length);
                             } }
                     />
                     <div className="d-inline-flex flex-wrap" id="editor-btn">

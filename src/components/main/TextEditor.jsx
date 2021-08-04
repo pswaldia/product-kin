@@ -69,8 +69,10 @@ export default function TextEditor(props) {
                             editor={ClassicEditor}
                             onChange={ ( event, editor ) => {
                                 const data = editor.getData();
-                                setValue(data.replace( /(<([^>]+)>)/ig, ''));
-                                setLength(data.replace( /(<([^>]+)>)/ig, '').length);
+                                setValue(data);
+                                setLength(data.length);
+                                //setValue(data.replace( /(<([^>]+)>)/ig, ''));
+                                //setLength(data.replace( /(<([^>]+)>)/ig, '').length);
                             } }
                         />
 

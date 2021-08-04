@@ -68,11 +68,10 @@ export default function Discuss() {
       }
 
     const formatString=(val)=>{
-        let temp=val;
-        temp=temp.replaceAll('&nbsp;', '\n');
-        console.log(temp);
-        let newText = temp.split('\n').map(str => <p>{str}</p>);
-        return newText;
+        //return val;
+        //let temp=val;
+        //temp=temp.replaceAll('&nbsp;', '<br>');
+        return <div dangerouslySetInnerHTML={{ __html: val }}></div>;
     }
 
     if(quesLoading || ansLoading){
@@ -165,7 +164,7 @@ export default function Discuss() {
                     <Modal.Header>
                         <Modal.Title>Here is a hint for you!!! </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>{question.hint}</Modal.Body>
+                    <Modal.Body><div dangerouslySetInnerHTML={{ __html: question.hint }}></div></Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleHintClose}>
                             Close

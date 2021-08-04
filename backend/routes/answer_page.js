@@ -135,6 +135,27 @@ router.post("/add_comment", authenticateToken, async (req, res) => {
     );
   });
 
+  //upvote
+  router.post("/upvote", authenticateToken, async (req, res) => {
+    const { ans_id} = req.body;
+
+    await pool.query(
+      `UPDATE answer_details SET upvotes_count = upvotes_count + 1 WHERE ans_id = ($1)`,[ans_id]),
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          res.send({
+            status: "false",
+            message: "Unable to add Vote",
+          });
+        }
+        res.send({
+          status: "true",
+          message: "Comment Added Successfully",
+        });
+      }
+  });
+
   function authenticateToken(req, res, next){
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1];

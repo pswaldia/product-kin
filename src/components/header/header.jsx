@@ -42,7 +42,7 @@ export default function Header() {
                                         <div className="dropdown">
                                         <input type="image" src={userPic} id="profile-pic"/>
                                         <div class="dropdown-content">
-                                        <a href="#" onClick={handleLogout}>Logout</a>
+                                        <a href="#" onClick={handleLogout}><i class="fa fa-sign-out"></i> Logout</a>
                                         </div>  
                                         </div> 
                                     )

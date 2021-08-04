@@ -95,7 +95,7 @@ export default function ShowComment(props) {
                                             <div className="d-flex gap-3" id="discuss-profile">
                                                 <img src={Comment.profile_pic} alt="" id="profile-pic"/>
                                                 <div>
-                                                    <h5 className="profile-name">{Comment.name}</h5>
+                                                <h5 className="profile-name"><div dangerouslySetInnerHTML={{ __html: Comment.name }}></div></h5>
                                                     <h5>{Comment.comment_date}</h5>
                                                 </div>
                                             </div>

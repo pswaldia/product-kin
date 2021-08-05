@@ -116,7 +116,15 @@ router.post("/add_answer",authenticateToken, async (req, res) => {
                 pass: process.env.PK_PASSWORD,
               },
             });
-            console.log(req);
+            console.log(user_id);
+            if(user_id==6)
+            {
+              answer_name="Product Kin";
+            }
+            if(ques_user_id==6)
+            {
+              question_name="Product Kin";
+            }
             const link = "http://localhost:3000/discuss/"+ques_id;
             var mailOptions = {
               from: process.env.PK_EMAIL,

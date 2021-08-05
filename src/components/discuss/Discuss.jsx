@@ -95,7 +95,7 @@ export default function Discuss() {
     
                                 <li  className="list-group-item">
     
-                                    <p className="discuss-bold">{question.question}</p>
+                                    <p className="discuss-bold"><div dangerouslySetInnerHTML={{ __html: question.question }}></div></p>
                                     <div className="row justify-content-between">
                                         <div className="col-4 d-flex justify-content-around">
                                             <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn" onClick={handleAnswerButtonClick}><i className="fa fa-pencil"></i> Answer</button>
@@ -127,8 +127,9 @@ export default function Discuss() {
                                                 <div className="d-flex gap-3" id="discuss-profile">
                                                     <img src={answer.profile_pic} alt="" id="profile-pic"/>
                                                     <div>
-                                                    <h5 className="profile-name"><div dangerouslySetInnerHTML={{ __html: answer.name }}></div></h5>
+                                                        <h5 className="profile-name"><div dangerouslySetInnerHTML={{ __html: answer.name }}></div></h5>
                                                         <h5>Aspiring PM</h5>
+                                                        
                                                     </div>
                                                 </div>
                                                 {/* {resolveAnswer(answer.answer)} */}

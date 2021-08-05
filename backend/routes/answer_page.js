@@ -2,6 +2,7 @@ const express = require("express");
 const { pool } = require("../dbConfig");
 const router = express.Router();
 const jwt = require("jsonwebtoken"); //token
+var nodemailer = require("nodemailer"); //mails
 
 //for showing single question in answer page
 router.get("/discuss/get_question/:ques_id", async (req, res) => {
@@ -70,11 +71,12 @@ router.get("/fetch_comments/:ans_id", async (req, res) => {
 router.post("/add_answer",authenticateToken, async (req, res) => {
   const { ques_id, answer } = req.body;
   const user_id = req.user.user_id;
+  
   await pool.query(
     `INSERT INTO answer_details (user_id, ques_id, answer)
                 VALUES ($1, $2, $3)`,
     [user_id, ques_id, answer],
-    (err, results) => {
+    async(err, results) => {
       if (err) {
         console.log(err);
         res.send({
@@ -82,6 +84,57 @@ router.post("/add_answer",authenticateToken, async (req, res) => {
           message: "Unable to add Answer",
         });
       }
+      let answer_name;
+      await pool.query(
+        `SELECT name from users where user_id=($1)`,
+        [user_id],
+        (err, results) => {
+          answer_name=results.rows[0].name;
+        }
+      )
+
+      let ques_user_id,question;
+      await pool.query(
+        `SELECT user_id,question from question_details where ques_id=($1)`,
+        [ques_id],
+        async(err, results) => {
+          ques_user_id=results.rows[0].user_id;
+          question=results.rows[0].question;
+
+        var email_id,question_name;
+        await pool.query(
+          `SELECT email,name from users where user_id=($1)`,
+          [ques_user_id],
+          (err, results) => {
+            email_id=results.rows[0].email;
+            question_name=results.rows[0].name;
+
+            var transporter = nodemailer.createTransport({
+              service: "gmail",
+              auth: {
+                user: process.env.PK_EMAIL,
+                pass: process.env.PK_PASSWORD,
+              },
+            });
+            console.log(req);
+            const link = "http://localhost:3000/discuss/"+ques_id;
+            var mailOptions = {
+              from: process.env.PK_EMAIL,
+              to: email_id,
+              subject: "New Answer Added From: "+answer_name,
+
+              text: "Hi "+question_name+",\n\nUpdate from Product Kin, You may be interested in the new answer on your question.\n\n"+"Click on the link below to check:\n\n"+link+"\n\nNew Answer Added By - "+answer_name+"\n\n\n"+"Thanks,\nProduct Kin Support Team"
+            };
+          
+            transporter.sendMail(mailOptions, function (error, info) {
+              if (error) console.log(error);
+            });
+          }
+        )
+        }
+      )
+
+      //pick user id from question_details
       const updateAnswerCount = async() =>{
         await pool.query(`UPDATE question_details SET answer_count = answer_count + 1 WHERE ques_id = ($1)`,[ques_id]);
       } 

@@ -52,7 +52,7 @@ export default function Posts({posts, setTrigger}) {
                                 <div id="post-card" key={post.ques_id} className="container mb-3">
                                     <div className="row">
                                         <div className = "col-md-10 h-80 que-content">
-                                            <p id="que-box"><Link to={`/discuss/${post.ques_id}`}>{post.question}</Link></p>
+                                            <p id="que-box"><Link to={`/discuss/${post.ques_id}`}><div dangerouslySetInnerHTML={{ __html: post.question }}></div></Link></p>
                                         </div>
                                         <div id="case-type" className = "col-md-2 h-80">
                                             {/* <p><img src = {arrow}></img></p> */}

@@ -128,7 +128,7 @@ export default function Discuss() {
                                                     <img src={answer.profile_pic} alt="" id="profile-pic"/>
                                                     <div>
                                                     <h5 className="profile-name"><div dangerouslySetInnerHTML={{ __html: answer.name }}></div></h5>
-                                                        <h5>Aspiring PM</h5>
+                                                        {answer.user_id != 6 ? <h5>Aspiring PM</h5> : <h5 >Admin</h5>}
                                                     </div>
                                                 </div>
                                                 {/* {resolveAnswer(answer.answer)} */}

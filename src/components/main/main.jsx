@@ -35,11 +35,16 @@ export default function Main() {
     const filterItem = (peer_cases) => {
         
         if(peer_cases === 'all'){
+            localStorage.setItem("case_no",0);
             setPosts(postContainer);
         }
 
         else{
             const updatedItems = postContainer.filter((post) => {
+                if(peer_cases)
+                    localStorage.setItem("case_no",1);
+                else
+                    localStorage.setItem("case_no",2);
                 return post.peer_cases === peer_cases;
             });
     

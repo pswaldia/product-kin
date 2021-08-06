@@ -14,13 +14,13 @@ export default function Posts({posts, setTrigger}) {
         if(cond)
             return (
                     <div class="block-peer">
-                        <p id = "peer-practice">Peer Case</p>
+                        <strong><p id = "peer-practice">Peer </p></strong>
                     </div>
             )
         else{
             return (
                     <div class="block-practice">
-                        <p id = "peer-practice">Practice Case</p>
+                        <strong><p id = "peer-practice">Practice </p></strong>
                     </div>
             )
         }

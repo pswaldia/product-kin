@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import axios from 'axios'
 import Pagination from './Pagination';
 import Posts from './posts'
 import Menu from './Menu'
-import Challenges from './Challenges/Challenges'
 import TextEditor from './TextEditor'
-import Discuss from '../discuss/Discuss';
 import Footer from  '../footer/footer'
+import Discuss from '../discuss/Discuss'
+import Challenges from './Challenges/Challenges'
 export default function Main() {
     const [postsLoading, setPostsLoading] = useState(true);
+    const [postContainer, setPostContainer] = useState([]);
     const [posts, setPosts] = useState([]);
     const [currentPage, setCurretPage] = useState(1);
 
@@ -18,20 +19,40 @@ export default function Main() {
     useEffect(() => {
         const fetchPosts = async () => {
             const res = await axios.get('/fetch_questions/all');
+            setPostContainer(res.data);
             setPosts(res.data);
             setPostsLoading(false); 
         }
         fetchPosts();
     }, []);
 
+
     //Get current posts
     let indexOfLastPost = currentPage * 4;
     let indexOfFirstPost = indexOfLastPost - 4;
     let currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+    const filterItem = (peer_cases) => {
+        
+        if(peer_cases === 'all'){
+            setPosts(postContainer);
+        }
+
+        else{
+            const updatedItems = postContainer.filter((post) => {
+                return post.peer_cases === peer_cases;
+            });
+    
+            setPosts(updatedItems);
+        }
+       
+    }
     
     const paginate  = (pageNumber) => {
         setCurretPage(pageNumber);
     }
+
+    
 
     if(postsLoading){
         return(
@@ -47,13 +68,12 @@ export default function Main() {
     else{
         return (
             <>  
-                <BrowserRouter>
                     <div className="container-sm">
                             <div className="row mt-5 justify-content-between">
-                                    <Menu/>
                                     <Switch>
                                         <Route exact path={["/", "/!#"]} component = { () => 
                                             <>
+                                                <Menu filterItem = {filterItem}/>
                                                 <Posts posts={currentPosts} setTrigger={setShowEditor}/>
                                                 <Pagination postsPerPage={4} totalPosts={posts.length} paginate={paginate}/>
                                             </>
@@ -63,7 +83,6 @@ export default function Main() {
                                     </Switch>
                             </div>
                     </div>
-                </BrowserRouter>
                 <TextEditor trigger = {ShowEditor} setTrigger={setShowEditor}/> 
                 <Footer/> 
             </>

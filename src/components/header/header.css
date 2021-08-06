@@ -70,3 +70,15 @@ header {
     width: 45px;
     border-radius: 50%;
 }
+
+#header-forum-link a, #header-challenge-link a{
+    color: rgba(99, 100, 102, 1);
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+}
+
+a.active_class span{
+    color: rgba(56, 92, 200, 1);
+
+}

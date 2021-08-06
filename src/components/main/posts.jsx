@@ -3,7 +3,6 @@ import '../main/posts.css'
 import banner from '../../resources/banner.jpg'
 import Leaderboard from './Leaderboard'
 import { Link } from 'react-router-dom'
-import arrow from '../../resources/Vector.png'
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,15 +12,17 @@ export default function Posts({posts, setTrigger}) {
 
     function render(cond){
         if(cond)
-            return (<p> 
-                    {/* <p><img src = {arrow}></img></p> */}
-                    <p>Peer Case</p>
-                </p>)
+            return (
+                    <div class="block-peer">
+                        <p id = "peer-practice">Peer Case</p>
+                    </div>
+            )
         else{
-            return (<p> 
-                    {/* <p><img src = {arrow}></img></p> */}
-                    <p>Practice Case</p>
-                </p>)
+            return (
+                    <div class="block-practice">
+                        <p id = "peer-practice">Practice Case</p>
+                    </div>
+            )
         }
     }
     function checkSignedIn(){
@@ -35,7 +36,7 @@ export default function Posts({posts, setTrigger}) {
     }
 
     return (
-        <>
+        <>  
              <div className="col-6">
 
                 <div className="card mb-3" id="banner"> 
@@ -52,13 +53,10 @@ export default function Posts({posts, setTrigger}) {
                                 <div id="post-card" key={post.ques_id} className="container mb-3">
                                     <div className="row">
                                         <div className = "col-md-10 h-80 que-content">
-                                            <p id="que-box"><Link to={`/discuss/${post.ques_id}`}><div dangerouslySetInnerHTML={{ __html: post.question }}></div></Link></p>
+                                            <p id="que-box"><Link to={`/discuss/${post.ques_id}`}>{post.question}</Link></p>
                                         </div>
                                         <div id="case-type" className = "col-md-2 h-80">
-                                            {/* <p><img src = {arrow}></img></p> */}
-                                            {/* <p>{post.ques_id}</p> */}
-                                            {/* <div className="centered">{post.peer_cases}</div> */}
-                                            {/* {render(post.peer_cases)} */}
+                                                {render(post.peer_cases)}
                                         </div>
                                     </div>
                                 </div>

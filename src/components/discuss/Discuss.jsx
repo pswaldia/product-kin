@@ -76,7 +76,7 @@ export default function Discuss() {
 
     if(quesLoading || ansLoading){
         return (
-            <div className="col-6 discuss-loader">
+            <div className="col-12 discuss-loader text-center">
                 <div className="spinner-border text-primary" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
@@ -88,7 +88,7 @@ export default function Discuss() {
         return (
         
             <>
-                <div className="col-7 mb-5 mr-5">
+                <div className="col-8 mb-5 mr-5">
                     <div className="card mb-3" id="discuss-main">
                             <ul className="list-group list-group-flush">
                                 

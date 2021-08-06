@@ -1,23 +1,21 @@
-import React,{useState} from 'react'
-import { NavLink } from 'react-router-dom'
-import './menu.css' 
-import ModalVideo from 'react-modal-video'
-import '../../../node_modules/react-modal-video/scss/modal-video.scss';
-
-export default function Menu() {
-    const [isOpen, setOpen] = useState(false)
+import React from 'react'
+import '../main/menu.css'
+export default function Menu({filterItem}) {
+    
     return (
         <>
-             <div className="col-2" id="side-a">
-                    
-                    <NavLink exact activeClassName="active_class" to="/" className="mb-3"><i className="fa fa-comments"></i>    Forum</NavLink>
-                    <NavLink exact activeClassName="active_class" to="/challenges"><i className="fa fa-bullseye"></i>    Challenges</NavLink>
-                    <br/>
-                    <React.Fragment>
-                        <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId="2UZ7inMt_Fo" onClose={() => setOpen(false)} />
-                        <button className="btn-primary" id = "video-btn" onClick={()=> setOpen(true)}>View Demo <i class="fa fa-video-camera" aria-hidden="true"></i></button>
-                    </React.Fragment>   
-             </div>
+            <div className="col-2" id="menu-main">
+                <div className="row">
+                    <button type="button" className="btn active" onClick={() => filterItem('all', 0)}>All</button>
+                </div>
+                <div className="row menu-btn mt-2">
+                    <button type="button" className="btn" onClick={() => filterItem(true, 1)}>Peer Cases</button>
+                </div>
+                <div className="row menu-btn mt-2">
+                    <button type="button" className="btn" onClick={() => filterItem(false, 2)}>Practice Cases</button>
+                </div>
+                
+            </div>
         </>
     )
 }

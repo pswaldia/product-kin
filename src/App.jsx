@@ -6,6 +6,7 @@ import Forget from './components/authentication/forget-password/Forget'
 import Reset from './components/authentication/reset-pass/Reset'
 import Header from './components/header/header'
 export default function App() {
+    localStorage.setItem("case_no",0);
     return (
         <BrowserRouter>
             <div>

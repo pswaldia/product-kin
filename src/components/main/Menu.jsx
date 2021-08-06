@@ -15,7 +15,7 @@ export default function Menu() {
                     <br/>
                     <React.Fragment>
                         <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId="2UZ7inMt_Fo" onClose={() => setOpen(false)} />
-                        <button className="btn-primary" onClick={()=> setOpen(true)}>View Demo</button>
+                        <button className="btn-primary" id = "video-btn" onClick={()=> setOpen(true)}>View Demo <i class="fa fa-video-camera" aria-hidden="true"></i></button>
                     </React.Fragment>   
              </div>
         </>

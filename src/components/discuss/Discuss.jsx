@@ -58,19 +58,37 @@ export default function Discuss() {
         }
     }
 
-    // const resolveAnswer = (val) => {
-    //     const a = document.getElementById("ansSection");
-    //     a.innerHTML = `<p>val</p>`
-    // }
+    const handleUpvote = (event, ans_id) => {
+        event.target.innerHTML = ' Upvoted';
+        event.target.style.color = "#385CC8";
+        event.target.disabled = true;
+        event.target.setAttribute("disabled", true);
 
-    function createMarkup(val) {
-        return {__html: val};
-      }
+        console.log(event.target, ans_id);
+        const commentDetails = {
+            ans_id : ans_id,
+        };
+        axios.post('/upvote', commentDetails)
+        .then(function (response) {
+            console.log("inside commentDetails response");
+            console.log(response.data);
+            // const fetchCmt = async () => {
+            //     const res = await axios.get(`/fetch_comments/${props.answerId}`);
+            //     setComments(res.data);
+            //     setCmtLoading(false);
+            //     toast.success("Comment added successfully", {position : toast.POSITION.TOP_RIGHT});
+            //     setToggleOn(false);
+            //     setNewComment("");
+            // }
+            // fetchCmt();
+            
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
 
     const formatString=(val)=>{
-        //return val;
-        //let temp=val;
-        //temp=temp.replaceAll('&nbsp;', '<br>');
         return <div dangerouslySetInnerHTML={{ __html: val }}></div>;
     }
 
@@ -138,7 +156,7 @@ export default function Discuss() {
                                                 
                                                 {/* <div dangerouslySetInnerHTML={createMarkup(answer.answer)} /> */}
                                                 <div className="d-flex gap-5">
-                                                    <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn"><i className="fa fa-arrow-up"></i> {answer.upvotes_count}</button>
+                                                    <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn" ><i className="fa fa-arrow-up" onClick = {(e) => handleUpvote(e, answer.ans_id)}> {answer.upvotes_count}</i> </button>
                                                     <button type="button" className="btn btn-light discuss-btn" id="discuss-share-btn"><i className="fa fa-comment"></i> {answer.comments_count}</button>
                                                 </div>
 

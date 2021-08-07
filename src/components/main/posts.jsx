@@ -14,13 +14,13 @@ export default function Posts({posts, setTrigger}) {
         if(cond)
             return (
                     <div class="block-peer">
-                        <strong><p id = "peer-practice">Peer </p></strong>
+                        <p id = "peer-practice">Peer </p>
                     </div>
             )
         else{
             return (
                     <div class="block-practice">
-                        <strong><p id = "peer-practice">Practice </p></strong>
+                        <p id = "peer-practice">Practice </p>
                     </div>
             )
         }
@@ -57,7 +57,7 @@ export default function Posts({posts, setTrigger}) {
                                         </div>
                                         <div id="case-type" className = "col-md-2 h-80">
                                                 {render(post.peer_cases)}
-                                        </div>
+                                        </div>  
                                     </div>
                                 </div>
 

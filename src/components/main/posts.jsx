@@ -5,11 +5,13 @@ import Leaderboard from './Leaderboard'
 import { Link } from 'react-router-dom'
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ModalVideo from 'react-modal-video'
+import '../../../node_modules/react-modal-video/scss/modal-video.scss';
 
 toast.configure();
 
 export default function Posts({posts, setTrigger}) {
-
+    const [isOpen, setOpen] = useState(false)
     function render(cond){
         if(cond)
             return (
@@ -41,9 +43,16 @@ export default function Posts({posts, setTrigger}) {
 
                 <div className="card mb-3" id="banner"> 
                     <img id="image" src={banner} alt="" />
-                    <h2 id="text"><span>Learn from the Kin</span><br/><span>Practice with the Peers</span>
-                    <br/><span> Compete with the Community </span>
-                    </h2>
+                    <div id="text">
+                        <h2>Learn from the Kin</h2> 
+                        <h2>Practice with the Peers</h2>
+                        <h2>Compete with the</h2>
+                        <h2>Community</h2>
+                    </div>
+                    <React.Fragment>
+                        <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId="2UZ7inMt_Fo" onClose={() => setOpen(false)} />
+                        <button className="btn video" onClick={()=> setOpen(true)}><i class="fa fa-play" aria-hidden="true"></i> Get Started</button>
+                    </React.Fragment>  
                 </div>
 
                 {    

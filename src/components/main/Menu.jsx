@@ -19,12 +19,12 @@ export default function Menu({filterItem}) {
                 </div>
                 <br/>
                 <br/>
-                <div className="row menu-btn mt-2">
+                {/* <div className="row menu-btn mt-2">
                     <React.Fragment>
                         <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId="2UZ7inMt_Fo" onClose={() => setOpen(false)} />
                         <button className="btn video" onClick={()=> setOpen(true)}>View Demo <i class="fa fa-video-camera" aria-hidden="true"></i></button>
                     </React.Fragment>  
-                </div>
+                </div> */}
             </div>
         </>
     )

@@ -156,7 +156,7 @@ export default function Discuss() {
                                                 
                                                 {/* <div dangerouslySetInnerHTML={createMarkup(answer.answer)} /> */}
                                                 <div className="d-flex gap-5">
-                                                    <button type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn" ><i className="fa fa-arrow-up" onClick = {(e) => handleUpvote(e, answer.ans_id)}> {answer.upvotes_count}</i> </button>
+                                                    <button id="upvoted" type="button" className="btn btn-light discuss-btn" id="discuss-answer-btn" ><i className="fa fa-arrow-up" onClick = {(e) => handleUpvote(e, answer.ans_id)}> {answer.upvotes_count}</i> </button>
                                                     <button type="button" className="btn btn-light discuss-btn" id="discuss-share-btn"><i className="fa fa-comment"></i> {answer.comments_count}</button>
                                                 </div>
 

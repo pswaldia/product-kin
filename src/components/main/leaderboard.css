@@ -1,28 +1,30 @@
-#leaderboard .card-header{
+#leaderboard .card-header {
     color: #fff;
     background-color: #343948;
+    font-size: 17px;
 }
 
 /* media queries */
-@media screen and (max-width: 768px){
-    #leaderboard .card-header{
+@media screen and (max-width: 768px) {
+    #leaderboard .card-header {
         font-size: 10px;
     }
 }
-#leaderboard-profile-name{
+
+#leaderboard-profile-name {
     margin-bottom: 0px;
     padding-top: 10px;
     font-size: 13px;
     color: rgba(56, 92, 200, 1);
 }
 
-#leaderboard-profile-pic{
+#leaderboard-profile-pic {
     height: 35px;
     width: 35px;
     border-radius: 50%;
 }
 
-#leaderboard-profile-points{
+#leaderboard-profile-points {
     padding-top: 10px;
     font-size: 13px;
     color: rgba(130, 130, 130, 1);

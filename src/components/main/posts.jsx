@@ -50,7 +50,7 @@ export default function Posts({posts, setTrigger}) {
                         <h2>Community</h2>
                     </div>
                     <React.Fragment>
-                        <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId="2UZ7inMt_Fo" onClose={() => setOpen(false)} />
+                        <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId="JSk3cDMokT4" onClose={() => setOpen(false)} />
                         <button className="btn video" onClick={()=> setOpen(true)}><i class="fa fa-play" aria-hidden="true"></i> Get Started</button>
                     </React.Fragment>  
                 </div>

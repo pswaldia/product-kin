@@ -26,7 +26,7 @@ export default function Challenges() {
                     </div>
 
                     <div className = "px-5">
-                    <h3 id = "comingsoon">Coming Soon...</h3>
+                    <h3>Coming Soon...</h3>
                     </div>
                 </div>
 

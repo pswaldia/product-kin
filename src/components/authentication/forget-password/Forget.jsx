@@ -48,7 +48,7 @@ export default function Forget() {
                 <div className="img mt-3">
                     <img src={logo} alt=""/>    
                 </div>
-                <p id="banner-hd">A place to share knowledge and to be competent related for the product Roles in the world</p>
+                <p id="banner-hd">Learn from the Kin, Practice with the Peers, Compete with the Community</p>
 
                 <div className="row justify-content-around mt-5">
 

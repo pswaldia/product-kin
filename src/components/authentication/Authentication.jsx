@@ -173,7 +173,7 @@ return (
             <img src={logo} alt="" />
         </div>
         <div className="text-center mt-2" id="main-hd">
-            <p>A place to share knowledge and to be competent related for the product Roles in the world</p>
+            <p>Learn from the Kin, Practice with the Peers, Compete with the Community</p>
         </div>
 
 

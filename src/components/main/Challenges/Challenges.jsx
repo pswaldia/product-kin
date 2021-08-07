@@ -26,7 +26,7 @@ export default function Challenges() {
                     </div>
 
                     <div className = "px-5">
-                    <h3>Coming Soon</h3>
+                    <h3 id = "comingsoon">Coming Soon...</h3>
                     </div>
                 </div>
 
@@ -38,13 +38,13 @@ export default function Challenges() {
                             <img src={aven} alt=""/>
                             <p className="company-name">aven company</p>
                             <p className="clg-dt">Challenge taken up on Jul 19 ‘21</p>
-                            <a href="https://docs.google.com/presentation/d/1rKREPvbVMkKPu_w-W1YGE6arpVSGIadO/edit#slide=id.p1" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i className="fa fa-download" aria-hidden="true"></i> Download</button></a>    
+                            <a href="https://drive.google.com/file/d/1gdva58lOrAHCw3Vfx2cYQZ2uw1fkxykb/view?usp=sharing" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i className="fa fa-download" aria-hidden="true"></i> Download</button></a>    
                         </div>
                         <div className="col-3" id="comp-card">
                             <img src={treva} alt=""/>
                             <p className="company-name">treva company</p>
                             <p className="clg-dt">Challenge taken up on Jul 19 ‘21</p>
-                            <a href="https://docs.google.com/presentation/d/1mR8idUHWqryaHNoZEa66QfZXNI8jzLXv/edit#slide=id.p1" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i className="fa fa-download" aria-hidden="true"></i> Download</button></a>    
+                            <a href="https://drive.google.com/file/d/1141OuIkxAmths5AkVxNfZKW425MWTiq-/view?usp=sharing" target="_blank"><button type="button" className="btn btn-primary mb-3" id="ask-btn" ><i className="fa fa-download" aria-hidden="true"></i> Download</button></a>    
                         </div>
                         <div className="col-3" id="comp-card">
                             <img src={circle} alt=""/>

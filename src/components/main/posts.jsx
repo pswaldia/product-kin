@@ -14,13 +14,13 @@ export default function Posts({posts, setTrigger}) {
         if(cond)
             return (
                     <div class="block-peer">
-                        <p id = "peer-practice">Peer </p>
+                        <p id = "peer-practice">Peers </p>
                     </div>
             )
         else{
             return (
                     <div class="block-practice">
-                        <p id = "peer-practice">Practice </p>
+                        <p id = "peer-practice">Kin </p>
                     </div>
             )
         }
@@ -41,8 +41,8 @@ export default function Posts({posts, setTrigger}) {
 
                 <div className="card mb-3" id="banner"> 
                     <img id="image" src={banner} alt="" />
-                    <h2 id="text"><span>Learn, Practice,</span><br/><span>Compete, Collaborate</span>
-                    <br/><span>- All at one place</span>
+                    <h2 id="text"><span>Learn from the Kin</span><br/><span>Practice with the Peers</span>
+                    <br/><span> Compete with the Community </span>
                     </h2>
                 </div>
 

@@ -12,10 +12,10 @@ export default function Menu({filterItem}) {
                     <button type="button" className={localStorage.getItem("case_no") == 0 ? 'btn active': 'btn'} onClick={() => filterItem('all', 0)}>All</button>
                 </div>
                 <div className="row menu-btn mt-2">
-                    <button type="button" className={localStorage.getItem("case_no") == 1 ? 'btn active': 'btn'}  onClick={() => {filterItem(true, 1);}}>Peer Cases</button>
+                    <button type="button" className={localStorage.getItem("case_no") == 1 ? 'btn active': 'btn'}  onClick={() => {filterItem(true, 1);}}>Peers</button>
                 </div>
                 <div className="row menu-btn mt-2">
-                    <button type="button" className={localStorage.getItem("case_no") == 2 ? 'btn active': 'btn'} onClick={() => filterItem(false, 2)}>Practice Cases</button>
+                    <button type="button" className={localStorage.getItem("case_no") == 2 ? 'btn active': 'btn'} onClick={() => filterItem(false, 2)}> Kin</button>
                 </div>
                 <br/>
                 <br/>

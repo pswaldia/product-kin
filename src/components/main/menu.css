@@ -1,6 +1,8 @@
 #menu-main .btn {
     color: rgba(99, 100, 102, 1);
     border-radius: 0px;
+    text-align: start;
+    padding-left: 24px;
 }
 
 #menu-main .active {

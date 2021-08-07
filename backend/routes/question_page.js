@@ -14,9 +14,12 @@ const jwt = require("jsonwebtoken"); //token
 //ask a question - add_question(ask_question)
 router.post("/add_question", authenticateToken ,async(req, res) => {
 
-  const { question, peer_cases, topic, hint } = req.body;
+  let { question, peer_cases, topic, hint } = req.body;
   const user_id = req.user.user_id;
-
+  if(user_id == 6)
+    peer_cases = "false";
+  else
+    peer_cases = "true";
   await pool.query(
     `INSERT INTO question_details (user_id, question, peer_cases, topic, hint )
               VALUES ($1, $2, $3, $4, $5)`,

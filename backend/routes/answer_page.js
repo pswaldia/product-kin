@@ -30,7 +30,16 @@ router.get("/discuss/get_question/:ques_id", async (req, res) => {
 router.get("/discuss/fetch_answers/:ques_id", async (req, res) => {
     try {
         const { ques_id } = req.params;
-        const answers = await pool.query(`SELECT * FROM answer_details where ques_id = $1 ORDER BY ans_id DESC`,[ques_id]);
+        let answers;
+        const peer_cases = await pool.query(`SELECT peer_cases FROM question_details where ques_id = $1`,[ques_id]);
+        console.log("this is peer status : ",peer_cases.rows[0].peer_cases);
+        if(peer_cases.rows[0].peer_cases){
+          answers = await pool.query(`SELECT * FROM answer_details where ques_id = $1 ORDER BY ans_id DESC`,[ques_id]);
+        }
+        else{
+          answers = await pool.query(`SELECT * FROM answer_details where ques_id = $1 ORDER BY ans_id ASC`,[ques_id]);
+        }
+        
         for(const row of answers.rows){
             const user_pic = await pool.query("SELECT profile_pic FROM users where user_id = ($1)",[row.user_id]);
             const user_details = await pool.query("SELECT name, points FROM leaderboard where user_id = ($1)",[row.user_id]);

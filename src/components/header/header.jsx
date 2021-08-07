@@ -39,7 +39,7 @@ export default function Header() {
                             </div>
 
                             <div className="col-4" id="header-challenge-link">
-                                <NavLink exact activeClassName="active_class" to="/challenges"><span><i className="fa fa-bullseye"></i>      Challenges</span></NavLink>
+                                <NavLink exact activeClassName="active_class" to="/challenges"><span><i className="fa fa-bullseye"></i>      Compete</span></NavLink>
                             </div>
                             
 

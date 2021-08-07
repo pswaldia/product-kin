@@ -30,8 +30,8 @@
  }
 
  #case-type {
-     padding: 0px;
-     float: top;
+    padding: 0px;
+    float: top;
  }
 
  /* Centered text */
@@ -122,7 +122,7 @@
  #peer-practice {
      float: right;
      padding-top: 5px;
-     padding-right: 20px;
+     padding-right: 40px;
  }
 
 

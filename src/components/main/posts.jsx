@@ -14,13 +14,13 @@ export default function Posts({posts, setTrigger}) {
         if(cond)
             return (
                     <div class="block-peer">
-                        <strong><p id = "peer-practice">Peer </p></strong>
+                        <p id = "peer-practice">Peer </p>
                     </div>
             )
         else{
             return (
                     <div class="block-practice">
-                        <strong><p id = "peer-practice">Practice </p></strong>
+                        <p id = "peer-practice">Practice </p>
                     </div>
             )
         }
@@ -53,11 +53,11 @@ export default function Posts({posts, setTrigger}) {
                                 <div id="post-card" key={post.ques_id} className="container mb-3">
                                     <div className="row">
                                         <div className = "col-md-10 h-80 que-content">
-                                            <p id="que-box"><Link to={`/discuss/${post.ques_id}`}>{post.question}</Link></p>
+                                            <p id="que-box"><Link to={`/discuss/${post.ques_id}`}><div dangerouslySetInnerHTML={{ __html: post.question }}></div></Link></p>
                                         </div>
                                         <div id="case-type" className = "col-md-2 h-80">
                                                 {render(post.peer_cases)}
-                                        </div>
+                                        </div>  
                                     </div>
                                 </div>
 

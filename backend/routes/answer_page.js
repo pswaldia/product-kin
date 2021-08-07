@@ -197,7 +197,7 @@ router.post("/add_comment", authenticateToken, async (req, res) => {
   });
 
   //upvote
-  router.post("/upvote", authenticateToken, async (req, res) => {
+  router.post("/upvote", async (req, res) => {
     const { ans_id} = req.body;
 
     await pool.query(
